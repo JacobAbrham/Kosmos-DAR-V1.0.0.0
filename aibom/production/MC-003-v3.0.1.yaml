@@ -1,0 +1,87 @@
+# AIBOM: Code Reviewer
+# Version: 3.0.1
+# Status: Production
+
+aibom_version: "1.0"
+model_id: "MC-003"
+model_name: "Code Reviewer"
+version: "3.0.1"
+status: "production"
+created_date: "2025-09-01"
+last_updated: "2025-12-01"
+model_type: "transformer"
+
+# Model Details
+model_details:
+  type: "transformer"
+  architecture: "GPT-4-Turbo"
+  provider: "OpenAI"
+  base_model: "gpt-4-1106-preview"
+  fine_tuned: false
+  license: "Commercial API License"
+  
+# Training Information
+training:
+  training_date: "2025-08-20"
+  training_data:
+    - source: "Internal Code Review History"
+      size: "100,000 reviews"
+      preprocessing: "Anonymized, formatted"
+    - source: "Open Source Code Reviews"
+      size: "500,000 reviews"
+      preprocessing: "Quality filtered"
+  training_compute:
+    hardware: "N/A (API-based)"
+    training_time: "N/A"
+    carbon_footprint: "N/A"
+
+# Dependencies
+dependencies:
+  runtime:
+    - name: "openai"
+      version: ">=1.0.0"
+    - name: "tiktoken"
+      version: ">=0.5.0"
+    - name: "tree-sitter"
+      version: ">=0.20.0"
+  infrastructure:
+    - name: "kubernetes"
+      version: "1.28+"
+    - name: "python"
+      version: "3.11+"
+
+# Performance Metrics
+performance:
+  accuracy: 0.89
+  precision: 0.87
+  recall: 0.91
+  f1_score: 0.89
+  latency_p50_ms: 1500
+  latency_p95_ms: 2400
+  latency_p99_ms: 4500
+  
+# Cost Information
+cost:
+  cost_per_request: 0.0112
+  monthly_volume: 9000000
+  monthly_cost: 100800
+  cost_model: "token-based"
+
+# Compliance
+compliance:
+  gdpr_compliant: true
+  eu_ai_act_risk_level: "limited"
+  nist_ai_rmf_aligned: true
+  iso_42001_certified: false
+
+# Ownership
+ownership:
+  developer: "ML Engineering Team"
+  owner: "ML Engineering Lead"
+  contact: "ml-engineering@nuvanta-holding.com"
+  
+# References
+references:
+  model_card: "docs/03-engineering/model-cards/MC-003-code-reviewer.md"
+  deployment: "kubernetes/deployments/code-reviewer.yaml"
+  monitoring: "grafana/dashboards/mc-003.json"

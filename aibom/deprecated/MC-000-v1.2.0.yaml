@@ -1,0 +1,65 @@
+# AIBOM: Legacy Classifier (DEPRECATED)
+# Version: 1.2.0
+# Status: Deprecated
+
+aibom_version: "1.0"
+model_id: "MC-000"
+model_name: "Legacy Classifier"
+version: "1.2.0"
+status: "deprecated"
+created_date: "2024-06-01"
+last_updated: "2025-10-01"
+deprecated_date: "2025-10-01"
+deprecation_reason: "Replaced by MC-003 (Code Reviewer) with superior performance"
+model_type: "transformer"
+
+# Model Details
+model_details:
+  type: "transformer"
+  architecture: "GPT-3.5-Turbo"
+  provider: "OpenAI"
+  base_model: "gpt-3.5-turbo-0613"
+  fine_tuned: false
+  license: "Commercial API License"
+  
+# Training Information
+training:
+  training_date: "2024-05-15"
+  training_data:
+    - source: "Legacy Code Dataset"
+      size: "50,000 examples"
+      preprocessing: "Basic cleaning"
+  training_compute:
+    hardware: "N/A (API-based)"
+    training_time: "N/A"
+    carbon_footprint: "N/A"
+
+# Historical Performance Metrics
+performance:
+  accuracy: 0.78
+  precision: 0.75
+  recall: 0.80
+  f1_score: 0.77
+  latency_p50_ms: 1200
+  latency_p95_ms: 2500
+  latency_p99_ms: 5000
+
+# Deprecation Details
+deprecation:
+  replaced_by: "MC-003"
+  migration_guide: "docs/03-engineering/model-cards/migrations/mc-000-to-mc-003.md"
+  data_retention: "2026-10-01"
+  final_shutdown: "2025-10-01"
+
+# Ownership
+ownership:
+  developer: "ML Engineering Team"
+  owner: "ML Engineering Lead"
+  contact: "ml-engineering@nuvanta-holding.com"
+  
+# Archive Notes
+archive_notes:
+  - "Model retired due to performance limitations"
+  - "All traffic migrated to MC-003"
+  - "Historical data retained for audit purposes"
+  - "No further updates planned"

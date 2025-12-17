@@ -1,0 +1,32 @@
+# KOSMOS Living Constitution - Python Dependencies
+# Documentation Layer
+mkdocs>=1.5.0
+mkdocs-material>=9.0.0
+mkdocs-git-revision-date-plugin>=0.3.2
+mkdocs-mermaid2-plugin>=1.1.1
+mkdocs-swagger-ui-tag==0.7.2
+pymdown-extensions>=10.0
+
+# API Runtime
+fastapi>=0.115.0
+uvicorn[standard]>=0.24.0
+
+# Automation & Validation Layer
+pre-commit>=3.5.0
+pytest>=7.4.0
+pylint>=3.0.0
+# Note: markdownlint-cli2 is a Node.js tool, install via: npm install -g markdownlint-cli2
+
+# AI Evaluation & Monitoring (Optional - requires C++ build tools)
+# ragas>=0.1.0  # Uncomment when C++ build tools available
+openlineage-python>=1.0.0
+
+# Data Processing & Diagrams
+pyyaml>=6.0
+jsonschema>=4.20.0
+jinja2>=3.1.2
+
+# Optional: PlantUML support (requires Java)
+# plantuml>=0.3.0
+mcp>=0.1.0
+fastmcp>=0.1.0

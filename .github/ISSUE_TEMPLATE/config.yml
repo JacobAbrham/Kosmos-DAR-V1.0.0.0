@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation Site
+    url: https://docs.kosmos.ai
+    about: Visit the live documentation site
+  - name: CONTRIBUTING Guide
+    url: https://github.com/nuvanta-holding/kosmos-docs/blob/main/CONTRIBUTING.md
+    about: Read our contribution guidelines before submitting
+  - name: Security Issues
+    url: mailto:security@nuvanta-holding.com
+    about: Report security vulnerabilities privately

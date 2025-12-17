@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kosmos.ai/schemas/aibom-v1.0.0",
+  "title": "AI Bill of Materials (AIBOM) Schema",
+  "description": "Machine-readable metadata for AI model documentation",
+  "type": "object",
+  "required": ["aibom_version", "model_id", "model_name", "version", "status", "created_date", "model_type"],
+  "properties": {
+    "aibom_version": {
+      "type": "string",
+      "description": "Version of the AIBOM schema (e.g., '1.0' or '1.0.0')"
+    },
+    "model_id": {
+      "type": "string",
+      "description": "Unique identifier for the model",
+      "pattern": "^MC-\\d{3}$"
+    },
+    "model_name": {
+      "type": "string",
+      "description": "Human-readable name of the model"
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version of the model (allows beta, rc suffixes)"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["production", "staging", "development", "deprecated", "retired"],
+      "description": "Deployment status of the model"
+    },
+    "created_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the model was created"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the model was last updated"
+    },
+    "model_type": {
+      "type": "string",
+      "description": "Type of AI model"
+    },
+    "owner": {
+      "type": "string",
+      "description": "Team or individual responsible for the model"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of the model's purpose"
+    },
+    "architecture": {
+      "type": "object",
+      "properties": {
+        "base_model": { "type": "string" },
+        "parameters": { "type": "string" },
+        "fine_tuning_method": { "type": "string" },
+        "framework": { "type": "string" },
+        "hardware_requirements": {
+          "type": "object",
+          "properties": {
+            "gpu_memory": { "type": "string" },
+            "min_ram": { "type": "string" }
+          }
+        }
+      }
+    },
+    "training": {
+      "type": "object",
+      "properties": {
+        "datasets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "size": { "type": "string" },
+              "license": { "type": "string" },
+              "pii_status": { "type": "string" }
+            }
+          }
+        },
+        "training_date": { "type": "string", "format": "date" },
+        "compute_hours": { "type": "number" },
+        "co2_emissions_kg": { "type": "number" }
+      }
+    },
+    "performance": {
+      "type": "object",
+      "properties": {
+        "primary_metrics": {
+          "type": "object",
+          "additionalProperties": { "type": "number" }
+        },
+        "latency": {
+          "type": "object",
+          "properties": {
+            "p50_ms": { "type": "number" },
+            "p95_ms": { "type": "number" },
+            "p99_ms": { "type": "number" }
+          }
+        }
+      }
+    },
+    "ethics": {
+      "type": "object",
+      "properties": {
+        "bias_assessment": { "type": "string" },
+        "fairness_score": { "type": "number" },
+        "intended_use": { "type": "string" },
+        "prohibited_use": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "compliance": {
+      "type": "object",
+      "properties": {
+        "gdpr_compliant": { "type": "boolean" },
+        "ccpa_compliant": { "type": "boolean" },
+        "eu_ai_act_risk_level": { "type": "string" },
+        "last_audit_date": { "type": "string", "format": "date" }
+      }
+    },
+    "dependencies": {
+      "description": "Model dependencies (flexible structure)",
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "version": { "type": "string" },
+              "license": { "type": "string" }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "Dependencies organized by category (runtime, infrastructure, etc.)"
+        }
+      ]
+    },
+    "endpoints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "environment": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "rate_limit": { "type": "string" }
+        }
+      }
+    }
+  }
+}

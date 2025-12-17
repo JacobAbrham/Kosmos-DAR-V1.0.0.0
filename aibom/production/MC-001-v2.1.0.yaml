@@ -1,0 +1,85 @@
+# AIBOM: Document Summarizer
+# Version: 2.1.0
+# Status: Production
+
+aibom_version: "1.0"
+model_id: "MC-001"
+model_name: "Document Summarizer"
+version: "2.1.0"
+status: "production"
+created_date: "2025-08-15"
+last_updated: "2025-12-11"
+model_type: "transformer"
+
+# Model Details
+model_details:
+  type: "transformer"
+  architecture: "GPT-4-Turbo"
+  provider: "OpenAI"
+  base_model: "gpt-4-1106-preview"
+  fine_tuned: false
+  license: "Commercial API License"
+  
+# Training Information
+training:
+  training_date: "2025-08-01"
+  training_data:
+    - source: "Internal Documents Corpus"
+      size: "50,000 documents"
+      preprocessing: "Cleaned, deduplicated, PII removed"
+    - source: "Public Academic Papers"
+      size: "100,000 abstracts"
+      preprocessing: "Normalized formatting"
+  training_compute:
+    hardware: "N/A (API-based)"
+    training_time: "N/A"
+    carbon_footprint: "N/A"
+
+# Dependencies
+dependencies:
+  runtime:
+    - name: "openai"
+      version: ">=1.0.0"
+    - name: "tiktoken"
+      version: ">=0.5.0"
+  infrastructure:
+    - name: "kubernetes"
+      version: "1.28+"
+    - name: "python"
+      version: "3.11+"
+
+# Performance Metrics
+performance:
+  accuracy: 0.92
+  precision: 0.91
+  recall: 0.93
+  f1_score: 0.92
+  latency_p50_ms: 800
+  latency_p95_ms: 1200
+  latency_p99_ms: 3100
+  
+# Cost Information
+cost:
+  cost_per_request: 0.0084
+  monthly_volume: 15000000
+  monthly_cost: 126000
+  cost_model: "token-based"
+
+# Compliance
+compliance:
+  gdpr_compliant: true
+  eu_ai_act_risk_level: "limited"
+  nist_ai_rmf_aligned: true
+  iso_42001_certified: false
+
+# Ownership
+ownership:
+  developer: "ML Engineering Team"
+  owner: "ML Engineering Lead"
+  contact: "ml-engineering@nuvanta-holding.com"
+  
+# References
+references:
+  model_card: "docs/03-engineering/model-cards/MC-001-document-summarizer.md"
+  deployment: "kubernetes/deployments/document-summarizer.yaml"
+  monitoring: "grafana/dashboards/mc-001.json"

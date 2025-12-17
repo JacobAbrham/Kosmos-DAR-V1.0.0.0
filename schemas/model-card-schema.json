@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kosmos.ai/schemas/model-card-v1.0.0",
+  "title": "Model Card Schema",
+  "description": "JSON Schema for validating model card frontmatter",
+  "type": "object",
+  "required": ["model_id", "model_name", "version", "status", "owner", "use_case"],
+  "properties": {
+    "model_id": {
+      "type": "string",
+      "description": "Unique identifier for the model",
+      "pattern": "^MC-\\d{3}$"
+    },
+    "model_name": {
+      "type": "string",
+      "description": "Human-readable name of the model"
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version of the model"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Production", "Staging", "Development", "Beta", "Release Candidate", "Deprecated", "Retired"]
+    },
+    "owner": {
+      "type": "string",
+      "description": "Team or individual responsible"
+    },
+    "use_case": {
+      "type": "string",
+      "description": "Primary use case of the model"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": ["Low", "Medium", "High", "Critical"]
+    },
+    "last_reviewed": {
+      "type": "string",
+      "format": "date"
+    },
+    "next_review": {
+      "type": "string",
+      "format": "date"
+    },
+    "model_overview": {
+      "type": "object",
+      "properties": {
+        "description": { "type": "string" },
+        "architecture": { "type": "string" },
+        "base_model": { "type": "string" },
+        "fine_tuning_method": { "type": "string" }
+      }
+    },
+    "intended_use": {
+      "type": "object",
+      "properties": {
+        "primary_use_cases": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "out_of_scope_uses": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "target_users": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "training_data": {
+      "type": "object",
+      "properties": {
+        "datasets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "size": { "type": "string" },
+              "source": { "type": "string" },
+              "license": { "type": "string" }
+            }
+          }
+        },
+        "preprocessing": { "type": "string" },
+        "data_quality_checks": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "performance_metrics": {
+      "type": "object",
+      "properties": {
+        "accuracy": { "type": "number" },
+        "precision": { "type": "number" },
+        "recall": { "type": "number" },
+        "f1_score": { "type": "number" },
+        "latency_p50_ms": { "type": "number" },
+        "latency_p95_ms": { "type": "number" },
+        "latency_p99_ms": { "type": "number" },
+        "throughput_rps": { "type": "number" }
+      }
+    },
+    "ethical_considerations": {
+      "type": "object",
+      "properties": {
+        "bias_assessment": { "type": "string" },
+        "fairness_metrics": {
+          "type": "object",
+          "additionalProperties": { "type": "number" }
+        },
+        "societal_impact": { "type": "string" },
+        "mitigations": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "limitations": {
+      "type": "object",
+      "properties": {
+        "known_limitations": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "edge_cases": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "failure_modes": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "compliance": {
+      "type": "object",
+      "properties": {
+        "gdpr_compliant": { "type": "boolean" },
+        "ccpa_compliant": { "type": "boolean" },
+        "hipaa_compliant": { "type": "boolean" },
+        "eu_ai_act_classification": { "type": "string" },
+        "certifications": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "version_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "version": { "type": "string" },
+          "date": { "type": "string", "format": "date" },
+          "changes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

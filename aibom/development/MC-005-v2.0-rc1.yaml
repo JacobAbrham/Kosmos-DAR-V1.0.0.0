@@ -1,0 +1,106 @@
+# AIBOM: Translation Engine
+# Version: 2.0-rc1
+# Status: Development/Release Candidate
+
+aibom_version: "1.0"
+model_id: "MC-005"
+model_name: "Translation Engine"
+version: "2.0-rc1"
+status: "development"
+created_date: "2025-10-01"
+last_updated: "2025-12-08"
+model_type: "encoder-decoder"
+
+# Model Details
+model_details:
+  type: "encoder-decoder"
+  architecture: "mBART-50"
+  provider: "Internal"
+  base_model: "facebook/mbart-large-50-many-to-many-mmt"
+  fine_tuned: true
+  license: "MIT"
+  
+# Training Information
+training:
+  training_date: "2025-11-01"
+  training_data:
+    - source: "Parallel Corpus (EN-AR-DE-FR)"
+      size: "10,000,000 sentence pairs"
+      preprocessing: "Aligned, cleaned"
+    - source: "Internal Translation Memory"
+      size: "500,000 pairs"
+      preprocessing: "Domain-specific terminology"
+  training_compute:
+    hardware: "16x NVIDIA A100 80GB"
+    training_time: "72 hours"
+    carbon_footprint: "432 kg CO2"
+
+# Dependencies
+dependencies:
+  runtime:
+    - name: "transformers"
+      version: ">=4.35.0"
+    - name: "torch"
+      version: ">=2.1.0"
+    - name: "sentencepiece"
+      version: ">=0.1.99"
+  infrastructure:
+    - name: "kubernetes"
+      version: "1.28+"
+    - name: "python"
+      version: "3.11+"
+    - name: "cuda"
+      version: "12.1+"
+
+# Supported Languages
+languages:
+  source: ["en", "ar", "de", "fr", "es", "zh", "ja", "ko"]
+  target: ["en", "ar", "de", "fr", "es", "zh", "ja", "ko"]
+  primary_pairs:
+    - "en-ar"
+    - "en-de"
+    - "en-fr"
+    - "ar-en"
+
+# Performance Metrics (RC1)
+performance:
+  bleu_en_ar: 42.5
+  bleu_en_de: 38.2
+  bleu_en_fr: 45.1
+  accuracy: 0.91
+  latency_p50_ms: 200
+  latency_p95_ms: 450
+  latency_p99_ms: 800
+  
+# Cost Information (Projected)
+cost:
+  cost_per_request: 0.0035
+  monthly_volume: 3000000
+  monthly_cost: 10500
+  cost_model: "compute-based"
+
+# Compliance
+compliance:
+  gdpr_compliant: true
+  eu_ai_act_risk_level: "minimal"
+  nist_ai_rmf_aligned: true
+  iso_42001_certified: false
+
+# Ownership
+ownership:
+  developer: "ML Engineering Team"
+  owner: "ML Engineering Lead"
+  contact: "ml-engineering@nuvanta-holding.com"
+  
+# References
+references:
+  model_card: "docs/03-engineering/model-cards/MC-005-translation-engine.md"
+  deployment: "kubernetes/deployments/translation-engine-dev.yaml"
+  monitoring: "grafana/dashboards/mc-005.json"
+
+# Release Candidate Notes
+rc_notes:
+  - "Final performance tuning complete"
+  - "Security review passed"
+  - "Awaiting production deployment approval"
+  - "Targeted production date: 2025-12-20"

@@ -1,0 +1,137 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kosmos-agent-runtime
+  namespace: kosmos
+  labels:
+    app: kosmos-agents
+    component: runtime
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kosmos-agents
+  template:
+    metadata:
+      labels:
+        app: kosmos-agents
+        component: runtime
+    spec:
+      containers:
+      - name: langgraph-runtime
+        image: kosmos/langgraph-runtime:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DATABASE_URL
+          value: "postgresql://kosmos:password@postgres:5432/kosmos"
+        - name: NATS_URL
+          value: "nats://nats:4222"
+        - name: ZITADEL_URL
+          value: "http://zitadel:8080"
+        - name: REDIS_URL
+          value: "redis://dragonfly:6379"
+        - name: MINIO_URL
+          value: "http://minio:9000"
+        - name: LITELLM_URL
+          value: "http://litellm:4000"
+        - name: OLLAMA_URL
+          value: "http://ollama:11434"
+        - name: SIGNOZ_URL
+          value: "http://signoz:3301"
+        - name: LANGFUSE_URL
+          value: "http://langfuse:3000"
+        resources:
+          limits:
+            memory: 4Gi
+            cpu: 2
+          requests:
+            memory: 2Gi
+            cpu: 1
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 60
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        volumeMounts:
+        - name: config
+          mountPath: /app/config
+      volumes:
+      - name: config
+        configMap:
+          name: kosmos-agent-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kosmos-agents
+  namespace: kosmos
+  labels:
+    app: kosmos-agents
+spec:
+  selector:
+    app: kosmos-agents
+  ports:
+  - port: 8000
+    targetPort: 8000
+    name: http
+  type: ClusterIP
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kosmos-agent-config
+  namespace: kosmos
+data:
+  agents.yaml: |
+    # KOSMOS Agent Configuration
+    agents:
+      zeus:
+        role: orchestrator
+        enabled: true
+      hermes:
+        role: communications
+        enabled: true
+      aegis:
+        role: security
+        enabled: true
+      athena:
+        role: knowledge
+        enabled: true
+      chronos:
+        role: scheduling
+        enabled: true
+      hephaestus:
+        role: operations
+        enabled: true
+      nur_prometheus:
+        role: analytics
+        enabled: true
+      iris:
+        role: communications
+        enabled: true
+      memorix:
+        role: memory
+        enabled: true
+      hestia:
+        role: personal
+        enabled: true
+      morpheus:
+        role: learning
+        enabled: true
+    
+    integrations:
+      database: postgresql
+      messaging: nats
+      identity: zitadel
+      cache: redis
+      storage: minio
+      llm: litellm
+      observability: signoz

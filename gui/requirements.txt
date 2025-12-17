@@ -1,0 +1,15 @@
+# Python GUI requirements
+tkinter>=8.6  # Usually comes with Python
+Pillow>=10.0.0  # For image support in GUI
+
+# PyInstaller for building .exe
+pyinstaller>=6.0.0
+
+# Web dashboard requirements
+Flask>=3.0.0
+Flask-SocketIO>=5.3.0
+python-socketio>=5.10.0
+eventlet>=0.33.0
+
+# Shared requirements
+pathlib>=1.0.1

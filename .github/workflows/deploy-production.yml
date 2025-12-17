@@ -1,0 +1,197 @@
+name: Deploy to Production
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to deploy'
+        required: true
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  security-check:
+    name: Pre-deployment Security Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Run security scans
+        run: |
+          echo "Running pre-deployment security checks..."
+          # Add critical security checks here
+
+  build-and-push:
+    name: Build Production Images
+    runs-on: ubuntu-latest
+    needs: security-check
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Get version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" == "release" ]; then
+            echo "version=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/backend/Dockerfile
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    environment:
+      name: production
+      url: https://kosmos.nuvanta.cloud
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Configure kubectl
+        uses: azure/k8s-set-context@v4
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG_PRODUCTION }}
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: 'latest'
+
+      - name: Backup current state
+        run: |
+          helm get values kosmos -n kosmos-production > backup-values.yaml
+          kubectl get deployment kosmos-api -n kosmos-production -o yaml > backup-deployment.yaml
+
+      - name: Deploy with Helm
+        run: |
+          helm upgrade --install kosmos ./helm/kosmos \
+            -f helm/kosmos/values-production.yaml \
+            --set image.tag=${{ needs.build-and-push.outputs.version }} \
+            -n kosmos-production \
+            --create-namespace \
+            --wait \
+            --timeout 15m
+
+      - name: Verify deployment
+        run: |
+          kubectl rollout status deployment/kosmos-api -n kosmos-production --timeout=10m
+          kubectl get pods -n kosmos-production
+
+  health-check:
+    name: Production Health Check
+    runs-on: ubuntu-latest
+    needs: deploy-production
+    steps:
+      - name: Wait for services to stabilize
+        run: sleep 60
+
+      - name: Check API health
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://kosmos.nuvanta.cloud/health)
+          if [ $response -ne 200 ]; then
+            echo "Health check failed with status $response"
+            exit 1
+          fi
+          echo "✅ Health check passed"
+
+      - name: Run critical path tests
+        run: |
+          echo "Running critical path tests..."
+          # Add critical path tests here
+
+  rollback-on-failure:
+    name: Rollback if Unhealthy
+    runs-on: ubuntu-latest
+    needs: health-check
+    if: failure()
+    steps:
+      - name: Configure kubectl
+        uses: azure/k8s-set-context@v4
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG_PRODUCTION }}
+
+      - name: Rollback deployment
+        run: |
+          echo "🔴 Health checks failed, rolling back..."
+          helm rollback kosmos -n kosmos-production
+          echo "✅ Rollback complete"
+
+      - name: Notify team
+        uses: slackapi/slack-github-action@v2
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          payload: |
+            {
+              "text": "🚨 PRODUCTION DEPLOYMENT FAILED - ROLLBACK INITIATED",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Status:* 🔴 FAILED\n*Version:* ${{ needs.build-and-push.outputs.version }}\n*Action:* Automatic rollback completed\n*Workflow:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                  }
+                }
+              ]
+            }
+
+  notify-success:
+    name: Notify Successful Deployment
+    runs-on: ubuntu-latest
+    needs: [deploy-production, health-check]
+    if: success()
+    steps:
+      - name: Send Slack notification
+        uses: slackapi/slack-github-action@v2
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          payload: |
+            {
+              "text": "🎉 Production deployment successful!",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Deployment Status:* ✅ Success\n*Environment:* Production\n*Version:* ${{ needs.build-and-push.outputs.version }}\n*URL:* https://kosmos.nuvanta.cloud"
+                  }
+                }
+              ]
+            }
+
+      - name: Create deployment record
+        run: |
+          echo "Recording deployment in monitoring systems..."
+          # Add deployment tracking to observability tools

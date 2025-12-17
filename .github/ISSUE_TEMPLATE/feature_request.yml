@@ -1,0 +1,108 @@
+name: Feature Request
+description: Suggest a new documentation feature or improvement
+title: "[FEATURE]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an improvement to KOSMOS documentation!
+        Please describe your idea in detail.
+
+  - type: dropdown
+    id: feature-type
+    attributes:
+      label: Feature Type
+      description: What type of feature are you requesting?
+      options:
+        - New Documentation Section
+        - Documentation Enhancement
+        - Code Example Request
+        - Diagram/Visual Aid
+        - Template Request
+        - Tooling/Automation
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: volume
+    attributes:
+      label: Related Volume
+      description: Which documentation volume does this relate to?
+      options:
+        - Volume I - Governance & Legal
+        - Volume II - Architecture & Data
+        - Volume III - Engineering Handbook
+        - Volume IV - Operations & FinOps
+        - Volume V - Human Factors & Continuity
+        - Developer Guide
+        - Security Documentation
+        - Cross-cutting (Multiple Volumes)
+        - Not Applicable
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: What problem does this feature solve?
+      placeholder: |
+        I'm trying to understand [X] but the documentation doesn't cover...
+        OR
+        As a [role], I need to [action] but there's no guidance on...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe what you'd like to see
+      placeholder: |
+        I would like documentation that covers:
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Have you considered any alternatives?
+      placeholder: I also thought about...
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How important is this to you?
+      options:
+        - Critical (blocking work)
+        - High (significant impact)
+        - Medium (would help)
+        - Low (nice to have)
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Any related documentation, issues, or external resources?
+      placeholder: |
+        - Related issue: #123
+        - External reference: https://...
+        - Similar documentation: docs/...
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      options:
+        - label: I would be willing to contribute this documentation
+        - label: I have searched existing issues to ensure this is not a duplicate
+          required: true

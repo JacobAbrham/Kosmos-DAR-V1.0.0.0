@@ -1,0 +1,274 @@
+# Prometheus Alert Rules for KOSMOS
+groups:
+  - name: kosmos_api
+    interval: 30s
+    rules:
+      # API Availability
+      - alert: APIDown
+        expr: up{job="kosmos-api"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          component: api
+        annotations:
+          summary: "KOSMOS API is down"
+          description: "API instance {{ $labels.instance }} has been down for more than 2 minutes."
+
+      - alert: APIHighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          component: api
+        annotations:
+          summary: "High API error rate detected"
+          description: "API error rate is {{ $value | humanizePercentage }} over the last 5 minutes."
+
+      - alert: APIHighLatency
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 2
+        for: 5m
+        labels:
+          severity: warning
+          component: api
+        annotations:
+          summary: "API latency is high"
+          description: "95th percentile latency is {{ $value }}s for {{ $labels.endpoint }}"
+
+      # Database
+      - alert: DatabaseConnectionPoolExhausted
+        expr: pg_pool_size - pg_pool_available < 2
+        for: 2m
+        labels:
+          severity: warning
+          component: database
+        annotations:
+          summary: "PostgreSQL connection pool nearly exhausted"
+          description: "Only {{ $value }} connections available in the pool."
+
+      - alert: DatabaseHighConnections
+        expr: pg_stat_database_numbackends > 80
+        for: 5m
+        labels:
+          severity: warning
+          component: database
+        annotations:
+          summary: "High number of database connections"
+          description: "{{ $value }} active connections to database {{ $labels.datname }}"
+
+      - alert: DatabaseSlowQueries
+        expr: rate(pg_stat_statements_mean_time_seconds[5m]) > 1
+        for: 5m
+        labels:
+          severity: warning
+          component: database
+        annotations:
+          summary: "Slow database queries detected"
+          description: "Average query time is {{ $value }}s"
+
+      # Redis
+      - alert: RedisDown
+        expr: redis_up == 0
+        for: 2m
+        labels:
+          severity: critical
+          component: cache
+        annotations:
+          summary: "Redis is down"
+          description: "Redis instance {{ $labels.instance }} is not responding."
+
+      - alert: RedisHighMemoryUsage
+        expr: redis_memory_used_bytes / redis_memory_max_bytes > 0.9
+        for: 5m
+        labels:
+          severity: warning
+          component: cache
+        annotations:
+          summary: "Redis memory usage is high"
+          description: "Redis is using {{ $value | humanizePercentage }} of available memory."
+
+      - alert: RedisConnectionFailures
+        expr: rate(redis_rejected_connections_total[5m]) > 0
+        for: 2m
+        labels:
+          severity: warning
+          component: cache
+        annotations:
+          summary: "Redis connection failures detected"
+          description: "{{ $value }} connection failures per second."
+
+      # Agent Performance
+      - alert: AgentHighExecutionTime
+        expr: histogram_quantile(0.95, rate(agent_execution_duration_seconds_bucket[5m])) > 30
+        for: 5m
+        labels:
+          severity: warning
+          component: agent
+        annotations:
+          summary: "Agent execution time is high"
+          description: "Agent {{ $labels.agent_name }} 95th percentile execution time is {{ $value }}s"
+
+      - alert: AgentHighFailureRate
+        expr: rate(agent_executions_failed_total[5m]) / rate(agent_executions_total[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+          component: agent
+        annotations:
+          summary: "High agent failure rate"
+          description: "Agent {{ $labels.agent_name }} has {{ $value | humanizePercentage }} failure rate"
+
+      - alert: AgentStuck
+        expr: time() - agent_last_execution_timestamp > 600
+        for: 5m
+        labels:
+          severity: critical
+          component: agent
+        annotations:
+          summary: "Agent appears to be stuck"
+          description: "Agent {{ $labels.agent_name }} hasn't completed execution in {{ $value }}s"
+
+      # MCP Servers
+      - alert: MCPServerDown
+        expr: mcp_server_up == 0
+        for: 2m
+        labels:
+          severity: warning
+          component: mcp
+        annotations:
+          summary: "MCP server is down"
+          description: "MCP server {{ $labels.server_name }} is not responding."
+
+      - alert: MCPHighErrorRate
+        expr: rate(mcp_requests_failed_total[5m]) / rate(mcp_requests_total[5m]) > 0.15
+        for: 5m
+        labels:
+          severity: warning
+          component: mcp
+        annotations:
+          summary: "MCP server high error rate"
+          description: "MCP server {{ $labels.server_name }} error rate: {{ $value | humanizePercentage }}"
+
+      # Infrastructure
+      - alert: HighCPUUsage
+        expr: (100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)) > 85
+        for: 10m
+        labels:
+          severity: warning
+          component: infrastructure
+        annotations:
+          summary: "High CPU usage detected"
+          description: "CPU usage is {{ $value }}% on {{ $labels.instance }}"
+
+      - alert: HighMemoryUsage
+        expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes > 0.9
+        for: 5m
+        labels:
+          severity: warning
+          component: infrastructure
+        annotations:
+          summary: "High memory usage detected"
+          description: "Memory usage is {{ $value | humanizePercentage }} on {{ $labels.instance }}"
+
+      - alert: DiskSpaceLow
+        expr: (node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"}) < 0.15
+        for: 5m
+        labels:
+          severity: warning
+          component: infrastructure
+        annotations:
+          summary: "Low disk space"
+          description: "Only {{ $value | humanizePercentage }} disk space available on {{ $labels.instance }}"
+
+      - alert: DiskSpaceCritical
+        expr: (node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"}) < 0.05
+        for: 2m
+        labels:
+          severity: critical
+          component: infrastructure
+        annotations:
+          summary: "Critical disk space"
+          description: "Only {{ $value | humanizePercentage }} disk space available on {{ $labels.instance }}"
+
+      # Kubernetes (if applicable)
+      - alert: PodCrashLooping
+        expr: rate(kube_pod_container_status_restarts_total[15m]) > 0
+        for: 5m
+        labels:
+          severity: warning
+          component: kubernetes
+        annotations:
+          summary: "Pod is crash looping"
+          description: "Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is crash looping."
+
+      - alert: PodNotReady
+        expr: kube_pod_status_phase{phase!~"Running|Succeeded"} > 0
+        for: 10m
+        labels:
+          severity: warning
+          component: kubernetes
+        annotations:
+          summary: "Pod not ready"
+          description: "Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} has been not ready for 10 minutes."
+
+      - alert: DeploymentReplicasMismatch
+        expr: kube_deployment_spec_replicas != kube_deployment_status_replicas_available
+        for: 10m
+        labels:
+          severity: warning
+          component: kubernetes
+        annotations:
+          summary: "Deployment replicas mismatch"
+          description: "Deployment {{ $labels.deployment }} has {{ $value }} replicas mismatch."
+
+      # Security
+      - alert: UnauthorizedAPIAccess
+        expr: rate(http_requests_total{status="401"}[5m]) > 10
+        for: 5m
+        labels:
+          severity: warning
+          component: security
+        annotations:
+          summary: "High rate of unauthorized access attempts"
+          description: "{{ $value }} unauthorized requests per second detected."
+
+      - alert: TooManyFailedLogins
+        expr: rate(auth_login_failures_total[5m]) > 5
+        for: 5m
+        labels:
+          severity: warning
+          component: security
+        annotations:
+          summary: "Too many failed login attempts"
+          description: "{{ $value }} failed login attempts per second for user {{ $labels.username }}"
+
+      # LLM & Token Usage
+      - alert: LLMHighTokenUsage
+        expr: rate(llm_tokens_used_total[1h]) > 1000000
+        for: 10m
+        labels:
+          severity: warning
+          component: llm
+        annotations:
+          summary: "High LLM token usage"
+          description: "Using {{ $value }} tokens per second - check for runaway agents"
+
+      - alert: LLMRateLimitApproaching
+        expr: llm_rate_limit_remaining < 100
+        for: 5m
+        labels:
+          severity: warning
+          component: llm
+        annotations:
+          summary: "LLM rate limit approaching"
+          description: "Only {{ $value }} requests remaining for {{ $labels.model }}"
+
+      # Business Metrics
+      - alert: LowAgentSuccessRate
+        expr: rate(agent_executions_successful_total[1h]) / rate(agent_executions_total[1h]) < 0.85
+        for: 30m
+        labels:
+          severity: warning
+          component: business
+        annotations:
+          summary: "Agent success rate below target"
+          description: "Agent success rate is {{ $value | humanizePercentage }} (target: 85%)"

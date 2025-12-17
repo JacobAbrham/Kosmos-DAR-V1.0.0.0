@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kosmos.ai/schemas/prompt-v1.0.0",
+  "title": "Prompt Template Schema",
+  "description": "JSON Schema for validating prompt templates",
+  "type": "object",
+  "required": ["prompt_id", "name", "version", "template", "model_compatibility"],
+  "properties": {
+    "prompt_id": {
+      "type": "string",
+      "description": "Unique identifier for the prompt template",
+      "pattern": "^PT-\\d{3}$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name of the prompt template"
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version of the prompt template",
+      "pattern": "^v?\\d+\\.\\d+\\.\\d+$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "deprecated", "experimental", "retired"]
+    },
+    "created_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date"
+    },
+    "owner": {
+      "type": "string",
+      "description": "Team or individual responsible for the prompt"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the prompt's purpose"
+    },
+    "use_case": {
+      "type": "string",
+      "description": "Primary use case for this prompt"
+    },
+    "template": {
+      "type": "string",
+      "description": "The actual prompt template with variable placeholders"
+    },
+    "variables": {
+      "type": "array",
+      "description": "Variables that can be substituted in the template",
+      "items": {
+        "type": "object",
+        "required": ["name", "type"],
+        "properties": {
+          "name": { "type": "string" },
+          "type": { 
+            "type": "string",
+            "enum": ["string", "number", "boolean", "array", "object"]
+          },
+          "description": { "type": "string" },
+          "required": { "type": "boolean" },
+          "default": {},
+          "validation": {
+            "type": "object",
+            "properties": {
+              "min_length": { "type": "integer" },
+              "max_length": { "type": "integer" },
+              "pattern": { "type": "string" },
+              "enum": { "type": "array" }
+            }
+          }
+        }
+      }
+    },
+    "model_compatibility": {
+      "type": "array",
+      "description": "Models this prompt is designed for",
+      "items": {
+        "type": "object",
+        "properties": {
+          "model_id": { "type": "string" },
+          "tested": { "type": "boolean" },
+          "performance_rating": { 
+            "type": "string",
+            "enum": ["excellent", "good", "acceptable", "poor"]
+          }
+        }
+      }
+    },
+    "parameters": {
+      "type": "object",
+      "description": "Recommended model parameters",
+      "properties": {
+        "temperature": { 
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "max_tokens": { 
+          "type": "integer",
+          "minimum": 1
+        },
+        "top_p": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "frequency_penalty": {
+          "type": "number",
+          "minimum": -2,
+          "maximum": 2
+        },
+        "presence_penalty": {
+          "type": "number",
+          "minimum": -2,
+          "maximum": 2
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "properties": {
+        "injection_tested": { "type": "boolean" },
+        "safety_rating": {
+          "type": "string",
+          "enum": ["safe", "caution", "requires_review"]
+        },
+        "prohibited_inputs": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "output_filters": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "examples": {
+      "type": "array",
+      "description": "Example inputs and expected outputs",
+      "items": {
+        "type": "object",
+        "properties": {
+          "input": { "type": "object" },
+          "expected_output": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "avg_tokens_used": { "type": "number" },
+        "avg_latency_ms": { "type": "number" },
+        "success_rate": { "type": "number" },
+        "user_satisfaction": { "type": "number" }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "related_prompts": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

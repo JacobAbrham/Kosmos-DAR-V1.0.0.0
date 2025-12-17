@@ -1,0 +1,21 @@
+{
+  "name": "kosmos-docs-main",
+  "version": "1.0.0",
+  "description": "**AI-Native Operating System - Documentation Framework**",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.5.0",
+    "@playwright/test": "^1.57.0"
+  }
+}

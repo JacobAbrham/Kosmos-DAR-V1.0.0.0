@@ -1,0 +1,89 @@
+# AIBOM: Sentiment Analyzer
+# Version: 1.5.2
+# Status: Production
+
+aibom_version: "1.0"
+model_id: "MC-002"
+model_name: "Sentiment Analyzer"
+version: "1.5.2"
+status: "production"
+created_date: "2025-06-01"
+last_updated: "2025-11-15"
+model_type: "transformer"
+
+# Model Details
+model_details:
+  type: "transformer"
+  architecture: "Fine-tuned BERT"
+  provider: "Internal"
+  base_model: "bert-base-uncased"
+  fine_tuned: true
+  license: "Apache 2.0"
+  
+# Training Information
+training:
+  training_date: "2025-05-15"
+  training_data:
+    - source: "Customer Feedback Corpus"
+      size: "250,000 labeled examples"
+      preprocessing: "Cleaned, balanced classes"
+    - source: "Public Sentiment Datasets"
+      size: "500,000 examples"
+      preprocessing: "SST-5, IMDB combined"
+  training_compute:
+    hardware: "4x NVIDIA A100 80GB"
+    training_time: "8 hours"
+    carbon_footprint: "12 kg CO2"
+
+# Dependencies
+dependencies:
+  runtime:
+    - name: "transformers"
+      version: ">=4.35.0"
+    - name: "torch"
+      version: ">=2.1.0"
+    - name: "tokenizers"
+      version: ">=0.15.0"
+  infrastructure:
+    - name: "kubernetes"
+      version: "1.28+"
+    - name: "python"
+      version: "3.11+"
+    - name: "cuda"
+      version: "12.1+"
+
+# Performance Metrics
+performance:
+  accuracy: 0.94
+  precision: 0.93
+  recall: 0.95
+  f1_score: 0.94
+  latency_p50_ms: 45
+  latency_p95_ms: 120
+  latency_p99_ms: 250
+  
+# Cost Information
+cost:
+  cost_per_request: 0.0045
+  monthly_volume: 6000000
+  monthly_cost: 27000
+  cost_model: "compute-based"
+
+# Compliance
+compliance:
+  gdpr_compliant: true
+  eu_ai_act_risk_level: "minimal"
+  nist_ai_rmf_aligned: true
+  iso_42001_certified: false
+
+# Ownership
+ownership:
+  developer: "ML Engineering Team"
+  owner: "ML Engineering Lead"
+  contact: "ml-engineering@nuvanta-holding.com"
+  
+# References
+references:
+  model_card: "docs/03-engineering/model-cards/MC-002-sentiment-analyzer.md"
+  deployment: "kubernetes/deployments/sentiment-analyzer.yaml"
+  monitoring: "grafana/dashboards/mc-002.json"

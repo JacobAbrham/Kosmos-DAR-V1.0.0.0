@@ -1,0 +1,241 @@
+# KOSMOS Living Constitution - Cline Rules & Workflow
+
+## 🎯 Core Principles
+
+1. **Documentation Fidelity First** - Always preserve existing documentation structure, patterns, and conventions unless the enhancement provides significant value.
+2. **Minimal Invasive Changes** - Prefer surgical edits over rewrites. Touch only what's necessary.
+3. **Consistency Over Novelty** - Match existing style, terminology, and formatting patterns.
+
+---
+
+## 📋 Enhancement Impact Assessment
+
+Before making any change, evaluate the **Enhancement Impact Score (EIS)**:
+
+### Low Impact (DO NOT CHANGE without explicit request)
+- Cosmetic formatting changes
+- Restructuring existing content
+- Renaming files or sections
+- Changing established terminology
+- Modifying diagram styles
+- Altering navigation hierarchy
+
+### Medium Impact (PROPOSE but don't implement automatically)
+- Adding new sections to existing documents
+- Updating outdated information
+- Expanding templates with new fields
+- Adding cross-references between documents
+- Enhancing Mermaid diagrams with new elements
+
+### High Impact (PROCEED with implementation)
+- Fixing broken links or references
+- Correcting factual errors or typos
+- Adding missing required content (empty templates)
+- Security-related updates
+- Compliance alignment fixes
+- Critical documentation gaps
+- New documents for undocumented features
+
+---
+
+## 🔒 Protected Elements (NEVER modify without explicit approval)
+
+1. **Core Structure**
+   - Volume organization (01-governance through 05-human-factors)
+   - Directory hierarchy
+   - File naming conventions
+
+2. **Established Templates**
+   - RACI Matrix format
+   - Kill Switch Protocol structure
+   - Model Card template schema
+   - ADR template format
+
+3. **Configuration Files**
+   - mkdocs.yml navigation structure
+   - Schema files in /schemas/
+   - GitHub workflow files
+
+4. **Branding & Identity**
+   - Site name and descriptions
+   - Theme colors and styling
+   - Logo and favicon references
+
+---
+
+## ✅ Workflow for Document Enhancement
+
+### Step 1: Assess Request
+```
+□ Is this a HIGH impact enhancement? → Proceed
+□ Is this explicitly requested by user? → Proceed
+□ Is this fixing an error/bug? → Proceed
+□ Otherwise → STOP and ask for confirmation
+```
+
+### Step 2: Understand Context
+```
+□ Read the target document fully
+□ Check related documents for patterns
+□ Review mkdocs.yml for navigation context
+□ Identify existing conventions to follow
+```
+
+### Step 3: Plan Changes
+```
+□ List specific changes needed
+□ Identify files to be modified
+□ Note any cross-references to update
+□ Estimate scope (single file vs. multi-file)
+```
+
+### Step 4: Implement
+```
+□ Make minimal, targeted edits
+□ Preserve existing formatting
+□ Maintain voice and terminology
+□ Add, don't replace (unless fixing errors)
+```
+
+### Step 5: Validate
+```
+□ Run mkdocs build to verify no errors
+□ Check internal links still work
+□ Confirm Mermaid diagrams render
+□ Verify navigation is intact
+```
+
+---
+
+## 📝 Document Style Guide
+
+### Headings
+- Use existing heading hierarchy (# for title, ## for sections, ### for subsections)
+- Match capitalization patterns (Title Case for headings)
+
+### Admonitions
+Follow established patterns:
+```markdown
+!!! warning "Title"
+    Content here
+
+!!! tip "Title"
+    Content here
+
+!!! note "Title"
+    Content here
+
+!!! danger "Title"
+    Content here
+```
+
+### Mermaid Diagrams
+- Use consistent node shapes across documents
+- Follow color schemes already established
+- Use descriptive node IDs
+
+### Tables
+- Align with existing table formatting
+- Use consistent column ordering
+- Preserve header row styling
+
+### Links
+- Use relative paths for internal links
+- Format: `[Display Text](relative-path.md)`
+- For section links: `[Display Text](file.md#section-slug)`
+
+---
+
+## 🚫 Anti-Patterns (Avoid These)
+
+1. **Don't refactor for the sake of refactoring**
+2. **Don't introduce new patterns without justification**
+3. **Don't change established terminology** (e.g., "Kill Switch" stays "Kill Switch")
+4. **Don't consolidate documents** unless explicitly requested
+5. **Don't add external dependencies** to requirements.txt without approval
+6. **Don't modify schema files** without understanding downstream impacts
+
+---
+
+## 🔄 Git Workflow
+
+### Commit Messages
+Follow conventional commits pattern:
+```
+docs: [brief description]
+fix: [brief description]
+feat: [brief description]
+```
+
+### Before Committing
+```
+□ mkdocs build --strict passes
+□ No broken internal links
+□ Changes are scoped to request
+□ No unintended file modifications
+```
+
+---
+
+## 📊 Decision Matrix
+
+| Scenario | Action |
+|----------|--------|
+| User asks to "improve" a document | Ask what specific improvements they want |
+| User asks to "fix" something | Proceed with minimal fix |
+| User asks to "add" content | Add without modifying existing content |
+| User asks to "update" | Update only specified elements |
+| User asks to "refactor" | Confirm scope before proceeding |
+| Cline notices an issue proactively | Report it, don't fix automatically |
+
+---
+
+## 🎯 Quick Reference
+
+**Always Ask First:**
+- Structural changes
+- New file creation
+- Template modifications
+- Navigation changes
+- Dependency additions
+
+**Proceed Automatically:**
+- Typo fixes
+- Broken link repairs
+- Completing empty sections
+- Adding requested content
+- Clarifying ambiguous text
+
+---
+
+## 📌 Volume-Specific Guidelines
+
+### Volume I: Governance
+- Maintain formal tone
+- Preserve legal/compliance language precisely
+- Don't modify RACI assignments without approval
+
+### Volume II: Architecture
+- Keep ADRs in standard format
+- Don't modify diagram relationships without context
+- Preserve data lineage mappings
+
+### Volume III: Engineering
+- Follow technical precision
+- Maintain code block formatting
+- Preserve schema references
+
+### Volume IV: Operations
+- Keep runbook steps precise
+- Don't alter SLA/SLO values
+- Preserve incident response procedures exactly
+
+### Volume V: Human Factors
+- Maintain training curriculum structure
+- Preserve red-herring protocol specifics
+- Keep amnesia protocol unchanged
+
+---
+
+**Last Updated:** 2025-12-11
+**Version:** 1.0

@@ -1,0 +1,61 @@
+image: gitpod/workspace-python-3.11
+
+tasks:
+  - name: Setup
+    init: |
+      python -m pip install --upgrade pip
+      pip install -r requirements.txt
+      pip install -r requirements-dev.txt
+      pre-commit install
+    command: |
+      docker compose up -d
+      gp sync-done setup
+
+  - name: Services
+    init: gp sync-await setup
+    command: |
+      echo "🚀 KOSMOS Development Environment"
+      echo "Services starting..."
+      docker compose ps
+
+ports:
+  - port: 5432
+    name: PostgreSQL
+    visibility: private
+  - port: 6379
+    name: Redis
+    visibility: private
+  - port: 8000
+    name: API
+    visibility: public
+    onOpen: notify
+  - port: 8080
+    name: Documentation
+    visibility: public
+    onOpen: open-browser
+  - port: 9000
+    name: MinIO API
+    visibility: private
+  - port: 9001
+    name: MinIO Console
+    visibility: public
+    onOpen: notify
+
+vscode:
+  extensions:
+    - ms-python.python
+    - ms-python.vscode-pylance
+    - charliermarsh.ruff
+    - ms-azuretools.vscode-docker
+    - redhat.vscode-yaml
+    - github.copilot
+    - eamodio.gitlens
+
+github:
+  prebuilds:
+    master: true
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: false
+    addCheck: true
+    addComment: false

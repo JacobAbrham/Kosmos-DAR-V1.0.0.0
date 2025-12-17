@@ -1,0 +1,97 @@
+# AIBOM: Image Classifier
+# Version: 0.9-beta
+# Status: Development/Testing
+
+aibom_version: "1.0"
+model_id: "MC-004"
+model_name: "Image Classifier"
+version: "0.9-beta"
+status: "development"
+created_date: "2025-11-01"
+last_updated: "2025-12-10"
+model_type: "vision-transformer"
+
+# Model Details
+model_details:
+  type: "vision-transformer"
+  architecture: "ViT-Large/14"
+  provider: "Internal"
+  base_model: "google/vit-large-patch14-224"
+  fine_tuned: true
+  license: "Apache 2.0"
+  
+# Training Information
+training:
+  training_date: "2025-11-15"
+  training_data:
+    - source: "Internal Image Dataset"
+      size: "500,000 images"
+      preprocessing: "Resized, augmented"
+    - source: "ImageNet Subset"
+      size: "1,000,000 images"
+      preprocessing: "Quality filtered"
+  training_compute:
+    hardware: "8x NVIDIA A100 80GB"
+    training_time: "48 hours"
+    carbon_footprint: "145 kg CO2"
+
+# Dependencies
+dependencies:
+  runtime:
+    - name: "transformers"
+      version: ">=4.35.0"
+    - name: "torch"
+      version: ">=2.1.0"
+    - name: "torchvision"
+      version: ">=0.16.0"
+    - name: "pillow"
+      version: ">=10.0.0"
+  infrastructure:
+    - name: "kubernetes"
+      version: "1.28+"
+    - name: "python"
+      version: "3.11+"
+    - name: "cuda"
+      version: "12.1+"
+
+# Performance Metrics (Development)
+performance:
+  accuracy: 0.87
+  precision: 0.85
+  recall: 0.88
+  f1_score: 0.86
+  latency_p50_ms: 150
+  latency_p95_ms: 300
+  latency_p99_ms: 500
+  
+# Cost Information (Projected)
+cost:
+  cost_per_request: 0.0025
+  monthly_volume: 2000000
+  monthly_cost: 5000
+  cost_model: "compute-based"
+
+# Compliance
+compliance:
+  gdpr_compliant: true
+  eu_ai_act_risk_level: "limited"
+  nist_ai_rmf_aligned: true
+  iso_42001_certified: false
+
+# Ownership
+ownership:
+  developer: "ML Engineering Team"
+  owner: "ML Engineering Lead"
+  contact: "ml-engineering@nuvanta-holding.com"
+  
+# References
+references:
+  model_card: "docs/03-engineering/model-cards/MC-004-image-classifier.md"
+  deployment: "kubernetes/deployments/image-classifier-dev.yaml"
+  monitoring: "grafana/dashboards/mc-004.json"
+
+# Development Notes
+development_notes:
+  - "Currently in beta testing phase"
+  - "Performance optimization pending"
+  - "Targeted production date: 2026-01-15"
