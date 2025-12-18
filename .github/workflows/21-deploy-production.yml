@@ -165,7 +165,7 @@ jobs:
       - name: Notify team
         uses: slackapi/slack-github-action@v2
         with:
-          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           payload: |
             {
               "text": "🚨 PRODUCTION DEPLOYMENT FAILED - ROLLBACK INITIATED",
@@ -189,7 +189,7 @@ jobs:
       - name: Send Slack notification
         uses: slackapi/slack-github-action@v2
         with:
-          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           payload: |
             {
               "text": "🎉 Production deployment successful!",
