@@ -19,35 +19,170 @@ KOSMOS (Knowledge-Orchestrated System for Multi-agent Operational Superintellige
 ## Quick Links
 
 - [Philosophy](philosophy.md) — Core principles and paradigm
-- [Roadmap](docs/00-executive/roadmap.md) — Implementation timeline
+- [Roadmap](docs/project-management/IMPLEMENTATION_ROADMAP.md) — Implementation timeline
 - [Agent Pantheon](docs/02-architecture/agents/README.md) — Agent documentation
-- [Deployment Checklist](docs/04-operations/deployment-checklist.md) — Deployment guide
+- [Getting Started](docs/deployment/GETTING_STARTED.md) — Quick start guide
+- [Deployment Summary](docs/deployment/DEPLOYMENT_SUMMARY.md) — Deployment status
+
+## 📂 Repository Structure
+
+```
+KOSMOS-Digital-Agentic-V-1.0.0/
+├── config/                  # Environment-specific configurations
+│   └── environments/        # Dev, staging, production configs
+├── docs/                    # Comprehensive documentation
+│   ├── project-management/  # Roadmaps, task tracking
+│   ├── deployment/          # Deployment guides
+│   ├── assessments/         # Gap analysis, audits
+│   ├── technical-debt/      # Debt tracking
+│   └── guides/              # How-to guides
+├── infrastructure/          # Infrastructure as Code
+│   ├── docker/              # Container definitions
+│   ├── kubernetes/          # K8s manifests & overlays
+│   ├── helm/                # Helm charts
+│   └── monitoring/          # Observability stack
+├── src/                     # Application source code
+│   ├── agents/              # 11 specialized agents
+│   ├── api/                 # FastAPI REST API
+│   ├── models/              # Database models
+│   ├── services/            # Business logic
+│   ├── integrations/        # MCP & external services
+│   └── utils/               # Shared utilities
+├── scripts/                 # Development & deployment scripts
+│   ├── setup/               # Environment setup
+│   ├── development/         # Dev helper scripts
+│   ├── deployment/          # Deployment scripts
+│   └── utilities/           # Utility scripts
+├── tests/                   # Test suites
+│   ├── integration/         # 52 integration tests
+│   ├── e2e/                 # End-to-end tests
+│   ├── unit/                # Unit tests
+│   └── fixtures/            # Test data
+├── database/                # Database schemas & migrations
+├── frontend/                # Next.js web application
+└── gui/                     # Setup wizard
+```
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 - Python 3.11+
 - Node.js 18+
-- Docker (optional)
+- Docker & Docker Compose (recommended)
 
-### Running the System
+### Option 1: Docker Compose (Recommended)
 
-1. **Start the API Gateway** (Backend)
+Run the entire stack with one command:
+
+```powershell
+# Copy environment template
+Copy-Item config/environments/development/.env.example .env
+
+# Start all services (API, Frontend, Postgres, Redis, MinIO, Docs)
+docker-compose -f config/environments/development/docker-compose.yml up
+
+# Or run in detached mode
+docker-compose -f config/environments/development/docker-compose.yml up -d
+
+# View logs
+docker-compose -f config/environments/development/docker-compose.yml logs -f api frontend
+
+# Stop all services
+docker-compose -f config/environments/development/docker-compose.yml down
+```
+
+**Services:**
+- API Gateway: http://localhost:8000
+- Frontend UI: http://localhost:3000
+- API Docs: http://localhost:8000/docs
+- MinIO Console: http://localhost:9001
+- MkDocs: http://localhost:8080
+- PostgreSQL: localhost:5432
+- Redis: localhost:6379
+
+### Option 2: Native Development
+
+1. **Setup Environment**
    ```powershell
-   ./scripts/run_api.ps1
+   # Use interactive setup wizard
+   .\scripts\setup\setup-interactive.ps1
+   
+   # Or manually copy environment template
+   Copy-Item config/environments/development/.env.example .env
+   
+   # Start infrastructure only
+   docker-compose -f config/environments/development/docker-compose.yml up postgres redis minio -d
+   ```
+
+2. **Start the API Gateway** (Backend)
+   ```powershell
+   .\scripts\development\run_api.ps1
    ```
    *Runs on http://localhost:8000*
 
-2. **Start the Frontend** (UI)
+3. **Start the Frontend** (UI)
    ```powershell
-   ./scripts/run_frontend.ps1
+   .\scripts\development\run_frontend.ps1
    ```
    *Runs on http://localhost:3000*
 
-3. **Run Integration Tests**
+4. **Run Integration Tests**
    ```powershell
    python tests/test_swarm_integration.py
    ```
+
+### Docker Compose Commands
+
+```powershell
+# Start specific services
+docker-compose -f config/environments/development/docker-compose.yml up api frontend
+
+# Rebuild images after code changes
+docker-compose -f config/environments/development/docker-compose.yml up --build
+
+# View service status
+docker-compose -f config/environments/development/docker-compose.yml ps
+
+# View logs
+docker-compose -f config/environments/development/docker-compose.yml logs -f
+
+# Clean up
+docker-compose -f config/environments/development/docker-compose.yml down -v
+```
+
+## 📖 Documentation
+
+Comprehensive documentation is available in the [`docs/`](docs/) directory:
+
+- **[Project Management](docs/project-management/)** - Roadmaps, task tracking, changelog
+- **[Deployment](docs/deployment/)** - Deployment guides and status
+- **[Guides](docs/guides/)** - Development and contribution guides
+- **[Assessments](docs/assessments/)** - Gap analysis and test coverage
+- **[Architecture](docs/02-architecture/)** - System design and agent specifications
+
+See [docs/README.md](docs/README.md) for complete documentation index.
+
+## 🤝 Contributing
+
+We welcome contributions! Please see:
+- [Contributing Guide](CONTRIBUTING.md) - How to contribute
+- [Development Environment Guide](docs/guides/DEVELOPMENT_ENVIRONMENT_GUIDE.md) - Setup instructions
+- [Code Owners](.github/CODEOWNERS) - Review assignments
+
+## 📝 License
+
+See LICENSE file for details.
+docker-compose ps
+
+# Access service logs
+docker-compose logs -f <service-name>
+
+# Execute commands in running container
+docker-compose exec api python -c "print('Hello')"
+
+# Clean up volumes (WARNING: deletes data)
+docker-compose down -v
+```
 
 ## Architecture
 

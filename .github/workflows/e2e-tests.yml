@@ -12,6 +12,7 @@ on:
 jobs:
   e2e-playwright:
     name: Playwright E2E Tests
+    if: false  # Disabled: no frontend/tests present yet
     runs-on: ubuntu-latest
     timeout-minutes: 30
     services:
@@ -96,6 +97,7 @@ jobs:
 
   e2e-api:
     name: API E2E Tests
+    if: false  # Disabled: tests/e2e/api not present yet
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -132,6 +134,7 @@ jobs:
 
   performance-tests:
     name: Performance Tests (k6)
+    if: false  # Disabled: no k6 scripts present
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6

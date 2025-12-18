@@ -1,0 +1,102 @@
+# KOSMOS development stack (minimal)
+# Services: API, Postgres, Redis, MinIO, Docs
+
+x-common-env: &common-env
+  env_file:
+    - .env
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/backend/Dockerfile
+    <<: *common-env
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://kosmos:kosmos_dev_password@postgres:5432/kosmos_dev}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+      MINIO_ENDPOINT: ${MINIO_ENDPOINT:-minio:9000}
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minioadmin}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-minioadmin}
+      ENABLE_DEP_CHECKS: "true"
+      API_HOST: 0.0.0.0
+      API_PORT: 8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      minio:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend/Dockerfile
+    environment:
+      NODE_ENV: development
+    ports:
+      - "3000:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+    volumes:
+      - ./frontend:/app
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-kosmos}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-kosmos_dev_password}
+      POSTGRES_DB: ${POSTGRES_DB:-kosmos_dev}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-kosmos} -d ${POSTGRES_DB:-kosmos_dev}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  minio:
+    image: minio/minio:RELEASE.2024-10-29T16-01-48Z
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-minioadmin}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+
+  docs:
+    image: python:3.11-slim
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+    command: /bin/sh -c "pip install --no-cache-dir -r requirements.txt && mkdocs serve -a 0.0.0.0:8080"
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080')"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pg_data:
+  minio_data:

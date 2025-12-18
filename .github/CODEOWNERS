@@ -1,0 +1,29 @@
+# CODEOWNERS for KOSMOS Repository
+
+# Default owners for everything
+* @Nuvanta-Holding/kosmos-core-team
+
+# Documentation
+/docs/ @Nuvanta-Holding/kosmos-docs-team
+*.md @Nuvanta-Holding/kosmos-docs-team
+
+# Infrastructure
+/infrastructure/ @Nuvanta-Holding/kosmos-devops-team
+/config/ @Nuvanta-Holding/kosmos-devops-team
+/.github/workflows/ @Nuvanta-Holding/kosmos-devops-team
+
+# Source Code
+/src/agents/ @Nuvanta-Holding/kosmos-agent-team
+/src/api/ @Nuvanta-Holding/kosmos-backend-team
+/frontend/ @Nuvanta-Holding/kosmos-frontend-team
+
+# Database
+/database/ @Nuvanta-Holding/kosmos-backend-team
+/migrations/ @Nuvanta-Holding/kosmos-backend-team
+
+# Tests
+/tests/ @Nuvanta-Holding/kosmos-qa-team
+
+# Security-sensitive files (require additional review)
+/config/environments/production/ @Nuvanta-Holding/kosmos-security-team
+/.github/workflows/21-deploy-production.yml @Nuvanta-Holding/kosmos-security-team

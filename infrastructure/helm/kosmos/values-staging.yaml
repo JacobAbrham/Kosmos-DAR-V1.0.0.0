@@ -1,0 +1,64 @@
+global:
+  imageRegistry: ghcr.io/nuvanta-holding/kosmos
+
+api:
+  image:
+    repository: api
+    tag: staging
+    pullPolicy: Always
+  service:
+    type: ClusterIP
+    port: 8000
+  env:
+    - name: API_HOST
+      value: "0.0.0.0"
+    - name: API_PORT
+      value: "8000"
+    - name: ENABLE_DEP_CHECKS
+      value: "false"
+    - name: DATABASE_URL
+      value: "postgresql://kosmos:kosmos_dev_password@postgres:5432/kosmos_dev"
+    - name: REDIS_URL
+      value: "redis://redis:6379/0"
+    - name: MINIO_ENDPOINT
+      value: "minio:9000"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 300m
+      memory: 512Mi
+
+frontend:
+  image:
+    repository: frontend
+    tag: staging
+    pullPolicy: Always
+  service:
+    type: ClusterIP
+    port: 3000
+  env:
+    - name: NEXT_PUBLIC_API_URL
+      value: "http://kosmos-api:8000"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 300m
+      memory: 512Mi
+
+
+  enabled: false
+  className: ""
+  hosts:
+    - host: staging.kosmos.internal
+      paths:
+        - path: /
+          pathType: Prefix
+          service: frontend
+        - path: /api
+          pathType: Prefix
+          service: api
+  tls: []

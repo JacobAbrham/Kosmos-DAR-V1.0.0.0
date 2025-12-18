@@ -38,9 +38,17 @@ dist/
 build/
 *.egg-info/
 
-# Environment
+# Environment & Secrets
 .env
 .env.local
+.env.*.local
+*.secret.*
+config/secrets/*
+!config/secrets/.gitkeep
+*.pem
+*.key
+*.p12
+*.pfx
 
 # Node modules (if using any Node tools)
 node_modules/
