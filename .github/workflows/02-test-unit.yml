@@ -187,7 +187,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: docker/backend/Dockerfile
+          file: infrastructure/docker/backend/Dockerfile
           push: false
           tags: kosmos/api:ci
           cache-from: type=gha
@@ -197,7 +197,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: docker/frontend/Dockerfile
+          file: infrastructure/docker/frontend/Dockerfile
           push: false
           tags: kosmos/frontend:ci
           cache-from: type=gha
