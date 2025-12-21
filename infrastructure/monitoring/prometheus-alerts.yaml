@@ -1,0 +1,156 @@
+groups:
+  - name: kosmos-alerts
+    rules:
+      # High error rate alert
+      - alert: HighErrorRate
+        expr: |
+          sum(rate(kosmos_requests_total{status=~"5.."}[5m])) /
+          sum(rate(kosmos_requests_total[5m])) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value | humanizePercentage }} (>5% threshold) for the last 5 minutes"
+          runbook_url: "https://docs.kosmos.ai/runbooks/high-error-rate"
+
+      # High latency alert
+      - alert: HighP95Latency
+        expr: |
+          histogram_quantile(0.95, sum(rate(kosmos_request_duration_seconds_bucket[5m])) by (le)) > 2
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "High P95 latency detected"
+          description: "P95 latency is {{ $value | humanizeDuration }} (>2s threshold)"
+          runbook_url: "https://docs.kosmos.ai/runbooks/high-latency"
+
+      # Agent health alerts
+      - alert: AgentHighErrorRate
+        expr: |
+          sum(rate(kosmos_agent_requests_total{status="error"}[5m])) by (agent) /
+          sum(rate(kosmos_agent_requests_total[5m])) by (agent) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+          team: agents
+        annotations:
+          summary: "Agent {{ $labels.agent }} has high error rate"
+          description: "Agent {{ $labels.agent }} error rate is {{ $value | humanizePercentage }}"
+
+      # LLM token usage alert
+      - alert: HighLLMTokenUsage
+        expr: |
+          sum(increase(kosmos_llm_tokens_total[1h])) > 100000
+        for: 10m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "High LLM token consumption"
+          description: "Token usage exceeded 100k in the last hour: {{ $value }}"
+
+      # Pentarchy voting alerts
+      - alert: HighVoteRejectionRate
+        expr: |
+          sum(rate(kosmos_votes_total{outcome="rejected"}[1h])) /
+          sum(rate(kosmos_votes_total[1h])) > 0.3
+        for: 30m
+        labels:
+          severity: info
+          team: governance
+        annotations:
+          summary: "High proposal rejection rate"
+          description: "{{ $value | humanizePercentage }} of proposals rejected in the last hour"
+
+      # Cache performance alerts
+      - alert: LowCacheHitRate
+        expr: |
+          sum(rate(kosmos_cache_hits_total[5m])) /
+          (sum(rate(kosmos_cache_hits_total[5m])) + sum(rate(kosmos_cache_misses_total[5m]))) < 0.5
+        for: 15m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "Low cache hit rate"
+          description: "Cache hit rate is {{ $value | humanizePercentage }} (<50% threshold)"
+
+      # Service availability
+      - alert: ServiceDown
+        expr: up{job="kosmos-api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "KOSMOS API is down"
+          description: "KOSMOS API instance {{ $labels.instance }} has been down for more than 1 minute"
+
+      # Database connection alerts
+      - alert: DatabaseConnectionFailure
+        expr: |
+          kosmos_dependency_check{dependency="postgres"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "Database connection failure"
+          description: "Cannot connect to PostgreSQL database"
+
+      # Redis connection alerts
+      - alert: RedisConnectionFailure
+        expr: |
+          kosmos_dependency_check{dependency="redis"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "Redis connection failure"
+          description: "Cannot connect to Redis cache"
+
+  - name: kosmos-slos
+    rules:
+      # SLO: 99.9% availability
+      - record: kosmos:availability:slo
+        expr: 0.999
+
+      - record: kosmos:availability:current
+        expr: |
+          1 - (
+            sum(rate(kosmos_requests_total{status=~"5.."}[7d])) /
+            sum(rate(kosmos_requests_total[7d]))
+          )
+
+      - alert: SLOViolationAvailability
+        expr: kosmos:availability:current < kosmos:availability:slo
+        for: 5m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "Availability SLO violation"
+          description: "Current availability {{ $value | humanizePercentage }} is below SLO target 99.9%"
+
+      # SLO: P99 latency < 3s
+      - record: kosmos:latency_p99:slo
+        expr: 3
+
+      - record: kosmos:latency_p99:current
+        expr: |
+          histogram_quantile(0.99, sum(rate(kosmos_request_duration_seconds_bucket[1h])) by (le))
+
+      - alert: SLOViolationLatency
+        expr: kosmos:latency_p99:current > kosmos:latency_p99:slo
+        for: 15m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "Latency SLO violation"
+          description: "P99 latency {{ $value | humanizeDuration }} exceeds SLO target of 3s"

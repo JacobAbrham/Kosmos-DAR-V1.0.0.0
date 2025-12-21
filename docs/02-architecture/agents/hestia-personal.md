@@ -157,3 +157,17 @@ wellness:
 ---
 
 **Last Updated:** December 2025
+
+
+## Auto-Detected Tools
+
+| Tool Name | Status | Source |
+|-----------|--------|--------|
+| `adapt_ui` | Active | `src/agents/hestia/main.py` |
+| `curate_playlist` | Active | `src/agents/hestia/main.py` |
+| `enable_focus_mode` | Active | `src/agents/hestia/main.py` |
+| `evaluate_proposal` | Active | `src/agents/hestia/main.py` |
+| `get_preferences` | Active | `src/agents/hestia/main.py` |
+| `process_query` | Active | `src/agents/hestia/main.py` |
+| `set_preference` | Active | `src/agents/hestia/main.py` |
+| `track_habit` | Active | `src/agents/hestia/main.py` |

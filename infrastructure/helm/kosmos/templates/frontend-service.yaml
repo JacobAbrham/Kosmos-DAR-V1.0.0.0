@@ -1,3 +1,5 @@
+{{- if .Values.frontend }}
+{{- if .Values.frontend.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -6,12 +8,14 @@ metadata:
     {{- include "kosmos.labels" . | nindent 4 }}
     app.kubernetes.io/component: frontend
 spec:
-  type: {{ .Values.frontend.service.type }}
+  type: {{ .Values.frontend.service.type | default "ClusterIP" }}
   ports:
-    - port: {{ .Values.frontend.service.port }}
+    - port: {{ .Values.frontend.service.port | default 3000 }}
       targetPort: http
       protocol: TCP
       name: http
   selector:
-    {{- include "kosmos.labels" . | nindent 4 }}
+    {{- include "kosmos.selectorLabels" . | nindent 4 }}
     app.kubernetes.io/component: frontend
+{{- end }}
+{{- end }}

@@ -8,20 +8,20 @@ on:
   workflow_dispatch:
 
 env:
-  PYTHON_VERSION: '3.11'
-  NODE_VERSION: '20'
+  PYTHON_VERSION: "3.11"
+  NODE_VERSION: "20"
 
 jobs:
   # Run integration tests first (most critical)
   integration-tests:
     name: Integration Tests
-    uses: ./.github/workflows/test-integration.yml
-  
+    uses: ./.github/workflows/03-test-integration.yml
+
   # Run E2E tests in parallel
   e2e-tests:
     name: E2E Tests
-    uses: ./.github/workflows/test-e2e.yml
-  
+    uses: ./.github/workflows/04-test-e2e.yml
+
   lint-python:
     name: Lint Python
     runs-on: ubuntu-latest
@@ -32,7 +32,7 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-          cache: 'pip'
+          cache: "pip"
 
       - name: Install dependencies
         run: |
@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.11', '3.12']
+        python-version: ["3.11", "3.12"]
     services:
       postgres:
         image: postgres:16-alpine
@@ -97,7 +97,7 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
-          cache: 'pip'
+          cache: "pip"
 
       - name: Install dependencies
         run: |
@@ -141,7 +141,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: Install dependencies
         run: npm install
@@ -162,7 +162,7 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-          cache: 'pip'
+          cache: "pip"
 
       - name: Install dependencies
         run: |
@@ -215,7 +215,7 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-          cache: 'pip'
+          cache: "pip"
 
       - name: Install MkDocs
         run: |

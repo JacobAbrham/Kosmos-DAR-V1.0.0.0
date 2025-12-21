@@ -1,14 +1,16 @@
 from typing import Dict, List
-from src.mcp.server import BaseMCPServer
+from .server import BaseMCPServer
+
 
 class SimpleMemoryServer(BaseMCPServer):
     """
     A simple in-memory key-value store MCP server.
     """
+
     def __init__(self):
         super().__init__("kosmos-memory")
         self.memory_store: Dict[str, str] = {}
-        
+
         # Register tools explicitly
         self.mcp.tool()(self.read_memory)
         self.mcp.tool()(self.write_memory)
@@ -34,6 +36,7 @@ class SimpleMemoryServer(BaseMCPServer):
             del self.memory_store[key]
             return f"Deleted '{key}'"
         return "Key not found"
+
 
 if __name__ == "__main__":
     server = SimpleMemoryServer()

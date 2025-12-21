@@ -1,0 +1,40 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kosmos-ingress
+  namespace: kosmos
+  annotations:
+    # Alibaba Cloud ALB Ingress Controller Annotations
+    alb.ingress.kubernetes.io/scheme: internet
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/canary: "false"
+    # Replace with your actual Certificate ID if using HTTPS
+    # alb.ingress.kubernetes.io/certificate-id: "cas-xxxxxx"
+    # alb.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: alb
+  rules:
+    - host: nuvanta-holding.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kosmos-frontend
+                port:
+                  number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: zeus-orchestrator
+                port:
+                  number: 8080
+          - path: /docs
+            pathType: Prefix
+            backend:
+              service:
+                name: zeus-orchestrator
+                port:
+                  number: 8080

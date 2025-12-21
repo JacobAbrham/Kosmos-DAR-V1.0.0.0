@@ -157,3 +157,15 @@ sync:
 ---
 
 **Last Updated:** December 2025
+
+
+## Auto-Detected Tools
+
+| Tool Name | Status | Source |
+|-----------|--------|--------|
+| `consolidate_memories` | Active | `src/agents/memorix/main.py` |
+| `evaluate_proposal` | Active | `src/agents/memorix/main.py` |
+| `map_relationship` | Active | `src/agents/memorix/main.py` |
+| `process_query` | Active | `src/agents/memorix/main.py` |
+| `recall_memory` | Active | `src/agents/memorix/main.py` |
+| `store_memory` | Active | `src/agents/memorix/main.py` |

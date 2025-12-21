@@ -1,0 +1,201 @@
+---
+# Zitadel SSO ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kosmos-auth-config
+  namespace: kosmos-production
+data:
+  zitadel-issuer: "https://auth.kosmos.example.com"
+  zitadel-client-id: "kosmos-production-client"
+  zitadel-redirect-uri: "https://kosmos.example.com/api/auth/callback"
+  zitadel-scopes: "openid profile email"
+---
+# Zitadel Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zitadel
+  namespace: kosmos-production
+  labels:
+    app.kubernetes.io/name: zitadel
+    app.kubernetes.io/component: auth
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: zitadel
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: zitadel
+        app.kubernetes.io/component: auth
+    spec:
+      serviceAccountName: zitadel
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+        - name: zitadel
+          image: ghcr.io/zitadel/zitadel:v2.45.0
+          args:
+            - start-from-init
+            - --masterkeyFromEnv
+            - --tlsMode=external
+          ports:
+            - containerPort: 8080
+              name: http
+            - containerPort: 8081
+              name: admin
+          env:
+            - name: ZITADEL_MASTERKEY
+              valueFrom:
+                secretKeyRef:
+                  name: zitadel-secrets
+                  key: masterkey
+            - name: ZITADEL_DATABASE_POSTGRES_HOST
+              value: "postgres-zitadel.kosmos-production.svc.cluster.local"
+            - name: ZITADEL_DATABASE_POSTGRES_PORT
+              value: "5432"
+            - name: ZITADEL_DATABASE_POSTGRES_DATABASE
+              value: "zitadel"
+            - name: ZITADEL_DATABASE_POSTGRES_USER_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: zitadel-db-credentials
+                  key: username
+            - name: ZITADEL_DATABASE_POSTGRES_USER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: zitadel-db-credentials
+                  key: password
+            - name: ZITADEL_DATABASE_POSTGRES_USER_SSL_MODE
+              value: "require"
+            - name: ZITADEL_EXTERNALDOMAIN
+              value: "auth.kosmos.example.com"
+            - name: ZITADEL_EXTERNALPORT
+              value: "443"
+            - name: ZITADEL_EXTERNALSECURE
+              value: "true"
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+          readinessProbe:
+            httpGet:
+              path: /debug/ready
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /debug/healthz
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zitadel
+  namespace: kosmos-production
+  labels:
+    app.kubernetes.io/name: zitadel
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: http
+    - port: 8081
+      targetPort: 8081
+      protocol: TCP
+      name: admin
+  selector:
+    app.kubernetes.io/name: zitadel
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: zitadel
+  namespace: kosmos-production
+---
+# Zitadel Ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: zitadel-ingress
+  namespace: kosmos-production
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+spec:
+  tls:
+    - hosts:
+        - auth.kosmos.example.com
+      secretName: zitadel-tls-secret
+  rules:
+    - host: auth.kosmos.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: zitadel
+                port:
+                  number: 8080
+---
+# Zitadel Database Credentials (external secret reference)
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: zitadel-secrets
+  namespace: kosmos-production
+spec:
+  refreshInterval: 24h
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  target:
+    name: zitadel-secrets
+    creationPolicy: Owner
+  data:
+    - secretKey: masterkey
+      remoteRef:
+        key: kosmos/production/zitadel
+        property: masterkey
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: zitadel-db-credentials
+  namespace: kosmos-production
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  target:
+    name: zitadel-db-credentials
+    creationPolicy: Owner
+  data:
+    - secretKey: username
+      remoteRef:
+        key: kosmos/production/zitadel-db
+        property: username
+    - secretKey: password
+      remoteRef:
+        key: kosmos/production/zitadel-db
+        property: password

@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+// Server-side API URL (inside Docker network, use 'api' hostname)
+const API_BASE_URL = process.env.API_INTERNAL_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
-        
+
         const response = await fetch(`${API_BASE_URL}/vote`, {
             method: 'POST',
             headers: {

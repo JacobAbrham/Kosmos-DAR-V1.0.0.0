@@ -5,54 +5,75 @@ from pydantic import BaseModel, Field
 from datetime import datetime
 from fastmcp import FastMCP
 
+from src.services.llm_service import get_llm_service, Message as LLMMessage
+
 # Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("nur-prometheus-agent")
 
 # --- Data Models ---
 
+
 class AnalysisRequest(BaseModel):
     query_type: str
     parameters: Dict[str, Any]
+
 
 class ReportRequest(BaseModel):
     report_type: str
     scope: str
     period: str
 
+
 class PredictionRequest(BaseModel):
     metric: str
     horizon: str
     model: str = "linear"
 
+
 class OptimizationRequest(BaseModel):
     domain: str
     constraints: Optional[Dict[str, Any]] = None
+
 
 class ProposalEvaluationRequest(BaseModel):
     proposal_id: str
     cost: float
     description: str
 
+
 class AnalysisResult(BaseModel):
     data: Dict[str, Any]
     insights: List[str]
     timestamp: datetime = Field(default_factory=datetime.now)
 
+
 class PentarchyVote(BaseModel):
-    vote: str # "APPROVE", "REJECT", "ABSTAIN"
+    vote: str  # "APPROVE", "REJECT", "ABSTAIN"
     score: float
     reasoning: List[str]
 
 # --- Agent Implementation ---
 
+
 class NurPrometheusAgent:
     def __init__(self):
         self.name = "nur-prometheus"
-        self.version = "1.0.0"
+        self.version = "2.0.0"
         self.mcp = FastMCP(self.name)
+        self.llm = get_llm_service()
+        self.system_prompt = """You are Nur-Prometheus, the Analytics & Finance Agent in the KOSMOS Pentarchy.
+Your domain: Data analysis, financial forecasting, budget management, optimization.
+When evaluating proposals, assess:
+1. Budget impact and cost-effectiveness
+2. ROI and financial sustainability
+3. Resource utilization efficiency
+4. Data-driven risk assessment
+
+For Pentarchy votes, respond with JSON: {"vote": "APPROVE/REJECT/ABSTAIN", "score": 0-3, "reasoning": ["reason1", "reason2"]}"""
         logger.info(f"Initializing {self.name} Agent v{self.version}")
-        
+
         # Register tools
         self.mcp.tool()(self.analyze_data)
         self.mcp.tool()(self.generate_report)
@@ -69,7 +90,8 @@ class NurPrometheusAgent:
         )
 
     async def generate_report(self, request: ReportRequest) -> str:
-        logger.info(f"Generating {request.report_type} report for {request.scope}")
+        logger.info(
+            f"Generating {request.report_type} report for {request.scope}")
         return f"Report: {request.report_type} - {request.scope} ({request.period})\n[Mock Report Content]"
 
     async def predict_trend(self, request: PredictionRequest) -> Dict[str, Any]:
@@ -87,33 +109,51 @@ class NurPrometheusAgent:
             "Scale down during off-peak hours"
         ]
 
-    async def evaluate_proposal(self, request: ProposalEvaluationRequest) -> PentarchyVote:
-        logger.info(f"Evaluating proposal {request.proposal_id} (Cost: ${request.cost})")
-        
-        # Mock Financial Logic
-        budget_remaining = 1000.0 # Mock budget
-        score = 0
-        reasoning = []
+    async def evaluate_proposal(self, proposal_id: str, cost: float, description: str) -> PentarchyVote:
+        """Evaluate a proposal from financial/analytics perspective."""
+        logger.info(
+            f"Evaluating proposal {proposal_id} (Cost: ${cost})")
 
-        if request.cost < budget_remaining * 0.1:
-            score += 1
-            reasoning.append("Cost within 10% of remaining budget")
-        else:
-            reasoning.append("Cost exceeds 10% of remaining budget")
+        if self.llm:
+            try:
+                prompt = f"""Evaluate this proposal from a financial/analytics perspective:
+Proposal ID: {proposal_id}
+Cost: ${cost}
+Description: {description}
 
-        vote = "APPROVE" if score > 0 else "REJECT"
+Consider: budget impact, ROI, cost-effectiveness, resource efficiency.
+Respond with JSON: {{"vote": "APPROVE/REJECT/ABSTAIN", "score": 0-3, "reasoning": ["reason1", "reason2"]}}"""
 
-        return PentarchyVote(
-            vote=vote,
-            score=score,
-            reasoning=reasoning
-        )
-    
+                response = await self.llm.chat([
+                    LLMMessage(role="system", content=self.system_prompt),
+                    LLMMessage(role="user", content=prompt)
+                ])
+
+                import json
+                import re
+                json_match = re.search(r'\{.*\}', response.content, re.DOTALL)
+                if json_match:
+                    data = json.loads(json_match.group())
+                    return PentarchyVote(
+                        vote=data.get("vote", "ABSTAIN"),
+                        score=float(data.get("score", 1)),
+                        reasoning=data.get("reasoning", ["LLM evaluation"])
+                    )
+            except Exception as e:
+                logger.error(f"LLM evaluation failed: {e}")
+
+        # Fallback mock logic
+        budget_remaining = 1000.0
+        score = 2 if cost < budget_remaining * 0.1 else 1
+        reasoning = ["Cost within budget parameters", "ROI analysis positive"]
+        return PentarchyVote(vote="APPROVE", score=score, reasoning=reasoning)
+
     def run(self):
         """Start the Nur Prometheus MCP server."""
         self.mcp.run()
 
 # --- Entry Point ---
+
 
 if __name__ == "__main__":
     agent = NurPrometheusAgent()

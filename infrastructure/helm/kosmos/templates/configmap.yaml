@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "kosmos.fullname" . }}-config
+  labels:
+    {{- include "kosmos.labels" . | nindent 4 }}
+data:
+  API_HOST: "0.0.0.0"
+  API_PORT: "8000"
+  ENVIRONMENT: {{ .Values.global.environment | default "production" | quote }}
+  LOG_LEVEL: {{ .Values.logging.level | default "INFO" | quote }}
+  LOG_FORMAT: {{ .Values.logging.format | default "json" | quote }}
+  ENABLE_RATE_LIMIT: {{ .Values.rateLimit.enabled | default true | quote }}
+  RATE_LIMIT_REQUESTS: {{ .Values.rateLimit.requests | default 100 | quote }}
+  RATE_LIMIT_WINDOW: {{ .Values.rateLimit.window | default 60 | quote }}
+  CORS_ORIGINS: {{ .Values.cors.origins | default "*" | quote }}
+  ENABLE_METRICS: "true"
+  METRICS_PORT: "9090"
+  {{- range $key, $value := .Values.extraEnv }}
+  {{ $key }}: {{ $value | quote }}
+  {{- end }}
+---
+{{- if .Values.secrets.create }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "kosmos.fullname" . }}-secrets
+  labels:
+    {{- include "kosmos.labels" . | nindent 4 }}
+type: Opaque
+stringData:
+  DATABASE_URL: {{ .Values.database.url | quote }}
+  REDIS_URL: {{ .Values.redis.url | quote }}
+  JWT_SECRET_KEY: {{ .Values.auth.jwtSecretKey | default (randAlphaNum 64) | quote }}
+  API_KEY_SALT: {{ .Values.auth.apiKeySalt | default (randAlphaNum 32) | quote }}
+  {{- if .Values.openai.apiKey }}
+  OPENAI_API_KEY: {{ .Values.openai.apiKey | quote }}
+  {{- end }}
+  {{- if .Values.anthropic.apiKey }}
+  ANTHROPIC_API_KEY: {{ .Values.anthropic.apiKey | quote }}
+  {{- end }}
+  {{- range $key, $value := .Values.extraSecrets }}
+  {{ $key }}: {{ $value | quote }}
+  {{- end }}
+{{- end }}

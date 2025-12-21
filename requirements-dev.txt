@@ -20,7 +20,7 @@ bandit>=1.7.6
 
 # Security
 safety>=2.3.5
-gitleaks>=8.18.0
+# gitleaks>=8.18.0
 
 # Development Tools
 ipython>=8.18.0

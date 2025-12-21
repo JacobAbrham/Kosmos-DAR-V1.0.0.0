@@ -1,0 +1,103 @@
+# OpenTelemetry Collector Configuration for KOSMOS
+# Receives telemetry from KOSMOS services and exports to ClickHouse
+
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+  # Prometheus scraping for metrics
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: "kosmos-api"
+          scrape_interval: 15s
+          static_configs:
+            - targets: ["host.docker.internal:8000"]
+          metrics_path: "/metrics"
+
+processors:
+  batch:
+    send_batch_size: 10000
+    timeout: 10s
+
+  # Add resource attributes
+  resource:
+    attributes:
+      - key: deployment.environment
+        value: ${ENVIRONMENT:-development}
+        action: upsert
+
+  # Memory limiter to prevent OOM
+  memory_limiter:
+    check_interval: 1s
+    limit_percentage: 75
+    spike_limit_percentage: 15
+
+  # Probabilistic sampling for high-volume scenarios
+  probabilistic_sampler:
+    hash_seed: 22
+    sampling_percentage: 100 # 100% in dev, lower in prod
+
+exporters:
+  # Export to ClickHouse for SigNoz
+  clickhousetraces:
+    datasource: tcp://clickhouse:9000/?database=signoz_traces
+    docker_multi_node_cluster: false
+    low_cardinal_exception_grouping: false
+
+  clickhousemetricswrite:
+    datasource: tcp://clickhouse:9000/?database=signoz_metrics
+
+  clickhouselogsexporter:
+    dsn: tcp://clickhouse:9000/
+    docker_multi_node_cluster: false
+    timeout: 5s
+    sending_queue:
+      queue_size: 100
+    retry_on_failure:
+      enabled: true
+      initial_interval: 5s
+      max_interval: 30s
+      max_elapsed_time: 300s
+
+  # Debug logging
+  logging:
+    loglevel: info
+    sampling_initial: 5
+    sampling_thereafter: 200
+
+extensions:
+  health_check:
+    endpoint: 0.0.0.0:13133
+
+  zpages:
+    endpoint: 0.0.0.0:55679
+
+service:
+  extensions: [health_check, zpages]
+
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [memory_limiter, batch, resource]
+      exporters: [clickhousetraces]
+
+    metrics:
+      receivers: [otlp, prometheus]
+      processors: [memory_limiter, batch]
+      exporters: [clickhousemetricswrite]
+
+    logs:
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [clickhouselogsexporter]
+
+  telemetry:
+    logs:
+      level: info
+    metrics:
+      address: 0.0.0.0:8888

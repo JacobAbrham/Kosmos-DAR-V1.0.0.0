@@ -431,3 +431,13 @@ zeus_retry_config = RetryConfig(
 **Last Updated:** 2025-12-12  
 **Document Owner:** Chief Architect  
 **Next Review:** 2026-03-12
+
+
+## Auto-Detected Tools
+
+| Tool Name | Status | Source |
+|-----------|--------|--------|
+| `conduct_pentarchy_vote` | Active | `src/agents/zeus/main.py` |
+| `delegate_task` | Active | `src/agents/zeus/main.py` |
+| `list_available_agents` | Active | `src/agents/zeus/main.py` |
+| `process_message` | Active | `src/agents/zeus/main.py` |

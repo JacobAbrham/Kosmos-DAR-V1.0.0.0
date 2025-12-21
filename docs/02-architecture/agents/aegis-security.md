@@ -185,3 +185,15 @@ kill_switch:
 ---
 
 **Last Updated:** December 2025
+
+
+## Auto-Detected Tools
+
+| Tool Name | Status | Source |
+|-----------|--------|--------|
+| `activate_kill_switch` | Active | `src/agents/aegis/main.py` |
+| `check_access` | Active | `src/agents/aegis/main.py` |
+| `evaluate_proposal` | Active | `src/agents/aegis/main.py` |
+| `process_query` | Active | `src/agents/aegis/main.py` |
+| `scan_vulnerabilities` | Active | `src/agents/aegis/main.py` |
+| `verify_compliance` | Active | `src/agents/aegis/main.py` |

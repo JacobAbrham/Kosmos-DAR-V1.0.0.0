@@ -1,0 +1,145 @@
+version: "3.9"
+
+# KOSMOS Staging Environment
+# Usage: docker compose -f config/environments/staging/docker-compose.yml up -d
+
+services:
+  # ===========================================
+  # API Gateway (FastAPI)
+  # ===========================================
+  api:
+    build:
+      context: ../../..
+      dockerfile: infrastructure/docker/api/Dockerfile
+    image: kosmos-api:staging
+    container_name: kosmos-api-staging
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - APP_ENV=staging
+      - DATABASE_URL=postgresql://kosmos_staging:staging_password@postgres:5432/kosmos_staging
+      - REDIS_URL=redis://redis:6379/1
+    ports:
+      - "8001:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - kosmos-staging
+    volumes:
+      - api_logs:/app/logs
+
+  # ===========================================
+  # Frontend (Next.js)
+  # ===========================================
+  frontend:
+    build:
+      context: ../../..
+      dockerfile: infrastructure/docker/frontend/Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=http://api:8000
+    image: kosmos-frontend:staging
+    container_name: kosmos-frontend-staging
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://localhost:8001
+      - INTERNAL_API_URL=http://api:8000
+    ports:
+      - "3001:3000"
+    depends_on:
+      - api
+    networks:
+      - kosmos-staging
+
+  # ===========================================
+  # PostgreSQL Database
+  # ===========================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: kosmos-postgres-staging
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: kosmos_staging
+      POSTGRES_USER: kosmos_staging
+      POSTGRES_PASSWORD: staging_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_staging_data:/var/lib/postgresql/data
+      - ../../../database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kosmos_staging -d kosmos_staging"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - kosmos-staging
+
+  # ===========================================
+  # Redis Cache
+  # ===========================================
+  redis:
+    image: redis:7-alpine
+    container_name: kosmos-redis-staging
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_staging_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - kosmos-staging
+
+  # ===========================================
+  # MinIO Object Storage
+  # ===========================================
+  minio:
+    image: minio/minio:latest
+    container_name: kosmos-minio-staging
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: kosmos
+      MINIO_ROOT_PASSWORD: kosmos_secret
+    ports:
+      - "9002:9000"
+      - "9003:9001"
+    volumes:
+      - minio_staging_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - kosmos-staging
+
+volumes:
+  postgres_staging_data:
+    driver: local
+  redis_staging_data:
+    driver: local
+  minio_staging_data:
+    driver: local
+  api_logs:
+    driver: local
+
+networks:
+  kosmos-staging:
+    driver: bridge
+    name: kosmos-staging

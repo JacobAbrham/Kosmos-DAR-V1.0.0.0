@@ -41,6 +41,7 @@ Athena is the **knowledge and wisdom** agent of KOSMOS, responsible for Retrieva
 | `query` | RAG-enhanced question answering | `question` | Answer with citations |
 | `ingest` | Add document to knowledge base | `document`, `metadata` | Ingestion confirmation |
 | `search` | Keyword + semantic hybrid search | `query`, `filters` | Search results |
+| `evaluate_proposal` | Pentarchy vote (compliance) | `proposal_id`, `cost`, `description` | Vote, Score, Reasoning |
 
 ---
 
@@ -112,3 +113,14 @@ graph LR
 
 **Last Updated:** 2025-12-12  
 **Document Owner:** Chief Architect
+
+
+## Auto-Detected Tools
+
+| Tool Name | Status | Source |
+|-----------|--------|--------|
+| `evaluate_proposal` | Active | `src/agents/athena/main.py` |
+| `ingest` | Active | `src/agents/athena/main.py` |
+| `query` | Active | `src/agents/athena/main.py` |
+| `retrieve` | Active | `src/agents/athena/main.py` |
+| `search` | Active | `src/agents/athena/main.py` |

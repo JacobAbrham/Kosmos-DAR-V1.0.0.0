@@ -193,3 +193,16 @@ anomaly_detection:
 ---
 
 **Last Updated:** December 2025
+
+
+## Auto-Detected Tools
+
+| Tool Name | Status | Source |
+|-----------|--------|--------|
+| `analyze_patterns` | Active | `src/agents/morpheus/main.py` |
+| `detect_anomaly` | Active | `src/agents/morpheus/main.py` |
+| `evaluate_proposal` | Active | `src/agents/morpheus/main.py` |
+| `optimize_prompt` | Active | `src/agents/morpheus/main.py` |
+| `process_feedback` | Active | `src/agents/morpheus/main.py` |
+| `process_query` | Active | `src/agents/morpheus/main.py` |
+| `recommend_model` | Active | `src/agents/morpheus/main.py` |

@@ -1,0 +1,112 @@
+# SigNoz Configuration for KOSMOS
+# Deploy alongside KOSMOS for observability
+
+# SigNoz components as a single docker-compose
+# Run with: docker-compose -f infrastructure/monitoring/signoz/docker-compose.yml up -d
+
+version: '3.8'
+
+x-clickhouse-defaults: &clickhouse-defaults
+  restart: unless-stopped
+  image: clickhouse/clickhouse-server:23.7.3-alpine
+  tty: true
+  logging:
+    options:
+      max-size: "50m"
+      max-file: "3"
+  healthcheck:
+    test: ["CMD", "wget", "--spider", "-q", "localhost:8123/ping"]
+    interval: 30s
+    timeout: 5s
+    retries: 3
+  ulimits:
+    nproc: 65535
+    nofile:
+      soft: 262144
+      hard: 262144
+
+services:
+  # ClickHouse for storing traces
+  clickhouse:
+    <<: *clickhouse-defaults
+    container_name: signoz-clickhouse
+    hostname: clickhouse
+    ports:
+      - "9000:9000"
+      - "8123:8123"
+    volumes:
+      - signoz-clickhouse-data:/var/lib/clickhouse/
+    environment:
+      - CLICKHOUSE_DB=signoz_traces
+      - CLICKHOUSE_USER=admin
+      - CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD:-signoz}
+
+  # Query Service
+  query-service:
+    image: signoz/query-service:0.37.1
+    container_name: signoz-query-service
+    command:
+      - "-config=/root/config/prometheus.yml"
+    ports:
+      - "8085:8085"
+    volumes:
+      - ./prometheus.yml:/root/config/prometheus.yml
+    environment:
+      - ClickHouseUrl=tcp://clickhouse:9000
+      - ALERTMANAGER_API_PREFIX=http://alertmanager:9093/api/
+      - SIGNOZ_LOCAL_DB_PATH=/var/lib/signoz/signoz.db
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "localhost:8085/api/v1/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # Frontend
+  frontend:
+    image: signoz/frontend:0.37.1
+    container_name: signoz-frontend
+    ports:
+      - "3301:3301"
+    depends_on:
+      - query-service
+    environment:
+      - FRONTEND_API_ENDPOINT=http://query-service:8085
+
+  # OpenTelemetry Collector
+  otel-collector:
+    image: signoz/signoz-otel-collector:0.88.11
+    container_name: signoz-otel-collector
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    ports:
+      - "4317:4317"     # OTLP gRPC
+      - "4318:4318"     # OTLP HTTP
+      - "8888:8888"     # Prometheus metrics
+      - "13133:13133"   # Health check
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "localhost:13133"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # Alert Manager
+  alertmanager:
+    image: signoz/alertmanager:0.23.4
+    container_name: signoz-alertmanager
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    command:
+      - --config.file=/etc/alertmanager/alertmanager.yml
+      - --storage.path=/alertmanager
+
+volumes:
+  signoz-clickhouse-data:

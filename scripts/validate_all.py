@@ -16,12 +16,14 @@ DOCS_DIR = BASE_DIR / "docs"
 AIBOM_DIR = BASE_DIR / "aibom"
 SCHEMAS_DIR = BASE_DIR / "schemas"
 
+
 class ValidationResult:
     """Container for validation results, storing errors, warnings, and info messages.
 
     This class offers helper methods to add messages and print a summary of
     the collected validation results.
     """
+
     def __init__(self):
         self.errors = []
         self.warnings = []
@@ -75,6 +77,7 @@ class ValidationResult:
         print("\n✅ VALIDATION PASSED")
         return 0
 
+
 def validate_markdown_files(result: ValidationResult):
     """Validate all markdown files exist and have content"""
     md_files = list(DOCS_DIR.glob("**/*.md"))
@@ -86,12 +89,15 @@ def validate_markdown_files(result: ValidationResult):
         if size == 0:
             result.add_error(f"Empty file: {md_file.relative_to(BASE_DIR)}")
         elif size < 100:
-            result.add_warning(f"Very small file (<100 bytes): {md_file.relative_to(BASE_DIR)}")
+            result.add_warning(
+                f"Very small file (<100 bytes): {md_file.relative_to(BASE_DIR)}")
 
         # Check for basic markdown structure
         content = md_file.read_text(encoding='utf-8')
         if not content.startswith('#'):
-            result.add_warning(f"No title heading in: {md_file.relative_to(BASE_DIR)}")
+            result.add_warning(
+                f"No title heading in: {md_file.relative_to(BASE_DIR)}")
+
 
 def validate_internal_links(result: ValidationResult):
     """Validate internal markdown links"""
@@ -104,7 +110,7 @@ def validate_internal_links(result: ValidationResult):
         # Skip template files
         if 'template' in md_file.name.lower():
             continue
-            
+
         content = md_file.read_text(encoding='utf-8')
         matches = link_pattern.findall(content)
 
@@ -132,6 +138,7 @@ def validate_internal_links(result: ValidationResult):
                     f"[{link_text}]({link_url})"
                 )
 
+
 def validate_required_files(result: ValidationResult):
     """Validate that required documentation files exist"""
     required_files = [
@@ -146,7 +153,7 @@ def validate_required_files(result: ValidationResult):
         "docs/03-engineering/index.md",
         "docs/04-operations/index.md",
         "docs/05-human-factors/index.md",
-        "mkdocs.yml",
+        "docs/mkdocs.yml",
         "requirements.txt",
     ]
 
@@ -156,6 +163,7 @@ def validate_required_files(result: ValidationResult):
             result.add_error(f"Required file missing: {required_file}")
         else:
             result.add_info(f"✓ Found: {required_file}")
+
 
 def validate_schemas(result: ValidationResult):
     """Validate JSON schemas exist"""
@@ -176,6 +184,7 @@ def validate_schemas(result: ValidationResult):
             result.add_warning(f"Schema missing: {schema_file}")
         else:
             result.add_info(f"✓ Found schema: {schema_file}")
+
 
 def validate_volume_structure(result: ValidationResult):
     """Validate volume directory structure"""
@@ -227,7 +236,8 @@ def validate_aibom_directory(result: ValidationResult):
             result.add_warning(f"aibom/{subdir}/ directory missing")
         else:
             # Count YAML files
-            yaml_files = list(subdir_path.glob("*.yaml")) + list(subdir_path.glob("*.yml"))
+            yaml_files = list(subdir_path.glob("*.yaml")) + \
+                list(subdir_path.glob("*.yml"))
             result.add_info(f"aibom/{subdir}/: {len(yaml_files)} AIBOM files")
 
 
@@ -293,13 +303,13 @@ def validate_contact_placeholders(result: ValidationResult):
         # Skip template files
         if 'template' in md_file.name.lower():
             continue
-            
+
         try:
             content = md_file.read_text(encoding='utf-8')
             # Remove code blocks (```...``` and indented code blocks)
             content = re.sub(r'```[\s\S]*?```', '', content)
             content = re.sub(r'^( {4,}|\t).*', '', content, flags=re.MULTILINE)
-            
+
             for pattern, description in placeholder_patterns:
                 matches = re.findall(pattern, content, re.IGNORECASE)
                 if matches:
@@ -330,14 +340,16 @@ def validate_last_updated_dates(result: ValidationResult):
                 try:
                     doc_date = datetime.strptime(date_str, '%Y-%m-%d')
                     if today - doc_date > stale_threshold:
-                        stale_docs.append((md_file.relative_to(BASE_DIR), date_str))
+                        stale_docs.append(
+                            (md_file.relative_to(BASE_DIR), date_str))
                 except ValueError:
                     pass
         except (OSError, UnicodeDecodeError):
             pass
 
     if stale_docs:
-        result.add_warning(f"{len(stale_docs)} documents may be stale (>6 months old)")
+        result.add_warning(
+            f"{len(stale_docs)} documents may be stale (>6 months old)")
         for doc, date in stale_docs[:5]:  # Show first 5
             result.add_warning(f"  - {doc}: {date}")
 
@@ -361,7 +373,8 @@ def main():
     """Run all validations"""
     # Configure stdout for UTF-8 to handle emojis on Windows
     if sys.platform == 'win32' and hasattr(sys.stdout, 'reconfigure'):
-        sys.stdout.reconfigure(encoding='utf-8', errors='replace')  # type: ignore[union-attr]
+        # type: ignore[union-attr]
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
     print("="*60)
     print("KOSMOS DOCUMENTATION VALIDATION")
@@ -410,6 +423,7 @@ def main():
     validate_json_schemas(result)
 
     return result.print_results()
+
 
 if __name__ == "__main__":
     sys.exit(main())

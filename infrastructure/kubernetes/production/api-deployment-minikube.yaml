@@ -1,0 +1,133 @@
+---
+# KOSMOS API Deployment - Production (Minikube-compatible)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kosmos-api
+  namespace: kosmos-production
+  labels:
+    app.kubernetes.io/name: kosmos
+    app.kubernetes.io/component: api
+    app.kubernetes.io/version: "1.0.0"
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8000"
+    prometheus.io/path: "/metrics"
+spec:
+  replicas: 1 # Single replica for minikube
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kosmos
+      app.kubernetes.io/component: api
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kosmos
+        app.kubernetes.io/component: api
+        app.kubernetes.io/version: "1.0.0"
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+        prometheus.io/path: "/metrics"
+    spec:
+      serviceAccountName: kosmos-api
+      containers:
+        - name: api
+          image: kosmos/api:1.0.2
+          imagePullPolicy: Never # Use local image
+          ports:
+            - containerPort: 8000
+              name: http
+              protocol: TCP
+          env:
+            - name: ENVIRONMENT
+              value: "production"
+            - name: LOG_LEVEL
+              value: "INFO"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: kosmos-db-credentials
+                  key: connection-string
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: kosmos-redis-credentials
+                  key: connection-string
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: kosmos-auth-secrets
+                  key: jwt-secret
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: kosmos-llm-credentials
+                  key: openai-api-key
+            - name: ANTHROPIC_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: kosmos-llm-credentials
+                  key: anthropic-api-key
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://signoz-otel-collector.monitoring:4317"
+            - name: OTEL_SERVICE_NAME
+              value: "kosmos-api"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 5
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+            - name: cache
+              mountPath: /app/.cache
+      volumes:
+        - name: tmp
+          emptyDir: {}
+        - name: cache
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kosmos-api
+  namespace: kosmos-production
+  labels:
+    app.kubernetes.io/name: kosmos
+    app.kubernetes.io/component: api
+spec:
+  type: NodePort
+  ports:
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP
+      name: http
+      nodePort: 30800
+  selector:
+    app.kubernetes.io/name: kosmos
+    app.kubernetes.io/component: api

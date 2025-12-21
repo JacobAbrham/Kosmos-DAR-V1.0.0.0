@@ -6,12 +6,12 @@ metadata:
     {{- include "kosmos.labels" . | nindent 4 }}
     app.kubernetes.io/component: api
 spec:
-  type: {{ .Values.api.service.type }}
+  type: {{ .Values.service.type | default "ClusterIP" }}
   ports:
-    - port: {{ .Values.api.service.port }}
+    - port: {{ .Values.service.port | default 8000 }}
       targetPort: http
       protocol: TCP
       name: http
   selector:
-    {{- include "kosmos.labels" . | nindent 4 }}
+    {{- include "kosmos.selectorLabels" . | nindent 4 }}
     app.kubernetes.io/component: api

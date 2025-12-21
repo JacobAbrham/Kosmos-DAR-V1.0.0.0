@@ -8,6 +8,7 @@ Comprehensive documentation for the KOSMOS AI-Native Enterprise Operating System
 - [Task Journal](project-management/TASK_JOURNAL.md) - Development progress tracking
 - [Implementation Roadmap](project-management/IMPLEMENTATION_ROADMAP.md) - 24-week roadmap
 - [Phase 2 Roadmap](project-management/PHASE_2_ROADMAP.md) - Next phase planning
+- [Sprint Delivery Plan](project-management/SPRINT_DELIVERY_PLAN.md) - Two-week execution playbook
 - [Changelog](project-management/CHANGELOG.md) - Version history
 
 ### 🚀 Deployment

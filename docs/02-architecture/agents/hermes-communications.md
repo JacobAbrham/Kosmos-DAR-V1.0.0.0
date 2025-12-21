@@ -40,3 +40,14 @@ Hermes is the **communications** agent of KOSMOS, responsible for all outbound m
 
 **Last Updated:** 2025-12-12  
 **Document Owner:** Chief Architect
+
+
+## Auto-Detected Tools
+
+| Tool Name | Status | Source |
+|-----------|--------|--------|
+| `evaluate_proposal` | Active | `src/agents/hermes/main.py` |
+| `send_email` | Active | `src/agents/hermes/main.py` |
+| `send_notification` | Active | `src/agents/hermes/main.py` |
+| `send_slack` | Active | `src/agents/hermes/main.py` |
+| `send_sms` | Active | `src/agents/hermes/main.py` |

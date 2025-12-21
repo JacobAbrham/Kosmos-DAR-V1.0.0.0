@@ -1,0 +1,88 @@
+{{- if .Values.prometheus.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "kosmos.fullname" . }}
+  labels:
+    {{- include "kosmos.labels" . | nindent 4 }}
+    {{- with .Values.prometheus.serviceMonitor.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "kosmos.selectorLabels" . | nindent 6 }}
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: {{ .Values.prometheus.serviceMonitor.interval | default "30s" }}
+      scrapeTimeout: {{ .Values.prometheus.serviceMonitor.scrapeTimeout | default "10s" }}
+      {{- if .Values.prometheus.serviceMonitor.relabelings }}
+      relabelings:
+        {{- toYaml .Values.prometheus.serviceMonitor.relabelings | nindent 8 }}
+      {{- end }}
+      {{- if .Values.prometheus.serviceMonitor.metricRelabelings }}
+      metricRelabelings:
+        {{- toYaml .Values.prometheus.serviceMonitor.metricRelabelings | nindent 8 }}
+      {{- end }}
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+{{- end }}
+---
+{{- if .Values.prometheus.prometheusRule.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "kosmos.fullname" . }}
+  labels:
+    {{- include "kosmos.labels" . | nindent 4 }}
+    {{- with .Values.prometheus.prometheusRule.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  groups:
+    - name: kosmos.rules
+      rules:
+        - alert: KosmosHighErrorRate
+          expr: |
+            sum(rate(kosmos_http_requests_total{status=~"5.."}[5m])) 
+            / sum(rate(kosmos_http_requests_total[5m])) > 0.05
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "High error rate on KOSMOS API"
+            description: "Error rate is {{ "{{" }} $value | printf \"%.2f\" {{ "}}" }}%"
+        
+        - alert: KosmosHighLatency
+          expr: |
+            histogram_quantile(0.95, sum(rate(kosmos_http_request_duration_seconds_bucket[5m])) by (le)) > 2
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High latency on KOSMOS API"
+            description: "95th percentile latency is {{ "{{" }} $value | printf \"%.2f\" {{ "}}" }}s"
+        
+        - alert: KosmosPodNotReady
+          expr: |
+            kube_pod_status_ready{pod=~"kosmos-.*", condition="true"} == 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "KOSMOS pod not ready"
+            description: "Pod {{ "{{" }} $labels.pod {{ "}}" }} has been not ready for 5 minutes"
+        
+        - alert: KosmosHighMemoryUsage
+          expr: |
+            container_memory_usage_bytes{pod=~"kosmos-.*"} 
+            / container_spec_memory_limit_bytes{pod=~"kosmos-.*"} > 0.9
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High memory usage on KOSMOS pod"
+            description: "Memory usage is above 90%"
+{{- end }}

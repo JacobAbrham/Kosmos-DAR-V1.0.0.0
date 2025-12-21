@@ -38,3 +38,15 @@ Iris is the **interface and visualization** agent, responsible for rendering UI 
 ---
 
 **Last Updated:** 2025-12-12
+
+
+## Auto-Detected Tools
+
+| Tool Name | Status | Source |
+|-----------|--------|--------|
+| `convert_format` | Active | `src/agents/iris/main.py` |
+| `create_chart` | Active | `src/agents/iris/main.py` |
+| `evaluate_proposal` | Active | `src/agents/iris/main.py` |
+| `process_query` | Active | `src/agents/iris/main.py` |
+| `render_component` | Active | `src/agents/iris/main.py` |
+| `render_template` | Active | `src/agents/iris/main.py` |

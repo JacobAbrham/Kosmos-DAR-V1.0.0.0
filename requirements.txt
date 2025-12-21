@@ -10,6 +10,15 @@ pymdown-extensions>=10.0
 # API Runtime
 fastapi>=0.115.0
 uvicorn[standard]>=0.24.0
+pydantic>=2.0.0
+httpx>=0.25.0
+aiohttp>=3.9.0
+
+# Database
+sqlalchemy>=2.0.0
+alembic>=1.12.0
+asyncpg>=0.29.0
+psycopg2-binary>=2.9.9
 
 # Automation & Validation Layer
 pre-commit>=3.5.0
@@ -21,10 +30,18 @@ pylint>=3.0.0
 # ragas>=0.1.0  # Uncomment when C++ build tools available
 openlineage-python>=1.0.0
 
+# LLM Providers (install based on your needs)
+openai>=1.0.0
+anthropic>=0.18.0
+# tiktoken>=0.5.0  # For token counting
+
 # Data Processing & Diagrams
 pyyaml>=6.0
 jsonschema>=4.20.0
 jinja2>=3.1.2
+
+# Web Scraping
+beautifulsoup4>=4.12.0
 
 # Optional: PlantUML support (requires Java)
 # plantuml>=0.3.0

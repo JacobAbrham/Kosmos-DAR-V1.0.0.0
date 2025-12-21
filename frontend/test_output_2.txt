@@ -1,0 +1,552 @@
+
+Running 32 tests using 1 worker
+
+[1A[2K[1/32] [chromium] › tests/e2e/agent-flow.spec.ts:14:9 › Agent Interaction Flow › should show system initialization message
+[1A[2K  1) [chromium] › tests/e2e/agent-flow.spec.ts:14:9 › Agent Interaction Flow › should show system initialization message 
+
+    [31mTest timeout of 60000ms exceeded while running "beforeEach" hook.[39m
+
+       6 |  */
+       7 | test.describe('Agent Interaction Flow', () => {
+    >  8 |     test.beforeEach(async ({ page }) => {
+         |          ^
+       9 |         await page.goto('/');
+      10 |         // Wait for initial system message
+      11 |         await expect(page.locator('text=System initialized')).toBeVisible({ timeout: 5000 });
+        at /workspaces/Kosmos-DAR-V1.0.0.0/frontend/tests/e2e/agent-flow.spec.ts:8:10
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/agent-flow-Agent-Interacti-68809-stem-initialization-message-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/agent-flow-Agent-Interacti-68809-stem-initialization-message-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/agent-flow-Agent-Interacti-68809-stem-initialization-message-chromium/error-context.md
+
+
+[1A[2K[2/32] [chromium] › tests/e2e/agent-flow.spec.ts:18:9 › Agent Interaction Flow › should receive AI-generated response to user query
+[1A[2K[3/32] [chromium] › tests/e2e/agent-flow.spec.ts:34:9 › Agent Interaction Flow › should show agent metadata after response
+[1A[2K  2) [chromium] › tests/e2e/agent-flow.spec.ts:34:9 › Agent Interaction Flow › should show agent metadata after response 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=/Agents:|ms$/i').first()
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 10000ms[22m
+    [2m  - waiting for locator('text=/Agents:|ms$/i').first()[22m
+
+
+      44 |         // Check for metadata display (agents used, processing time)
+      45 |         const metadataSection = page.locator('text=/Agents:|ms$/i');
+    > 46 |         await expect(metadataSection.first()).toBeVisible({ timeout: 10000 });
+         |                                               ^
+      47 |     });
+      48 |
+      49 |     test('should maintain conversation context', async ({ page }) => {
+        at /workspaces/Kosmos-DAR-V1.0.0.0/frontend/tests/e2e/agent-flow.spec.ts:46:47
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/agent-flow-Agent-Interacti-31309-ent-metadata-after-response-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/agent-flow-Agent-Interacti-31309-ent-metadata-after-response-chromium/error-context.md
+
+
+[1A[2K[4/32] [chromium] › tests/e2e/agent-flow.spec.ts:49:9 › Agent Interaction Flow › should maintain conversation context
+[1A[2K  3) [chromium] › tests/e2e/agent-flow.spec.ts:49:9 › Agent Interaction Flow › should maintain conversation context 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoContain[2m([22m[32mexpected[39m[2m) // indexOf[22m
+
+    Expected substring: [32m"testuser"[39m
+    Received string:    [31m"what is my name?"[39m
+
+      62 |         await page.waitForTimeout(3000);
+      63 |         const lastResponse = await page.locator('.whitespace-pre-wrap').last().textContent();
+    > 64 |         expect(lastResponse?.toLowerCase()).toContain('testuser');
+         |                                             ^
+      65 |     });
+      66 |
+      67 |     test('should handle rapid consecutive messages', async ({ page }) => {
+        at /workspaces/Kosmos-DAR-V1.0.0.0/frontend/tests/e2e/agent-flow.spec.ts:64:45
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/agent-flow-Agent-Interacti-fd462-intain-conversation-context-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/agent-flow-Agent-Interacti-fd462-intain-conversation-context-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/agent-flow-Agent-Interacti-fd462-intain-conversation-context-chromium/error-context.md
+
+
+[1A[2K[5/32] [chromium] › tests/e2e/agent-flow.spec.ts:67:9 › Agent Interaction Flow › should handle rapid consecutive messages
+[1A[2K  4) [chromium] › tests/e2e/agent-flow.spec.ts:67:9 › Agent Interaction Flow › should handle rapid consecutive messages 
+
+    [31mTest timeout of 60000ms exceeded.[39m
+
+    Error: page.waitForTimeout: Test timeout of 60000ms exceeded.
+
+      80 |
+      81 |         // Wait for all responses
+    > 82 |         await page.waitForTimeout(5000);
+         |                    ^
+      83 |
+      84 |         // All messages should appear
+      85 |         await expect(page.locator('text=Message 1')).toBeVisible();
+        at /workspaces/Kosmos-DAR-V1.0.0.0/frontend/tests/e2e/agent-flow.spec.ts:82:20
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/agent-flow-Agent-Interacti-a02f1--rapid-consecutive-messages-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/agent-flow-Agent-Interacti-a02f1--rapid-consecutive-messages-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/agent-flow-Agent-Interacti-a02f1--rapid-consecutive-messages-chromium/error-context.md
+
+
+[1A[2K[6/32] [chromium] › tests/e2e/agent-flow.spec.ts:90:9 › Agent Interaction Flow › should handle special characters in messages
+[1A[2K[7/32] [chromium] › tests/e2e/agent-flow.spec.ts:107:9 › Agent Interaction Flow › should display loading state during processing
+[1A[2K  5) [chromium] › tests/e2e/agent-flow.spec.ts:107:9 › Agent Interaction Flow › should display loading state during processing 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeDisabled[2m([22m[2m)[22m failed
+
+    Locator:  locator('button[type="submit"]').first()
+    Expected: disabled
+    Received: enabled
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeDisabled" with timeout 5000ms[22m
+    [2m  - waiting for locator('button[type="submit"]').first()[22m
+    [2m    9 × locator resolved to <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg disabled:opacity-50 transition-colors">…</button>[22m
+    [2m      - unexpected value "enabled"[22m
+
+
+      116 |         // Send button should be disabled while processing
+      117 |         // or a loading indicator should appear
+    > 118 |         await expect(sendButton).toBeDisabled();
+          |                                  ^
+      119 |     });
+      120 | });
+      121 |
+        at /workspaces/Kosmos-DAR-V1.0.0.0/frontend/tests/e2e/agent-flow.spec.ts:118:34
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/agent-flow-Agent-Interacti-e0ad6-ing-state-during-processing-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/agent-flow-Agent-Interacti-e0ad6-ing-state-during-processing-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/agent-flow-Agent-Interacti-e0ad6-ing-state-during-processing-chromium/error-context.md
+
+
+[1A[2K[8/32] [chromium] › tests/e2e/agent-flow.spec.ts:123:9 › Error Handling › should gracefully handle API errors
+[1A[2K[9/32] [chromium] › tests/e2e/agent-flow.spec.ts:142:9 › Error Handling › should handle network timeout
+[1A[2K[10/32] [chromium] › tests/e2e/agent-flow.spec.ts:164:9 › UI/UX › should scroll to newest message
+[1A[2K  6) [chromium] › tests/e2e/agent-flow.spec.ts:164:9 › UI/UX › should scroll to newest message ─────
+
+    [31mTest timeout of 60000ms exceeded.[39m
+
+    Error: locator.fill: Test timeout of 60000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('textarea, input[type="text"]').first()[22m
+
+
+      168 |         // Send several messages to create scroll
+      169 |         for (let i = 0; i < 5; i++) {
+    > 170 |             await chatInput.fill(`Message number ${i + 1}`);
+          |                             ^
+      171 |             await sendButton.click();
+      172 |             await page.waitForTimeout(500);
+      173 |         }
+        at /workspaces/Kosmos-DAR-V1.0.0.0/frontend/tests/e2e/agent-flow.spec.ts:170:29
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/agent-flow-UI-UX-should-scroll-to-newest-message-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/agent-flow-UI-UX-should-scroll-to-newest-message-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[1A[2K[11/32] [chromium] › tests/e2e/agent-flow.spec.ts:180:9 › UI/UX › should support keyboard shortcuts
+[1A[2K  7) [chromium] › tests/e2e/agent-flow.spec.ts:180:9 › UI/UX › should support keyboard shortcuts ───
+
+    [31mTest timeout of 60000ms exceeded.[39m
+
+    Error: locator.fill: Test timeout of 60000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('textarea, input[type="text"]').first()[22m
+
+
+      180 |     test('should support keyboard shortcuts', async ({ page }) => {
+      181 |         const chatInput = page.locator('textarea, input[type="text"]').first();
+    > 182 |         await chatInput.fill('Test message');
+          |                         ^
+      183 |
+      184 |         // Enter should submit (if not Shift+Enter for newline)
+      185 |         await chatInput.press('Enter');
+        at /workspaces/Kosmos-DAR-V1.0.0.0/frontend/tests/e2e/agent-flow.spec.ts:182:25
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/agent-flow-UI-UX-should-support-keyboard-shortcuts-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/agent-flow-UI-UX-should-support-keyboard-shortcuts-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[1A[2K[12/32] [chromium] › tests/e2e/agent-flow.spec.ts:192:9 › UI/UX › should have accessible elements
+[1A[2K  8) [chromium] › tests/e2e/agent-flow.spec.ts:192:9 › UI/UX › should have accessible elements ─────
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[2m)[22m failed
+
+    Locator: locator('textarea, input[type="text"]').first()
+    Expected: have attribute
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
+    [2m  - waiting for locator('textarea, input[type="text"]').first()[22m
+
+
+      193 |         // Check for proper ARIA labels
+      194 |         const chatInput = page.locator('textarea, input[type="text"]').first();
+    > 195 |         await expect(chatInput).toHaveAttribute('placeholder');
+          |                                 ^
+      196 |
+      197 |         const sendButton = page.locator('button[type="submit"]').first();
+      198 |         await expect(sendButton).toBeEnabled();
+        at /workspaces/Kosmos-DAR-V1.0.0.0/frontend/tests/e2e/agent-flow.spec.ts:195:33
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/agent-flow-UI-UX-should-have-accessible-elements-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/agent-flow-UI-UX-should-have-accessible-elements-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[1A[2K[13/32] [chromium] › tests/e2e/chat.spec.ts:8:7 › Chat Interface › should load chat interface
+[1A[2K[14/32] [chromium] › tests/e2e/chat.spec.ts:17:7 › Chat Interface › should send a message and receive response
+[1A[2K[15/32] [chromium] › tests/e2e/chat.spec.ts:33:7 › Chat Interface › should display typing indicator while waiting
+[1A[2K[16/32] [chromium] › tests/e2e/chat.spec.ts:44:7 › Chat Interface › should handle empty message submission
+[1A[2K[17/32] [chromium] › tests/e2e/chat.spec.ts:59:7 › Chat Interface › should show message history
+[1A[2K[18/32] [chromium] › tests/e2e/chat.spec.ts:79:7 › Chat Interface › should handle long messages
+[1A[2K[19/32] [chromium] › tests/e2e/chat.spec.ts:92:7 › Chat Interface › should show agent indicator
+[1A[2K[20/32] [chromium] › tests/e2e/chat.spec.ts:120:7 › Chat Interface › should clear input after sending
+[1A[2K[21/32] [chromium] › tests/e2e/chat.spec.ts:131:7 › Chat Interface › should handle network errors gracefully
+[1A[2K[22/32] [chromium] › tests/e2e/governance-robust.spec.ts:8:7 › Robust Governance Flow › should handle manual vote trigger via /vote command
+[1A[2K  9) [chromium] › tests/e2e/governance-robust.spec.ts:8:7 › Robust Governance Flow › should handle manual vote trigger via /vote command 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=/APPROVED|REJECTED/')
+    Expected: visible
+    Timeout: 20000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 20000ms[22m
+    [2m  - waiting for locator('text=/APPROVED|REJECTED/')[22m
+
+
+      25 |     // The UI likely displays "APPROVED", "REJECTED", or "APPROVED_WITH_REVIEW"
+      26 |     const statusLocator = page.locator('text=/APPROVED|REJECTED/');
+    > 27 |     await expect(statusLocator).toBeVisible({ timeout: 20000 });
+         |                                 ^
+      28 |
+      29 |     // 4. Verify Agent Participation
+      30 |     // We expect to see the names of the Pentarchy members
+        at /workspaces/Kosmos-DAR-V1.0.0.0/frontend/tests/e2e/governance-robust.spec.ts:27:33
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/governance-robust-Robust-G-03b46-te-trigger-via-vote-command-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/governance-robust-Robust-G-03b46-te-trigger-via-vote-command-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/governance-robust-Robust-G-03b46-te-trigger-via-vote-command-chromium/error-context.md
+
+
+[1A[2K[23/32] [chromium] › tests/e2e/voting.spec.ts:8:7 › Pentarchy Voting Interface › should trigger voting for medium-cost task
+[1A[2K  10) [chromium] › tests/e2e/voting.spec.ts:8:7 › Pentarchy Voting Interface › should trigger voting for medium-cost task 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=/voting|pentarchy/i')
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 10000ms[22m
+    [2m  - waiting for locator('text=/voting|pentarchy/i')[22m
+
+
+      15 |     
+      16 |     // Should show voting UI
+    > 17 |     await expect(page.locator('text=/voting|pentarchy/i')).toBeVisible({ timeout: 10000 });
+         |                                                            ^
+      18 |   });
+      19 |
+      20 |   test('should display all 5 agent votes', async ({ page }) => {
+        at /workspaces/Kosmos-DAR-V1.0.0.0/frontend/tests/e2e/voting.spec.ts:17:60
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/voting-Pentarchy-Voting-In-b4603-voting-for-medium-cost-task-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/voting-Pentarchy-Voting-In-b4603-voting-for-medium-cost-task-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/voting-Pentarchy-Voting-In-b4603-voting-for-medium-cost-task-chromium/error-context.md
+
+
+[1A[2K[24/32] [chromium] › tests/e2e/voting.spec.ts:20:7 › Pentarchy Voting Interface › should display all 5 agent votes
+[1A[2K  11) [chromium] › tests/e2e/voting.spec.ts:20:7 › Pentarchy Voting Interface › should display all 5 agent votes 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=Zeus')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=Zeus')[22m
+
+
+      33 |     
+      34 |     for (const agent of expectedAgents) {
+    > 35 |       await expect(page.locator(`text=${agent}`)).toBeVisible();
+         |                                                   ^
+      36 |     }
+      37 |   });
+      38 |
+        at /workspaces/Kosmos-DAR-V1.0.0.0/frontend/tests/e2e/voting.spec.ts:35:51
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/voting-Pentarchy-Voting-In-b00e3-d-display-all-5-agent-votes-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/voting-Pentarchy-Voting-In-b00e3-d-display-all-5-agent-votes-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/voting-Pentarchy-Voting-In-b00e3-d-display-all-5-agent-votes-chromium/error-context.md
+
+
+[1A[2K[25/32] [chromium] › tests/e2e/voting.spec.ts:39:7 › Pentarchy Voting Interface › should show vote approval/rejection
+[1A[2K[26/32] [chromium] › tests/e2e/voting.spec.ts:54:7 › Pentarchy Voting Interface › should bypass voting for low-cost task
+[1A[2K[27/32] [chromium] › tests/e2e/voting.spec.ts:70:7 › Pentarchy Voting Interface › should auto-reject high-cost task
+[1A[2K  12) [chromium] › tests/e2e/voting.spec.ts:70:7 › Pentarchy Voting Interface › should auto-reject high-cost task 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=/rejected|denied|exceeded/i')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=/rejected|denied|exceeded/i')[22m
+
+
+      77 |     
+      78 |     // Should show rejection
+    > 79 |     await expect(page.locator('text=/rejected|denied|exceeded/i')).toBeVisible({ timeout: 5000 });
+         |                                                                    ^
+      80 |   });
+      81 |
+      82 |   test('should show vote reasoning', async ({ page }) => {
+        at /workspaces/Kosmos-DAR-V1.0.0.0/frontend/tests/e2e/voting.spec.ts:79:68
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/voting-Pentarchy-Voting-In-576b3--auto-reject-high-cost-task-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/voting-Pentarchy-Voting-In-576b3--auto-reject-high-cost-task-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/voting-Pentarchy-Voting-In-576b3--auto-reject-high-cost-task-chromium/error-context.md
+
+
+[1A[2K[28/32] [chromium] › tests/e2e/voting.spec.ts:82:7 › Pentarchy Voting Interface › should show vote reasoning
+[1A[2K  13) [chromium] › tests/e2e/voting.spec.ts:82:7 › Pentarchy Voting Interface › should show vote reasoning 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=/reason|rationale|because/i')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=/reason|rationale|because/i')[22m
+
+
+      91 |     
+      92 |     // Should display reasoning for each vote
+    > 93 |     await expect(page.locator('text=/reason|rationale|because/i')).toBeVisible({ timeout: 5000 });
+         |                                                                    ^
+      94 |   });
+      95 |
+      96 |   test('should display vote count', async ({ page }) => {
+        at /workspaces/Kosmos-DAR-V1.0.0.0/frontend/tests/e2e/voting.spec.ts:93:68
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/voting-Pentarchy-Voting-Interface-should-show-vote-reasoning-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/voting-Pentarchy-Voting-Interface-should-show-vote-reasoning-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/voting-Pentarchy-Voting-Interface-should-show-vote-reasoning-chromium/error-context.md
+
+
+[1A[2K[29/32] [chromium] › tests/e2e/voting.spec.ts:96:7 › Pentarchy Voting Interface › should display vote count
+[1A[2K  14) [chromium] › tests/e2e/voting.spec.ts:96:7 › Pentarchy Voting Interface › should display vote count 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=/[0-9]/5|votes/i')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=/[0-9]/5|votes/i')[22m
+
+
+      102 |     
+      103 |     // Should show vote tally (e.g., "3/5 approved")
+    > 104 |     await expect(page.locator('text=/[0-9]\/5|votes/i')).toBeVisible({ timeout: 5000 });
+          |                                                          ^
+      105 |   });
+      106 |
+      107 |   test('should handle voting timeout', async ({ page }) => {
+        at /workspaces/Kosmos-DAR-V1.0.0.0/frontend/tests/e2e/voting.spec.ts:104:58
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/voting-Pentarchy-Voting-Interface-should-display-vote-count-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/voting-Pentarchy-Voting-Interface-should-display-vote-count-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[1A[2K[30/32] [chromium] › tests/e2e/voting.spec.ts:107:7 › Pentarchy Voting Interface › should handle voting timeout
+[1A[2K  15) [chromium] › tests/e2e/voting.spec.ts:107:7 › Pentarchy Voting Interface › should handle voting timeout 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=/timeout|completed|result/i').first()
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=/timeout|completed|result/i').first()[22m
+
+
+      117 |     // Should show timeout message or default result
+      118 |     const result = page.locator('text=/timeout|completed|result/i').first();
+    > 119 |     await expect(result).toBeVisible();
+          |                          ^
+      120 |   });
+      121 |
+      122 |   test('should show real-time vote updates', async ({ page }) => {
+        at /workspaces/Kosmos-DAR-V1.0.0.0/frontend/tests/e2e/voting.spec.ts:119:26
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/voting-Pentarchy-Voting-In-642c2-hould-handle-voting-timeout-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/voting-Pentarchy-Voting-In-642c2-hould-handle-voting-timeout-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/voting-Pentarchy-Voting-In-642c2-hould-handle-voting-timeout-chromium/error-context.md
+
+
+[1A[2K[31/32] [chromium] › tests/e2e/voting.spec.ts:122:7 › Pentarchy Voting Interface › should show real-time vote updates
+[1A[2K  16) [chromium] › tests/e2e/voting.spec.ts:122:7 › Pentarchy Voting Interface › should show real-time vote updates 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=/0/5|voting/i')
+    Expected: visible
+    Timeout: 2000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 2000ms[22m
+    [2m  - waiting for locator('text=/0/5|voting/i')[22m
+
+
+      129 |     // Votes should appear progressively (0/5 → 1/5 → ... → 5/5)
+      130 |     // Check initial state
+    > 131 |     await expect(page.locator('text=/0\/5|voting/i')).toBeVisible({ timeout: 2000 });
+          |                                                       ^
+      132 |     
+      133 |     // Eventually should reach 5/5
+      134 |     await expect(page.locator('text=/5\/5|complete/i')).toBeVisible({ timeout: 10000 });
+        at /workspaces/Kosmos-DAR-V1.0.0.0/frontend/tests/e2e/voting.spec.ts:131:55
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/voting-Pentarchy-Voting-In-89b4d-show-real-time-vote-updates-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/voting-Pentarchy-Voting-In-89b4d-show-real-time-vote-updates-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/voting-Pentarchy-Voting-In-89b4d-show-real-time-vote-updates-chromium/error-context.md
+
+
+[1A[2K[32/32] [chromium] › tests/e2e/voting.spec.ts:137:7 › Pentarchy Voting Interface › should allow vote result appeal/details
+[1A[2K  16 failed
+    [chromium] › tests/e2e/agent-flow.spec.ts:14:9 › Agent Interaction Flow › should show system initialization message 
+    [chromium] › tests/e2e/agent-flow.spec.ts:34:9 › Agent Interaction Flow › should show agent metadata after response 
+    [chromium] › tests/e2e/agent-flow.spec.ts:49:9 › Agent Interaction Flow › should maintain conversation context 
+    [chromium] › tests/e2e/agent-flow.spec.ts:67:9 › Agent Interaction Flow › should handle rapid consecutive messages 
+    [chromium] › tests/e2e/agent-flow.spec.ts:107:9 › Agent Interaction Flow › should display loading state during processing 
+    [chromium] › tests/e2e/agent-flow.spec.ts:164:9 › UI/UX › should scroll to newest message ──────
+    [chromium] › tests/e2e/agent-flow.spec.ts:180:9 › UI/UX › should support keyboard shortcuts ────
+    [chromium] › tests/e2e/agent-flow.spec.ts:192:9 › UI/UX › should have accessible elements ──────
+    [chromium] › tests/e2e/governance-robust.spec.ts:8:7 › Robust Governance Flow › should handle manual vote trigger via /vote command 
+    [chromium] › tests/e2e/voting.spec.ts:8:7 › Pentarchy Voting Interface › should trigger voting for medium-cost task 
+    [chromium] › tests/e2e/voting.spec.ts:20:7 › Pentarchy Voting Interface › should display all 5 agent votes 
+    [chromium] › tests/e2e/voting.spec.ts:70:7 › Pentarchy Voting Interface › should auto-reject high-cost task 
+    [chromium] › tests/e2e/voting.spec.ts:82:7 › Pentarchy Voting Interface › should show vote reasoning 
+    [chromium] › tests/e2e/voting.spec.ts:96:7 › Pentarchy Voting Interface › should display vote count 
+    [chromium] › tests/e2e/voting.spec.ts:107:7 › Pentarchy Voting Interface › should handle voting timeout 
+    [chromium] › tests/e2e/voting.spec.ts:122:7 › Pentarchy Voting Interface › should show real-time vote updates 
+  16 passed (18.3m)

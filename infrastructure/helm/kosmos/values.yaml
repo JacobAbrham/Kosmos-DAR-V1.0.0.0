@@ -3,6 +3,11 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 
+replicaCount: 2
+
+global:
+  environment: development
+
 service:
   type: ClusterIP
   port: 8000
@@ -17,24 +22,71 @@ ingress:
           pathType: Prefix
   tls: []
 
+secrets:
+  create: false
+
+database:
+  url: "postgresql://kosmos:kosmos_dev_password@postgres:5432/kosmos_dev"
+
+redis:
+  url: "redis://redis:6379/0"
+
+auth:
+  jwtSecretKey: "dev-secret-change-in-production"
+  apiKeySalt: "dev-salt-change-in-production"
+
+rateLimit:
+  enabled: false
+  requests: 100
+  window: 60
+
+cors:
+  origins: "*"
+
+logging:
+  level: DEBUG
+  format: text
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+
+pdb:
+  minAvailable: 1
+
+serviceAccount:
+  create: true
+  annotations: {}
+
+prometheus:
+  serviceMonitor:
+    enabled: false
+    interval: 30s
+    scrapeTimeout: 10s
+  prometheusRule:
+    enabled: false
+
 env:
-  - name: API_HOST
-    value: "0.0.0.0"
-  - name: API_PORT
-    value: "8000"
   - name: ENABLE_DEP_CHECKS
     value: "false"
-  - name: DATABASE_URL
-    value: "postgresql://kosmos:kosmos_dev_password@postgres:5432/kosmos_dev"
-  - name: REDIS_URL
-    value: "redis://redis:6379/0"
   - name: MINIO_ENDPOINT
     value: "minio:9000"
 
-resources: {}
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
 
 nodeSelector: {}
 
 tolerations: []
 
 affinity: {}
+
+topologySpreadConstraints: []

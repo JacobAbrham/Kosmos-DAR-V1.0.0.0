@@ -3,13 +3,13 @@
 
 x-common-env: &common-env
   env_file:
-    - .env
+    - ../../../.env
 
 services:
   api:
     build:
-      context: .
-      dockerfile: docker/backend/Dockerfile
+      context: ../../../
+      dockerfile: infrastructure/docker/backend/Dockerfile
     <<: *common-env
     environment:
       DATABASE_URL: ${DATABASE_URL:-postgresql://kosmos:kosmos_dev_password@postgres:5432/kosmos_dev}
@@ -37,17 +37,17 @@ services:
 
   frontend:
     build:
-      context: .
-      dockerfile: docker/frontend/Dockerfile
+      context: ../../../
+      dockerfile: infrastructure/docker/frontend/Dockerfile
     environment:
       NODE_ENV: development
+      API_INTERNAL_URL: http://api:8000
+      NEXT_PUBLIC_API_URL: http://localhost:8000
     ports:
       - "3000:3000"
     depends_on:
       api:
         condition: service_healthy
-    volumes:
-      - ./frontend:/app
 
   postgres:
     image: postgres:16-alpine
@@ -59,7 +59,7 @@ services:
       - "5432:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ../../../database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-kosmos} -d ${POSTGRES_DB:-kosmos_dev}"]
       interval: 10s
@@ -87,7 +87,7 @@ services:
     image: python:3.11-slim
     working_dir: /workspace
     volumes:
-      - .:/workspace
+      - ../../../:/workspace
     command: /bin/sh -c "pip install --no-cache-dir -r requirements.txt && mkdocs serve -a 0.0.0.0:8080"
     ports:
       - "8080:8080"

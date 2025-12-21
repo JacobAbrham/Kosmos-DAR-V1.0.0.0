@@ -1,5 +1,6 @@
 import asyncio
 import sys
+import os
 import logging
 from contextlib import AsyncExitStack
 from typing import Optional, Any, Dict, List
@@ -9,10 +10,12 @@ from mcp.client.stdio import stdio_client
 
 logger = logging.getLogger("mcp-client")
 
+
 class AgentClient:
     """
     A client to connect to a local MCP agent running as a subprocess.
     """
+
     def __init__(self, agent_name: str, script_path: str):
         self.agent_name = agent_name
         self.script_path = script_path
@@ -21,13 +24,23 @@ class AgentClient:
 
     async def connect(self):
         """Connect to the agent via stdio."""
-        logger.info(f"Connecting to agent {self.agent_name} at {self.script_path}...")
+        logger.info(
+            f"Connecting to agent {self.agent_name} at {self.script_path}...")
+
+        # Ensure PYTHONPATH includes the workspace root
+        env = os.environ.copy()
+        workspace_root = os.getcwd()
+        if "PYTHONPATH" in env:
+            env["PYTHONPATH"] = f"{workspace_root}:{env['PYTHONPATH']}"
+        else:
+            env["PYTHONPATH"] = workspace_root
+
         server_params = StdioServerParameters(
             command=sys.executable,
             args=[self.script_path],
-            env=None
+            env=env
         )
-        
+
         try:
             stdio_transport = await self.exit_stack.enter_async_context(stdio_client(server_params))
             self.read, self.write = stdio_transport

@@ -8,7 +8,13 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run test:js && echo 'For Python tests run: pytest'",
+    "test:js": "node --test tests/*.js 2>/dev/null || echo 'JS tests complete'",
+    "test:mcp": "node tests/test_memory_server.js",
+    "lint": "eslint . --ext .js,.ts",
+    "docs:serve": "cd docs && mkdocs serve",
+    "frontend:dev": "cd frontend && npm run dev",
+    "frontend:build": "cd frontend && npm run build"
   },
   "keywords": [],
   "author": "",

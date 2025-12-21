@@ -1,0 +1,38 @@
+name: Documentation Automation
+
+on:
+  push:
+    branches: [ master, main ]
+    paths:
+      - 'src/**'
+      - 'docs/**'
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+          
+      - name: Generate OpenAPI Spec
+        run: python scripts/generate_openapi.py
+        
+      - name: Update Agent Docs
+        run: python scripts/auto_doc_agents.py
+        
+      - name: Validate Documentation
+        run: python scripts/validate_all.py
+        
+      - name: Commit Changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "docs: auto-update API spec and agent docs"
+          file_pattern: "openapi.json docs/**/*.md"

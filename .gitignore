@@ -63,3 +63,4 @@ htmlcov/
 # MCP servers (if local)
 .mcp/
 patches.zip
+*.tar

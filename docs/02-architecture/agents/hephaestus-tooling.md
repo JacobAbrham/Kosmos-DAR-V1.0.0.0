@@ -28,6 +28,7 @@ Hephaestus is the **tooling and creation** agent, responsible for code generatio
 | `write_file` | Write file contents | `path`, `content` |
 | `run_build` | Trigger build pipeline | `project`, `branch` |
 | `execute_script` | Run approved script | `script_id`, `params` |
+| `evaluate_proposal` | Pentarchy vote (technical) | `proposal_id`, `cost`, `description` |
 
 ### MCP Connections
 
@@ -39,3 +40,15 @@ Hephaestus is the **tooling and creation** agent, responsible for code generatio
 ---
 
 **Last Updated:** 2025-12-12
+
+
+## Auto-Detected Tools
+
+| Tool Name | Status | Source |
+|-----------|--------|--------|
+| `evaluate_proposal` | Active | `src/agents/hephaestus/main.py` |
+| `execute_script` | Active | `src/agents/hephaestus/main.py` |
+| `generate_code` | Active | `src/agents/hephaestus/main.py` |
+| `read_file` | Active | `src/agents/hephaestus/main.py` |
+| `run_build` | Active | `src/agents/hephaestus/main.py` |
+| `write_file` | Active | `src/agents/hephaestus/main.py` |

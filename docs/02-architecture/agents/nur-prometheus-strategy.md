@@ -82,8 +82,10 @@ Nur PROMETHEUS is the **Strategos Analytics & Optimization Agent**, responsible 
 Nur PROMETHEUS serves as the **Financial Viability** voter in the Pentarchy governance model:
 
 ```python
-async def evaluate_financial_viability(
-    proposal: Proposal
+async def evaluate_proposal(
+    proposal_id: str,
+    cost: float,
+    description: str
 ) -> PentarchyVote:
     """
     Evaluate proposal for financial viability.
@@ -94,8 +96,9 @@ async def evaluate_financial_viability(
     reasoning = []
     
     # 1. Budget impact check
-    budget_remaining = await get_remaining_budget()
-    if proposal.cost < budget_remaining * 0.1:
+    # Logic to check if cost is within budget parameters
+    budget_remaining = 1000.0 # Mock
+    if cost < budget_remaining * 0.1:
         score += 1
         reasoning.append("Cost within 10% of remaining budget")
     
@@ -176,3 +179,14 @@ integrations:
 ---
 
 **Last Updated:** December 2025
+
+
+## Auto-Detected Tools
+
+| Tool Name | Status | Source |
+|-----------|--------|--------|
+| `analyze_data` | Active | `src/agents/nur_prometheus/main.py` |
+| `evaluate_proposal` | Active | `src/agents/nur_prometheus/main.py` |
+| `generate_report` | Active | `src/agents/nur_prometheus/main.py` |
+| `predict_trend` | Active | `src/agents/nur_prometheus/main.py` |
+| `recommend_optimization` | Active | `src/agents/nur_prometheus/main.py` |

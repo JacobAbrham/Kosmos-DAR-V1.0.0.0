@@ -39,3 +39,15 @@ Chronos is the **scheduling and time management** agent, handling calendar opera
 
 **Last Updated:** 2025-12-12  
 **Document Owner:** Chief Architect
+
+
+## Auto-Detected Tools
+
+| Tool Name | Status | Source |
+|-----------|--------|--------|
+| `evaluate_proposal` | Active | `src/agents/chronos/main.py` |
+| `find_availability` | Active | `src/agents/chronos/main.py` |
+| `get_calendar` | Active | `src/agents/chronos/main.py` |
+| `process_query` | Active | `src/agents/chronos/main.py` |
+| `schedule_meeting` | Active | `src/agents/chronos/main.py` |
+| `set_reminder` | Active | `src/agents/chronos/main.py` |
