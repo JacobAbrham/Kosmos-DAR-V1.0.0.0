@@ -1,21 +1,21 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page, Route } from '@playwright/test';
 
 /**
  * E2E Tests for multi-agent interactions in KOSMOS.
  * Tests the full flow from user input through Zeus orchestration.
  */
 test.describe('Agent Interaction Flow', () => {
-    test.beforeEach(async ({ page }) => {
+    test.beforeEach(async ({ page }: { page: Page }) => {
         await page.goto('/');
         // Wait for initial system message
         await expect(page.locator('text=System initialized')).toBeVisible({ timeout: 5000 });
     });
 
-    test('should show system initialization message', async ({ page }) => {
+    test('should show system initialization message', async ({ page }: { page: Page }) => {
         await expect(page.locator('text=Zeus Orchestrator')).toBeVisible();
     });
 
-    test('should receive AI-generated response to user query', async ({ page }) => {
+    test('should receive AI-generated response to user query', async ({ page }: { page: Page }) => {
         const chatInput = page.locator('textarea, input[type="text"]').first();
         await chatInput.fill('What is the purpose of KOSMOS?');
 
@@ -31,7 +31,7 @@ test.describe('Agent Interaction Flow', () => {
         expect(responseText?.length).toBeGreaterThan(10);
     });
 
-    test('should show agent metadata after response', async ({ page }) => {
+    test('should show agent metadata after response', async ({ page }: { page: Page }) => {
         const chatInput = page.locator('textarea, input[type="text"]').first();
         await chatInput.fill('Help me understand system architecture');
 
@@ -46,7 +46,7 @@ test.describe('Agent Interaction Flow', () => {
         await expect(metadataSection.first()).toBeVisible({ timeout: 10000 });
     });
 
-    test('should maintain conversation context', async ({ page }) => {
+    test('should maintain conversation context', async ({ page }: { page: Page }) => {
         const chatInput = page.locator('textarea, input[type="text"]').first();
 
         // First message
@@ -64,7 +64,7 @@ test.describe('Agent Interaction Flow', () => {
         expect(lastResponse?.toLowerCase()).toContain('testuser');
     });
 
-    test('should handle rapid consecutive messages', async ({ page }) => {
+    test('should handle rapid consecutive messages', async ({ page }: { page: Page }) => {
         const chatInput = page.locator('textarea, input[type="text"]').first();
         const sendButton = page.locator('button[type="submit"]').first();
 
@@ -87,7 +87,7 @@ test.describe('Agent Interaction Flow', () => {
         await expect(page.locator('text=Message 3')).toBeVisible();
     });
 
-    test('should handle special characters in messages', async ({ page }) => {
+    test('should handle special characters in messages', async ({ page }: { page: Page }) => {
         const chatInput = page.locator('textarea, input[type="text"]').first();
         await chatInput.fill('Test <script>alert("xss")</script> & special chars: ñ, ü, 中文');
 
@@ -104,7 +104,7 @@ test.describe('Agent Interaction Flow', () => {
         // Scripts in user messages should be escaped, not injected
     });
 
-    test('should display loading state during processing', async ({ page }) => {
+    test('should display loading state during processing', async ({ page }: { page: Page }) => {
         const chatInput = page.locator('textarea, input[type="text"]').first();
         await chatInput.fill('A complex question that takes time');
 
@@ -120,9 +120,9 @@ test.describe('Agent Interaction Flow', () => {
 });
 
 test.describe('Error Handling', () => {
-    test('should gracefully handle API errors', async ({ page }) => {
+    test('should gracefully handle API errors', async ({ page }: { page: Page }) => {
         // Intercept API call and return error
-        await page.route('**/api/chat', route => {
+        await page.route('**/api/chat', (route: Route) => {
             route.fulfill({
                 status: 500,
                 body: JSON.stringify({ error: 'Internal server error' })
@@ -139,9 +139,9 @@ test.describe('Error Handling', () => {
         await expect(page.locator('text=/error/i')).toBeVisible({ timeout: 5000 });
     });
 
-    test('should handle network timeout', async ({ page }) => {
+    test('should handle network timeout', async ({ page }: { page: Page }) => {
         // Simulate slow network
-        await page.route('**/api/chat', async route => {
+        await page.route('**/api/chat', async (route: Route) => {
             await new Promise(resolve => setTimeout(resolve, 35000)); // 35s delay
             route.fulfill({
                 status: 200,
@@ -161,7 +161,7 @@ test.describe('Error Handling', () => {
 });
 
 test.describe('UI/UX', () => {
-    test('should scroll to newest message', async ({ page }) => {
+    test('should scroll to newest message', async ({ page }: { page: Page }) => {
         const chatInput = page.locator('textarea, input[type="text"]').first();
         const sendButton = page.locator('button[type="submit"]').first();
 
@@ -177,7 +177,7 @@ test.describe('UI/UX', () => {
         await expect(lastMessage).toBeInViewport();
     });
 
-    test('should support keyboard shortcuts', async ({ page }) => {
+    test('should support keyboard shortcuts', async ({ page }: { page: Page }) => {
         const chatInput = page.locator('textarea, input[type="text"]').first();
         await chatInput.fill('Test message');
 
@@ -189,7 +189,7 @@ test.describe('UI/UX', () => {
         await expect(page.locator('text=Test message')).toBeVisible();
     });
 
-    test('should have accessible elements', async ({ page }) => {
+    test('should have accessible elements', async ({ page }: { page: Page }) => {
         // Check for proper ARIA labels
         const chatInput = page.locator('textarea, input[type="text"]').first();
         await expect(chatInput).toHaveAttribute('placeholder');

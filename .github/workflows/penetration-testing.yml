@@ -1,0 +1,28 @@
+name: Penetration Testing
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  penetration-testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up penetration testing environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y metasploit-framework
+
+      - name: Run penetration tests
+        run: |
+          msfconsole -q -x "use auxiliary/scanner/http/title; set RHOSTS https://kosmos.nuvanta.local; run; exit"
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: penetration-test-results
+          path: penetration-test-results.txt

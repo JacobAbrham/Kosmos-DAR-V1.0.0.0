@@ -1,15 +1,18 @@
+import asyncio
 import logging
 import os
 import socket
+from contextlib import asynccontextmanager
 from datetime import datetime
 from http.client import HTTPConnection
 from typing import Dict, Tuple
 from urllib.parse import urlparse
-from contextlib import asynccontextmanager
 
+import httpx
+import redis.asyncio as redis
 from fastapi import FastAPI
-from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 # Import middleware and routers
 from src.api.metrics import MetricsMiddleware, metrics_router
@@ -54,8 +57,8 @@ app.add_middleware(
 app.add_middleware(LoggingMiddleware)
 app.add_middleware(MetricsMiddleware)
 
-# Add rate limiting middleware (conditionally)
-if os.getenv("ENABLE_RATE_LIMIT", "false").lower() == "true":
+# Add rate limiting middleware (default on)
+if os.getenv("ENABLE_RATE_LIMIT", "true").lower() == "true":
     app.add_middleware(RateLimitMiddleware)
 
 # Include routers
@@ -133,10 +136,14 @@ async def ready() -> JSONResponse:
             }
         )
 
+    postgres_task = asyncio.create_task(check_postgres())
+    redis_task = asyncio.create_task(check_redis())
+    minio_task = asyncio.create_task(check_minio())
+
     dep_results = {
-        "postgres": check_postgres(),
-        "redis": check_redis(),
-        "minio": check_minio(),
+        "postgres": await postgres_task,
+        "redis": await redis_task,
+        "minio": await minio_task,
     }
 
     all_ok = all(result["ok"] for result in dep_results.values())
@@ -180,37 +187,59 @@ def check_http(host: str, port: int, path: str = "/", timeout: float = 2.0) -> T
         return False, f"http error: {exc}"
 
 
-def check_postgres() -> Dict[str, str]:
+async def check_postgres() -> Dict[str, str]:
     url = os.getenv(
         "DATABASE_URL", "postgresql://kosmos:kosmos_dev_password@localhost:5432/kosmos_dev")
     parsed = urlparse(url)
     host = parsed.hostname or "localhost"
     port = parsed.port or 5432
-    ok, detail = check_tcp(host, port)
-    return {"ok": ok, "detail": detail, "host": host, "port": port}
+    detail = "unreachable"
+    try:
+        import asyncpg
+
+        conn = await asyncpg.connect(url)
+        await conn.execute("SELECT 1")
+        await conn.close()
+        return {"ok": True, "detail": "select 1 ok", "host": host, "port": port}
+    except Exception as exc:  # noqa: BLE001
+        detail = f"error: {exc}"
+    return {"ok": False, "detail": detail, "host": host, "port": port}
 
 
-def check_redis() -> Dict[str, str]:
+async def check_redis() -> Dict[str, str]:
     url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
     parsed = urlparse(url)
     host = parsed.hostname or "localhost"
     port = parsed.port or 6379
-    ok, detail = check_tcp(host, port)
-    return {"ok": ok, "detail": detail, "host": host, "port": port}
+    detail = "unreachable"
+    try:
+        client = redis.from_url(url)
+        await client.ping()
+        await client.aclose()
+        return {"ok": True, "detail": "ping ok", "host": host, "port": port}
+    except Exception as exc:  # noqa: BLE001
+        detail = f"error: {exc}"
+    return {"ok": False, "detail": detail, "host": host, "port": port}
 
 
-def check_minio() -> Dict[str, str]:
-    endpoint = os.getenv("MINIO_ENDPOINT", "localhost:9000")
+async def check_minio() -> Dict[str, str]:
+    endpoint = os.getenv("MINIO_ENDPOINT", "http://localhost:9000")
     endpoint_url = endpoint if "://" in endpoint else f"http://{endpoint}"
     parsed = urlparse(endpoint_url)
     host = parsed.hostname or "localhost"
     port = parsed.port or 9000
-    ok_tcp, detail_tcp = check_tcp(host, port)
-    ok_http, detail_http = check_http(host, port)
-    ok = ok_tcp and ok_http
-    detail = f"{detail_tcp}; {detail_http}"
-    return {"ok": ok, "detail": detail, "host": host, "port": port}
+    detail = "unreachable"
+    health_url = f"{endpoint_url.rstrip('/')}/minio/health/ready"
+    try:
+        async with httpx.AsyncClient(timeout=3.0) as client:
+            resp = await client.get(health_url)
+            if resp.status_code < 400:
+                return {"ok": True, "detail": f"http {resp.status_code}", "host": host, "port": port}
+            detail = f"http {resp.status_code}"
+    except Exception as exc:  # noqa: BLE001
+        detail = f"error: {exc}"
+    return {"ok": False, "detail": detail, "host": host, "port": port}
 
 
 def dep_checks_enabled() -> bool:
-    return os.getenv("ENABLE_DEP_CHECKS", "false").lower() == "true"
+    return os.getenv("ENABLE_DEP_CHECKS", "true").lower() == "true"

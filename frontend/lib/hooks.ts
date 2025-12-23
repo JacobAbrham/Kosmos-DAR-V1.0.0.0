@@ -257,6 +257,57 @@ export function useVotingStats() {
     return { stats, thresholds, isLoading };
 }
 
+// ============ useActiveProposal Hook ============
+
+export function useActiveProposal(proposalId: string | null) {
+    const [proposal, setProposal] = useState<Proposal | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+    const fetchProposal = useCallback(async () => {
+        if (!proposalId) {
+            setProposal(null);
+            return;
+        }
+
+        try {
+            const data = await api.getProposal(proposalId);
+            setProposal(data);
+            
+            // Stop polling if resolved
+            if (data.status !== 'pending' && intervalRef.current) {
+                clearInterval(intervalRef.current);
+                intervalRef.current = null;
+            }
+        } catch (err) {
+            console.error('Failed to fetch proposal:', err);
+        } finally {
+            setIsLoading(false);
+        }
+    }, [proposalId]);
+
+    useEffect(() => {
+        if (!proposalId) {
+            setProposal(null);
+            return;
+        }
+
+        setIsLoading(true);
+        fetchProposal();
+
+        // Poll every 2 seconds while pending
+        intervalRef.current = setInterval(fetchProposal, 2000);
+
+        return () => {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
+        };
+    }, [proposalId, fetchProposal]);
+
+    return { proposal, isLoading, refresh: fetchProposal };
+}
+
 // ============ useWebSocketChat Hook ============
 
 export function useWebSocketChat(conversationId: string) {

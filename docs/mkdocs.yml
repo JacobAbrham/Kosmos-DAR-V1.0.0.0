@@ -6,6 +6,8 @@ site_url: https://docs.nuvanta-holding.com
 repo_name: Nuvanta-Holding/kosmos-docs
 repo_url: https://github.com/Nuvanta-Holding/kosmos-docs
 
+docs_dir: .
+
 theme:
   name: material
   language: en
@@ -43,11 +45,7 @@ markdown_extensions:
       anchor_linenums: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
   - admonition
@@ -60,199 +58,26 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  
-  - Executive:
-    - Overview: 00-executive/index.md
-    - Digital Agentic Realm: 00-executive/digital-agentic-realm.md
-    - Philosophy: 00-executive/philosophy.md
-    - Roadmap: 00-executive/roadmap.md
-    - Value Proposition: 00-executive/value-proposition.md
-    - Closing Recommendations: 00-executive/closing-recommendations.md
-  
-  - Governance:
-    - Overview: 01-governance/index.md
-    - Cost Governance: 01-governance/cost-governance.md
-    - Ethics Scorecard: 01-governance/ethics-scorecard.md
-    - Kill Switch Protocol: 01-governance/kill-switch-protocol.md
-    - Legal Framework: 01-governance/legal-framework.md
-    - Pentarchy Governance: 01-governance/pentarchy-governance.md
-    - RACI Matrix: 01-governance/raci-matrix.md
-    - Risk Registry: 01-governance/risk-registry.md
-  
-  - Architecture:
-    - Overview: 02-architecture/index.md
-    - Unified Data Fabric: 02-architecture/unified-data-fabric.md
-    - Cloud Inference: 02-architecture/cloud-inference.md
-    - Data Dictionary: 02-architecture/data-dictionary.md
-    - Data Lineage: 02-architecture/data-lineage.md
-    - Topology: 02-architecture/topology.md
-    - MCP Strategy: 02-architecture/mcp-strategy.md
-    - C4 Diagrams: 02-architecture/c4-diagrams/README.md
-    - Agent Pantheon:
-      - Overview: 02-architecture/agents/README.md
-      - Zeus Orchestrator: 02-architecture/agents/zeus-orchestrator.md
-      - Hermes Communications: 02-architecture/agents/hermes-communications.md
-      - AEGIS Security: 02-architecture/agents/aegis-security.md
-      - Chronos Scheduling: 02-architecture/agents/chronos-scheduling.md
-      - Athena Knowledge: 02-architecture/agents/athena-knowledge.md
-      - Hephaestus Tooling: 02-architecture/agents/hephaestus-tooling.md
-      - Nur PROMETHEUS Strategy: 02-architecture/agents/nur-prometheus-strategy.md
-      - Iris Interface: 02-architecture/agents/iris-interface.md
-      - MEMORIX Memory: 02-architecture/agents/memorix-memory.md
-      - Hestia Personal: 02-architecture/agents/hestia-personal.md
-      - Morpheus Learning: 02-architecture/agents/morpheus-learning.md
-      - Agent-MCP Matrix: 02-architecture/agents/agent-mcp-matrix.md
-      - Inter-Agent Communication: 02-architecture/agents/inter-agent-communication.md
-    - ADRs:
-      - Overview: 02-architecture/adr/index.md
-      - ADR-001 Documentation Framework: 02-architecture/adr/ADR-001-documentation-framework.md
-      - ADR-002 Version Control Strategy: 02-architecture/adr/ADR-002-version-control-strategy.md
-      - ADR-003 Deployment Pipeline: 02-architecture/adr/ADR-003-deployment-pipeline.md
-      - ADR-004 Authentication Strategy: 02-architecture/adr/ADR-004-authentication-strategy.md
-      - ADR-005 Data Storage: 02-architecture/adr/ADR-005-data-storage-selection.md
-      - ADR-006 LLM Provider: 02-architecture/adr/ADR-006-llm-provider-strategy.md
-      - ADR-007 Observability Stack: 02-architecture/adr/ADR-007-observability-stack.md
-      - ADR-008 API Versioning Strategy: 02-architecture/adr/ADR-008-api-versioning-strategy.md
-      - ADR-009 LangGraph Selection: 02-architecture/adr/ADR-009-langgraph-selection.md
-      - ADR-010 MCP Adoption: 02-architecture/adr/ADR-010-mcp-adoption.md
-      - ADR-011 RAG Architecture: 02-architecture/adr/ADR-011-rag-architecture.md
-      - ADR-012 Multi-Tenancy Strategy: 02-architecture/adr/ADR-012-multi-tenancy-strategy.md
-      - ADR-013 Cost Optimization: 02-architecture/adr/ADR-013-cost-optimization-strategy.md
-      - ADR-014 Agent Communication: 02-architecture/adr/ADR-014-agent-communication-protocol.md
-      - ADR-018 Memory Architecture: 02-architecture/adr/ADR-018-memory-architecture.md
-      - ADR-024 Security Architecture: 02-architecture/adr/ADR-024-security-architecture.md
-  
-  - Engineering:
-    - Overview: 03-engineering/index.md
-    - API Design Standards: 03-engineering/api-design.md
-    - AI Bill of Materials: 03-engineering/aibom.md
-    - Canary Deployment Playbooks: 03-engineering/canary-playbooks.md
-    - MCP Server Strategy: 03-engineering/mcp-strategy.md
-    - Prompt Engineering Standards: 03-engineering/prompt-standards.md
-    - Testing Strategy: 03-engineering/testing-strategy.md
-    - Watermarking Standard: 03-engineering/watermarking-standard.md
-    - Model Cards:
-      - Overview: 03-engineering/model-cards/README.md
-      - MC-001 Document Summarizer: 03-engineering/model-cards/MC-001-document-summarizer.md
-      - MC-002 Sentiment Analyzer: 03-engineering/model-cards/MC-002-sentiment-analyzer.md
-      - MC-003 Code Reviewer: 03-engineering/model-cards/MC-003-code-reviewer.md
-      - MC-004 Image Classifier: 03-engineering/model-cards/MC-004-image-classifier.md
-      - MC-005 Translation Engine: 03-engineering/model-cards/MC-005-translation-engine.md
-    - Testing:
-      - Overview: 03-engineering/testing/README.md
-      - Test Fixtures & Mocking: 03-engineering/testing/fixtures.md
-      - LLM Testing Strategies: 03-engineering/testing/llm-testing.md
+  - Getting Started: getting-started.md
+  - Core Documentation:
+    - Executive Summary: 00-executive/index.md
+    - Governance & Security: 
+      - Overview: 01-governance/index.md
+      - Security: security/index.md
+    - Architecture & Engineering:
+      - Overview: 02-architecture/index.md
+      - Engineering: 03-engineering/index.md
+    - Operations & Observability:
+      - Overview: 04-operations/index.md
+      - Human Factors: 05-human-factors/index.md
+    - Personal Data & Entertainment:
+      - Personal Data: 06-personal-data/index.md
+      - Entertainment: 07-entertainment/index.md
 
-  - Operations:
-    - Overview: 04-operations/index.md
-    - Backup & Recovery: 04-operations/backup-recovery.md
-    - Deployment Checklist: 04-operations/deployment-checklist.md
-    - Drift Detection: 04-operations/drift-detection.md
-    - FinOps Metrics: 04-operations/finops-metrics.md
-    - SLA / SLO Definitions: 04-operations/sla-slo.md
-    - Incident Response:
-      - Overview: 04-operations/incident-response/README.md
-      - Cost Spike Response: 04-operations/incident-response/cost-spike.md
-      - Data Pipeline Failure: 04-operations/incident-response/data-pipeline-failure.md
-      - Loop Detection & Remediation: 04-operations/incident-response/loop-detection.md
-      - Model Degradation Response: 04-operations/incident-response/model-degradation.md
-      - Prompt Injection Attack Response: 04-operations/incident-response/prompt-injection.md
-      - Third-Party API Outage: 04-operations/incident-response/third-party-api-outage.md
-    - Infrastructure:
-      - Overview: 04-operations/infrastructure/README.md
-      - Alibaba Cloud Deployment: 04-operations/infrastructure/alibaba-cloud.md
-      - AWS Deployment: 04-operations/infrastructure/aws.md
-      - Backup Procedures: 04-operations/infrastructure/backup-procedures.md
-      - Boot Sequence: 04-operations/infrastructure/boot-sequence.md
-      - CI/CD Pipeline: 04-operations/infrastructure/cicd-pipeline.md
-      - Database Operations Runbook: 04-operations/infrastructure/database-ops.md
-      - Deployment Architecture: 04-operations/infrastructure/deployment.md
-      - Disaster Recovery Plan: 04-operations/infrastructure/disaster-recovery.md
-      - GCP Deployment: 04-operations/infrastructure/gcp.md
-      - K3s Configuration: 04-operations/infrastructure/k3s-config.md
-      - Kubernetes Architecture: 04-operations/infrastructure/kubernetes.md
-    - Observability:
-      - Overview: 04-operations/observability/README.md
-      - Alerting Rules: 04-operations/observability/alerting.md
-      - Dashboards: 04-operations/observability/dashboards.md
-      - Grafana Dashboards: 04-operations/observability/grafana.md
-      - Langfuse Integration: 04-operations/observability/langfuse.md
-      - LLM Observability: 04-operations/observability/llm-observability.md
-      - Logging: 04-operations/observability/logging.md
-      - Metrics & Prometheus: 04-operations/observability/metrics.md
-      - Prometheus Setup: 04-operations/observability/prometheus.md
-      - SigNoz Observability: 04-operations/observability/signoz.md
-      - Distributed Tracing: 04-operations/observability/tracing.md
-    - Runbooks:
-      - Agent Deployment Runbook: 04-operations/runbooks/agent-deployment.md
-      - Agent Recovery Runbook: 04-operations/runbooks/agent-recovery.md
-      - Agent Scaling Runbook: 04-operations/runbooks/agent-scaling.md
-      - MCP Server Troubleshooting: 04-operations/runbooks/mcp-troubleshooting.md
-      - Zeus Conversation Recovery: 04-operations/runbooks/zeus-conversation-recovery.md
-      - Zeus Deployment Runbook: 04-operations/runbooks/zeus-deployment.md
-      - Zeus Routing Troubleshooting: 04-operations/runbooks/zeus-routing-troubleshooting.md
-      - Zeus Scaling Runbook: 04-operations/runbooks/zeus-scaling.md
-
-  - Security:
-    - Overview: security/index.md
-    - Architecture: security/architecture.md
-    - Compliance Mapping: security/compliance-mapping.md
-    - Deployment Procedures: security/deployment.md
-    - Disaster Recovery Plan: security/disaster-recovery.md
-    - Falco Runtime Security: security/falco-runtime.md
-    - Identity and Access Management: security/iam.md
-    - Kubernetes Security: security/kubernetes.md
-    - Kyverno Policies: security/kyverno-policies.md
-    - Secrets Management: security/secrets-management.md
-    - Threat Model: security/threat-model.md
-    - Vulnerability Management: security/vulnerability-management.md
-    - Zitadel Identity: security/zitadel-identity.md
-
-  - Human Factors:
-    - Overview: 05-human-factors/index.md
-    - Accessibility: 05-human-factors/accessibility.md
-    - Amnesia Protocol: 05-human-factors/amnesia-protocol.md
-    - Business Continuity Plan: 05-human-factors/business-continuity.md
-    - Ergonomic Design: 05-human-factors/ergonomic-design.md
-    - Red Herring Protocols: 05-human-factors/red-herring-protocols.md
-    - Training Curriculum: 05-human-factors/training.md
-    - UI/UX Guidelines: 05-human-factors/ui-ux-guidelines.md
-
-  - Personal Data:
-    - Overview: 06-personal-data/index.md
-    - Cloud Integrations: 06-personal-data/cloud-integrations.md
-    - Data Portability: 06-personal-data/data-portability.md
-    - Personal Data Ecosystem: 06-personal-data/personal-data-ecosystem.md
-    - Privacy Controls: 06-personal-data/privacy-controls.md
-
-  - Entertainment:
-    - Overview: 07-entertainment/index.md
-    - Content Compliance: 07-entertainment/content-compliance.md
-    - Media Management: 07-entertainment/media-management.md
-    - Music Curation: 07-entertainment/music-curation.md
-
-  - Developer Guide:
-    - Overview: developer-guide/README.md
-    - API Reference: developer-guide/api-reference/README.md
-    - Codespaces Setup: developer-guide/codespaces.md
-    - Python SDK: developer-guide/python-sdk.md
-    - MCP Integration Guide:
-      - Overview: developer-guide/mcp-integration/README.md
-      - Context7 MCP Server Setup: developer-guide/mcp-integration/context7-setup.md
-      - Custom MCP Server Development: developer-guide/mcp-integration/custom-mcp-servers.md
-      - Memory Server MCP Setup: developer-guide/mcp-integration/memory-server-setup.md
-      - Sequential Thinking MCP Setup: developer-guide/mcp-integration/sequential-thinking-setup.md
-
-  - Appendices:
-    - Changelog: appendices/changelog.md
-    - Glossary: appendices/glossary.md
-    - Resource Allocation: appendices/resource-allocation.md
-    - Templates:
-      - ADR Template: appendices/templates/adr-template.md
-      - DPIA Template: appendices/templates/dpia-template.md
-      - Model Card Template: appendices/templates/model-card-template.md
-  
-  - Archive:
-    - V0 Agents: archive/v0-agents/README.md
+  - Resources:
+    - Developer Guide: developer-guide/README.md
+    - Appendices: appendices/changelog.md
+    - Archive: archive/v0-agents/README.md
+    - Academy: academy/index.md
 
 copyright: Copyright &copy; 2025 Nuvanta Holding

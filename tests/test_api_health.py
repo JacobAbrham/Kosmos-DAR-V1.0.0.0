@@ -1,5 +1,9 @@
 import os
 
+# Set test defaults before importing app
+os.environ.setdefault("REQUIRE_AUTH", "false")
+os.environ.setdefault("ENABLE_DEP_CHECKS", "false")
+
 from fastapi.testclient import TestClient
 
 from src.main import app
@@ -18,7 +22,7 @@ def test_health_endpoint():
 
 def test_ready_endpoint_defaults_skip_dep_checks(monkeypatch):
     # Ensure dependency checks are skipped by default for unit tests
-    monkeypatch.delenv("ENABLE_DEP_CHECKS", raising=False)
+    monkeypatch.setenv("ENABLE_DEP_CHECKS", "false")
     response = client.get("/ready")
     assert response.status_code == 200
     data = response.json()

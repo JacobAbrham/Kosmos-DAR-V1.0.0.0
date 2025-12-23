@@ -1,0 +1,64 @@
+/**
+ * KOSMOS Documentation - Custom CSS
+ * Brand colors: Deep Purple (#673ab7) with Amber accents
+ */
+
+/* Light mode - Deep Purple theme */
+:root {
+  --ifm-color-primary: #673ab7;
+  --ifm-color-primary-dark: #5e35b1;
+  --ifm-color-primary-darker: #5c33b0;
+  --ifm-color-primary-darkest: #4c2a93;
+  --ifm-color-primary-light: #7e57c2;
+  --ifm-color-primary-lighter: #805dc4;
+  --ifm-color-primary-lightest: #9575cd;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(103, 58, 183, 0.1);
+}
+
+/* Dark mode - Lighter purple for readability */
+[data-theme='dark'] {
+  --ifm-color-primary: #9575cd;
+  --ifm-color-primary-dark: #7e57c2;
+  --ifm-color-primary-darker: #7c54c0;
+  --ifm-color-primary-darkest: #673ab7;
+  --ifm-color-primary-light: #b39ddb;
+  --ifm-color-primary-lighter: #b6a1df;
+  --ifm-color-primary-lightest: #d1c4e9;
+  --docusaurus-highlighted-code-line-bg: rgba(149, 117, 205, 0.3);
+}
+
+/* Hero section gradient */
+.hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.hero__title {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+/* Custom admonition colors */
+.admonition {
+  border-radius: 8px;
+}
+
+/* Code blocks */
+.prism-code {
+  border-radius: 8px;
+}
+
+/* Navigation improvements */
+.navbar {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Footer */
+.footer {
+  background-color: var(--ifm-color-emphasis-100);
+}
+
+[data-theme='dark'] .footer {
+  background-color: #1a1a1a;
+}

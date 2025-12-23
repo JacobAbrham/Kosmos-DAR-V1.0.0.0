@@ -1,10 +1,15 @@
 """
 Comprehensive API tests using pytest.
 """
+import os
 import pytest
 from fastapi.testclient import TestClient
 from unittest.mock import patch, AsyncMock
 import json
+
+# Set test defaults before importing app
+os.environ.setdefault("REQUIRE_AUTH", "false")
+os.environ.setdefault("ENABLE_DEP_CHECKS", "false")
 
 
 @pytest.fixture
