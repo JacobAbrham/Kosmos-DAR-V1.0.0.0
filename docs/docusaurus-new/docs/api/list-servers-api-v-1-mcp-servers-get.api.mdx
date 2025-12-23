@@ -1,0 +1,63 @@
+---
+id: list-servers-api-v-1-mcp-servers-get
+title: "List Servers"
+description: "List all registered MCP servers."
+sidebar_label: "List Servers"
+hide_title: true
+hide_table_of_contents: true
+api: eJydVE1v2zAM/SsCz2o+evStK4o2WLMGS7ZLEASKzMRqZUmV6GxB4P8+UM5X26EY5oNtUE985NOj9kBqk6CYQ60DLCSUmHQ0gYx3UMCjSSSUtSLixiTCiKUY305EwrjFmHogwQeMiuGjEgqwJtHysLpUwSy3w2Wtwym0QQIJEVPwLmGCYg/XgwF/3hJPG60xpXVjxfcDGCRo7wgdMVyFYI3OxP3nxHv2kHSFteI/Q1jn5CFyfWQ6KlPym3YBoYBE0bgNSCBDlgOjEloJTtX4Geobr7cSEilq0mfIaYdoJZD3Ni21b7raDxuMI9xgvNgxY5y4zbhWglWJlhUqS9VSV6hfcuNu97SGYv6et5WniGushXZxzvuoEomHnEjc5kStBIzRx//NeJc3t9xbh/CrZ9Td2b42JmLJnjIlHAQ96fVWjL/1eKzsgm2a3TM9ZnhrlbMfRcchjvbqwbk+FaPaXUh9dJXIFu8IkrgJRvwcirEOp9A9ErT8SKiRKs8u71wcFFVQQF8F098O+7UO/YPNuV3UTTS0m7InO/c9zGaTL6gixgsTVESB4RkGBaw6ANMZt/YZeSj569N0/DQVN5PRBw2OSyNx77cYnXIaxcQqWvtYiysxbiyZK7VBR8JHXWGibmjFL0OVmKAjFXW1E1tPxm14rrmPLvl1b9AbsJTBJ6pVHrVuSuBSvPdF7c/j+i/3yEEPwt/UD1YZx4xNtHmKs9JzUMFwZUOQ+bpilTvqhYTKJ2LMfr9SCX9E27Ycfm0w7qCYLyRsVTRqxVLOF62EClXJRzHfwwvuoIAbrTHwwW6VbbJn3t8xPAEnE9zfzaBt/wC1jcud
+sidebar_class_name: "get api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List Servers"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/api/v1/mcp/servers"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+List all registered MCP servers.
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"items":{"properties":{"id":{"type":"string","title":"Id"},"name":{"type":"string","title":"Name"},"status":{"type":"string","title":"Status"},"tools_count":{"type":"integer","title":"Tools Count"},"last_health_check":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Last Health Check"},"error":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Error"}},"type":"object","required":["id","name","status","tools_count","last_health_check","error"],"title":"ServerStatus","description":"MCP server status response."},"type":"array","title":"Response List Servers Api V1 Mcp Servers Get"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

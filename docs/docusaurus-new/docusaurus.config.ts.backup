@@ -102,13 +102,12 @@ const config: Config = {
           position: 'left',
           label: 'Documentation',
         },
-        // Temporarily disabled until API docs are generated
-        // {
-        //   type: 'doc',
-        //   docId: 'api/index',
-        //   position: 'left',
-        //   label: 'API',
-        // },
+        {
+          type: 'doc',
+          docId: 'api/index',
+          position: 'left',
+          label: 'API',
+        },
         {
           type: 'docsVersionDropdown',
           position: 'right',

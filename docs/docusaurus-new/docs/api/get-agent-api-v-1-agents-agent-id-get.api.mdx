@@ -1,0 +1,71 @@
+---
+id: get-agent-api-v-1-agents-agent-id-get
+title: "Get Agent"
+description: "Get details about a specific agent."
+sidebar_label: "Get Agent"
+hide_title: true
+hide_table_of_contents: true
+api: eJydVVFv2zgM/isCn+4ArWmLPfmttw5dsHUtlm4vQRAwNmNrsy1NonMXGP7vA2UncZKld7inxNJH6iP5kWyBMQ+QzAFzqjnAQkNGIfXGsbE1JPBArDJiNGVQuLINK1TBUWrWJlXR6Ao0WEcexWKaQQI58TJeLdGZ5eam/wjL4dBky2VODBoceqyIyQuFFmqsCBLYoUCDEQoOuQANnn42xlMGCfuGNIS0oAohaYG3TuwCe1PnoIENl3JwJ47UNIOuW4h9cLYOFMTk9vpafo5jnTVpSiGsm1J9GcCgIbU1U80CR+dKk8ZAJ9+D2LQjGs5LGtj0L5jsNWpCSg8BX0Z9lvvupCSX4fcjmFjZCs3rBj2i05Ciw5UpzZ49UxXOTTu9O0DvcTty9W7soNPgqGb0abEdOVlZWxLWI6vnParTEBi5+c2jB/isR0hC1tiULDw2aEpclQTdgZxdfaeUjzQzhyiomPHjhO4TdZKFcQyLE1FN67WF01bp5VYRY4aMV9B1Qunt7e250r5habKoI/Xee+v/v8z63jwq2TGgtOnRLdbbp3Vst9PS7k9MzZSTh25xud6fbE9QCleF/LWqPVIImNNBPJehMRnqRW7/rZwSV//0gBvV6JDePruXw7jv0/e7x3aQDy8vz2cO+9pWxIUdJl4cZ1xAAhN0ZrK5mfRTb9Lu5lkHGgKljTe8nUk5+wKJ/78IPflRZgpmB8OMi63TA+RRI9oT5MDv49Ps8Wmm7p6nZ4rcXU3Vg92Qr7FOST2XyGvrK/VGPTYlmzeRn7I+LShwP8bV34YLte9OtbFs6lwm/YZ86J3fXl1fXcdWt4ErjCodJrgsjdgNp4zag8z/42YZ8sH0D09cOUyrxkfF9/meAzojzG5A79aYhmS/RRYaChtYgG27wkBffdl1cvyzIb+FZL7QsEFv4hSRxshMkP8ZJGssA70Swx9fBkX+qS5x3QmvFtltsGzkCzT8oO1418VeKwgzkcG8Ha7v0pQcjwzPRoNstr0MH96/QNf9At7rqkE=
+sidebar_class_name: "get api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get Agent"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/api/v1/agents/{agent_id}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get details about a specific agent.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"agent_id","in":"path","required":true,"schema":{"type":"string","title":"Agent Id"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"properties":{"id":{"type":"string","title":"Id"},"name":{"type":"string","title":"Name"},"description":{"type":"string","title":"Description"},"domain":{"type":"string","title":"Domain"},"capabilities":{"items":{"type":"string"},"type":"array","title":"Capabilities"},"pentarchy":{"type":"boolean","title":"Pentarchy"},"status":{"type":"string","title":"Status","default":"available"}},"type":"object","required":["id","name","description","domain","capabilities","pentarchy"],"title":"AgentInfo","description":"Agent metadata."}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"properties":{"detail":{"items":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

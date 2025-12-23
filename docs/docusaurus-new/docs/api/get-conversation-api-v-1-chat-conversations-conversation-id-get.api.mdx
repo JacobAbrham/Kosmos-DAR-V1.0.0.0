@@ -1,0 +1,71 @@
+---
+id: get-conversation-api-v-1-chat-conversations-conversation-id-get
+title: "Get Conversation"
+description: "Get a specific conversation with all messages."
+sidebar_label: "Get Conversation"
+hide_title: true
+hide_table_of_contents: true
+api: eJydVd9P20AM/ldOftqkQAHtKW9sYwxtiGp0e6mqylzc5NglOe6cblWU/31ykkLSFhB7yuX867P92VcDYxognoPOkGERQUJBe+PYlAXEcEmsUAVH2qyMVros1uQDilT9MZwptFblFAKmFI4hgtKRb8VXCcSQEi+HNkt0Zrk+XUqwkSAsx3omWS5TYojAocecmLygrKHAnCCGHWWIwAhch5xBBJ4eKuMpgZh9RREEnVGOENfAGyfmgb0pUoiADVu5+DRM7CqBplmIm+DKIlAQy7OTE/mMy3NbaU0hrCqrfvTKEAk4poJFHZ2zRrduJ/dBbOoBGuelXGy6CLs5vQXuo6gGLDY3q7ZWY+smerwpKmtBMtz6m7XfJoJtK8WRYcrbAyaJkUhopwPAXWl7j+XdPWlucXQX6D1uBoivt46bCLQnZEqWyIdyXJU+FwkkyHTEJqdh4p2pOmdomt3ow8bPD1CkczJIcgRlcbi8n4nRWNgdjC+VtQfG4WkUmkYAfjg722fNL7Qm6YwuvC/9/1Mm6cANmzVWsKUet/J1cpiCKSUPzeL5bn4vO4AtZUL6ElX7xj9R43nVthhqJtLXmit5daF7vUH3nsrbVff5NPreHgq2Vfk6m033HHa9zYmzst9y7aLiDGKYoDOT9elEVtxktOIm9Q4lG4ggkK684c2tdLjrmYT8SOjJD4qVMTvoN5n833UKgsMUq7LV7CF/u7m9vrlV59OrPdZuRVfqslyTL7DQpKYWWYZOHanryrI5wpQKVqXXGQX2A3ZPqWD0OtuodcmmSGXhS0Kd87Pjk+MTqbYrA+fYErdf1/KMDIdqF1j9NABvf3L6CjH95YmzaFpWVr4di64pc0BnBOupjJo8dNFoPcgmiHf3xSKCrAws1nV9h4F+ets0cv1Qkd9APF9EsEZv8E7KPq8hMUHOCcQrtIFeyPHdj57L79VzCWwpWwhh12gr+YMIftPmwPvXDmtGmAhp5nWvda41OR7Y7+0WeQQeeXx5MYOm+Qf9Vsxc
+sidebar_class_name: "get api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get Conversation"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/api/v1/chat/conversations/{conversation_id}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get a specific conversation with all messages.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"conversation_id","in":"path","required":true,"schema":{"type":"string","title":"Conversation Id"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"properties":{"conversation_id":{"type":"string","title":"Conversation Id"},"title":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Title"},"messages":{"items":{"additionalProperties":true,"type":"object"},"type":"array","title":"Messages"},"created_at":{"type":"string","format":"date-time","title":"Created At"}},"type":"object","required":["conversation_id","title","messages","created_at"],"title":"ConversationDetail","description":"Full conversation with messages."}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"properties":{"detail":{"items":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

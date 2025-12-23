@@ -1,0 +1,71 @@
+---
+id: delete-conversation-api-v-1-chat-conversations-conversation-id-delete
+title: "Delete Conversation"
+description: "Delete a conversation."
+sidebar_label: "Delete Conversation"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVMFu2zAM/RWDpw1QmzTYybdtDbZgLRo02S5BEDA2E6uzLVWiswWG/n2g7TRx0hbYyRb1SD098bEGxq2HeAFJhgxLBSn5xGnL2pQQwy3lxBRhlJhyR86jxK9BgbHkmsUkhRjSBrY6Ba3Q6tXuZiV1ext+1cfpdLVq80GBRYcFMTnhVEOJBUEMZ3hQoIWcRc5AgaPnSjtKIWZXkQKfZFQgxDXw3kq6Z6fLLShgzbkEvp7UiyYphLCUMt6a0pOXzNFwKJ++GLMqScj7TZVHjx0YlJBjKlngaG2uk6bs4MlLTn1kE0IICj6NRpeFf2Gu05bN2Dnj/qMqWCdPwbrlnRKjzuVPMxX+EpCbpLeL5f5h02jdFyuol4gumbbkICyDOsTQOdyfKHpnWoIQFBR++5749+Q9bgleir0NbcSI5rIbjmeb9RMl3Hv4RXOv9ugOtzyWOcrbqvv2NW5b+V477AD5Pp9PLwq2b1sQZ+Zoh6adOYMYBmj1YHczEC8Mel4Y1Ge9HUCBp6RymvczeeT22eTUL4SO3IleGbOFrt9lvW4BQkWXG9MgO9Y/Hmb3D7Po83QC5xY/bE2ib2ZHrsQyoWiaI2+MK6Kr6L7KWV/hlkqOjEsy8tw6P/qjOYumVDK6JNtHO8O63MpwkAu1xUfXw+uhCG6N5wKb3u1M3Y2WUy+ec6uPNnh7EnViMP3lgc1RNz1YucYErf4LQKuF1o0YS+ac6o0UDwri8xmzVJAZz5Jd12v09NPlIUj4uSK3h3ixVLBDp3EtCi9qSLWX/xTiDeae3rnLh8eucz9Gb13g0KCltOcO80pWoOA37V8ZiI01M8JU+mNRd6jPSUKWT/IvJonMvZeuvR3fjedjCOEfidgaEw==
+sidebar_class_name: "delete api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete Conversation"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/api/v1/chat/conversations/{conversation_id}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Delete a conversation.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"conversation_id","in":"path","required":true,"schema":{"type":"string","title":"Conversation Id"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"properties":{"detail":{"items":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

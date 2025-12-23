@@ -1,0 +1,63 @@
+---
+id: list-api-keys-api-v-1-auth-api-keys-get
+title: "List Api Keys"
+description: "List all API keys for the current user."
+sidebar_label: "List Api Keys"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVMFu2zgQ/RViTi3AxEmPvnmLImuk3RjrdC+GYUykscWGJlly5I0g8N8XI8m2nBZBF6gPFkU9vhm+mTctMO4STFcwq7kix6ZANt7BWkNJqYgmdK9T+GwSK7RWzRZz9UxNUlsfFVekijpGcqzqRPEaNPhAsSOZlzAFaxJvMJiNnOkWh9sN1lydN3fEoCFSCt4lSjBt4cPNjTwuU1jWRUEpbWur/h7AoKHwjsmxwDEEO1xg8i3JmRZSUdEeZWWY9h15iJIimz6UKeWfm0AwhcTRuB1oYMNWNuYlZA0O9/QW6i/5njWESFvz8hZy0SOyhlT4MGRwTOzyUNbHDYwRmxHJsj+aNRSRkKncIP8s6NbHvXyBEpmu2OxpRPKxP6pmLET0EkykNBChax62MF39EmXWJ5irrYW8Pgf51NMOQSwm3tTplO9vC/MZE6uv6XQbkzZYsDmMi/bkvSV049omNetR+ay1f/pGRd+P32sTqRRzmBKGJjjV+FTAiyKMQ4/ymy3m99TM3dbDa18NdlLGbb1696/hytestrW1sv3++o02OJpAdd6cBaPuxZey+OdWiaHPm3fEkOWnIVFRR8NNJ/yfj4+LPwgjRZiu1qLpnrjy4tzelgG5gilMMJjJ4XYizpX1lTgXzmRLsVnfzmPKk/oVc+g0E5hUowdIPnLzDjlc6/5h+eVhKXPmB7GOn+bqzh8oOnQFqYVFln5RV+pLbdlc4U7GkY9FRYn7UaREWLUgxxiLqlEHz8btZFodKKae/MP1zfVN52KfeI/d9OiNDxcCv86qPY+g/zElB12YXngSLBonketouwHVab4CDEYyvAUNors8jsqvNVQ+saDa9gkTfY02Z9n+XlOU2q41HDAafBJRV+usoSIsuzq38EyN9F5RUJAiH9DWXYe9HqAXDXH36fGYychWfSH1cTFyM7pmxN22PeLRP5PLGfSQBMs75HXO+T8rnTb7
+sidebar_class_name: "get api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List Api Keys"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/api/v1/auth/api-keys"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+List all API keys for the current user.
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"items":{"properties":{"id":{"type":"string","title":"Id"},"name":{"type":"string","title":"Name"},"prefix":{"type":"string","title":"Prefix"},"scopes":{"items":{"type":"string"},"type":"array","title":"Scopes"},"created_at":{"type":"string","format":"date-time","title":"Created At"},"expires_at":{"anyOf":[{"type":"string","format":"date-time"},{"type":"null"}],"title":"Expires At"},"last_used_at":{"anyOf":[{"type":"string","format":"date-time"},{"type":"null"}],"title":"Last Used At"},"is_active":{"type":"boolean","title":"Is Active"}},"type":"object","required":["id","name","prefix","scopes","created_at","is_active"],"title":"APIKeyInfo","description":"API key info (without full key)."},"type":"array","title":"Response List Api Keys Api V1 Auth Api Keys Get"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      
