@@ -620,7 +620,7 @@ spec:
 ### Naming Conventions
 
 ```
-# Format: <namespace>_<subsystem>_<name>_<unit>
+# Format: <namespace>_<subsystem>_`<name>`_<unit>
 
 # Good examples:
 kosmos_agent_requests_total

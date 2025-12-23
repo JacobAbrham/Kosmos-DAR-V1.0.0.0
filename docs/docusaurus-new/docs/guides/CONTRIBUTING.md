@@ -199,7 +199,7 @@ Use descriptive branch names:
 Follow conventional commits:
 
 ```
-<type>(<scope>): <description>
+<type>(<scope>): `<description>`
 
 [optional body]
 

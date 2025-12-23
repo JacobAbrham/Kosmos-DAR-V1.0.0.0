@@ -22,7 +22,7 @@ def my_tool(arg1: str) -> str:
 ```
 
 ## Step 2: Register with an Agent
-Add your tool to an agent's initialization in `src/agents/<agent>/main.py`.
+Add your tool to an agent's initialization in `src/agents/`<agent`>/main.py`.
 
 ```python
 # Inside Agent.__init__

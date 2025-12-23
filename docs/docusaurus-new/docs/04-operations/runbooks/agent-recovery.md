@@ -35,11 +35,11 @@ kubectl logs <pod-name> -n kosmos --previous
 **Resolution:**
 ```bash
 # Increase memory limits
-kubectl set resources deployment <agent-name> -n kosmos \
+kubectl set resources deployment `<agent`-name> -n kosmos \
   --limits=memory=2Gi --requests=memory=1Gi
 
 # Restart deployment
-kubectl rollout restart deployment <agent-name> -n kosmos
+kubectl rollout restart deployment `<agent`-name> -n kosmos
 ```
 
 ### 3. Unresponsive Agent
@@ -51,7 +51,7 @@ kubectl rollout restart deployment <agent-name> -n kosmos
 **Diagnosis:**
 ```bash
 # Check liveness probe
-kubectl get pods -n kosmos -l app=<agent-name>
+kubectl get pods -n kosmos -l app=`<agent`-name>
 
 # Exec into pod
 kubectl exec -it <pod-name> -n kosmos -- /bin/sh
@@ -93,13 +93,13 @@ kubectl exec -it <pod-name> -n kosmos -- \
 
 ```bash
 # Delete all pods
-kubectl delete pods -n kosmos -l app=<agent-name>
+kubectl delete pods -n kosmos -l app=`<agent`-name>
 
 # Clear persistent state (if needed)
-kubectl delete pvc <agent-pvc> -n kosmos
+kubectl delete pvc `<agent`-pvc> -n kosmos
 
 # Redeploy
-kubectl apply -f k8s/agents/<agent-name>/
+kubectl apply -f k8s/agents/`<agent`-name>/
 ```
 
 ## Post-Recovery

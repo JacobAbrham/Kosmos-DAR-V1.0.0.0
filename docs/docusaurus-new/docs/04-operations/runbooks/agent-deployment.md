@@ -34,20 +34,20 @@ kubectl describe nodes | grep -A 5 "Allocated resources"
 kubectl apply -f k8s/agents/deployment.yaml
 
 # Verify deployment
-kubectl rollout status deployment/<agent-name> -n kosmos
+kubectl rollout status deployment/`<agent`-name> -n kosmos
 ```
 
 ### 3. Health Checks
 
 ```bash
 # Check pod status
-kubectl get pods -n kosmos -l app=<agent-name>
+kubectl get pods -n kosmos -l app=`<agent`-name>
 
 # View logs
-kubectl logs -f deployment/<agent-name> -n kosmos
+kubectl logs -f deployment/`<agent`-name> -n kosmos
 
 # Test agent endpoint
-curl -X POST https://api.kosmos.internal/agents/<agent-name>/health
+curl -X POST https://api.kosmos.internal/agents/`<agent`-name>/health
 ```
 
 ### 4. Monitoring Setup
@@ -61,10 +61,10 @@ curl -X POST https://api.kosmos.internal/agents/<agent-name>/health
 
 ```bash
 # Rollback to previous version
-kubectl rollout undo deployment/<agent-name> -n kosmos
+kubectl rollout undo deployment/`<agent`-name> -n kosmos
 
 # Verify rollback
-kubectl rollout status deployment/<agent-name> -n kosmos
+kubectl rollout status deployment/`<agent`-name> -n kosmos
 ```
 
 ## Post-Deployment

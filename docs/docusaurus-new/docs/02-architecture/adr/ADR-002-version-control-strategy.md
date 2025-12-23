@@ -232,11 +232,11 @@ Feature flags for incomplete features
 **Branch Naming Convention:**
 ```
 main                           # Production-ready code
-feature/<ticket>-<description> # New features
-fix/<ticket>-<description>     # Bug fixes
-docs/<ticket>-<description>    # Documentation changes
-refactor/<description>         # Code refactoring
-hotfix/<description>           # Emergency fixes
+feature/<ticket>-`<description>` # New features
+fix/<ticket>-`<description>`     # Bug fixes
+docs/<ticket>-`<description>`    # Documentation changes
+refactor/`<description>`         # Code refactoring
+hotfix/`<description>`           # Emergency fixes
 ```
 
 **Examples:**

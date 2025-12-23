@@ -19,21 +19,21 @@ Procedures for scaling KOSMOS agents based on load and performance metrics.
 
 ```bash
 # Increase replica count
-kubectl scale deployment <agent-name> -n kosmos --replicas=5
+kubectl scale deployment `<agent`-name> -n kosmos --replicas=5
 
 # Verify scaling
-kubectl get deployment <agent-name> -n kosmos
-kubectl get pods -n kosmos -l app=<agent-name>
+kubectl get deployment `<agent`-name> -n kosmos
+kubectl get pods -n kosmos -l app=`<agent`-name>
 ```
 
 ### Scale Down
 
 ```bash
 # Decrease replica count
-kubectl scale deployment <agent-name> -n kosmos --replicas=2
+kubectl scale deployment `<agent`-name> -n kosmos --replicas=2
 
 # Monitor graceful shutdown
-kubectl get pods -n kosmos -l app=<agent-name> -w
+kubectl get pods -n kosmos -l app=`<agent`-name> -w
 ```
 
 ## Auto-Scaling Configuration
@@ -48,7 +48,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: <agent-name>
+    name: `<agent`-name>
   minReplicas: 2
   maxReplicas: 10
   metrics:
