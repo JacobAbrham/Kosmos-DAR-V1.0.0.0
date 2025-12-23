@@ -12,10 +12,18 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "lint": "eslint src/**/*.ts src/**/*.tsx --ext .ts,.tsx",
+    "lint:fix": "eslint src/**/*.ts src/**/*.tsx --ext .ts,.tsx --fix",
+    "validate-links": "npm run build && npx linkinator http://localhost:3000 --recurse --verbosity error",
+    "performance-check": "npx lighthouse http://localhost:3000 --output=json --output-path=./lighthouse-results.json",
+    "content-check": "node scripts/validate-content.js",
+    "predeploy": "npm run typecheck && npm run build && npm run content-check"
   },
   "dependencies": {
     "@docusaurus/core": "3.9.2",
+    "@docusaurus/plugin-ideal-image": "^3.9.2",
+    "@docusaurus/plugin-pwa": "^3.9.2",
     "@docusaurus/preset-classic": "3.9.2",
     "@docusaurus/theme-mermaid": "^3.9.2",
     "@mdx-js/react": "^3.0.0",
@@ -30,6 +38,7 @@
     "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/tsconfig": "3.9.2",
     "@docusaurus/types": "3.9.2",
+    "glob": "^13.0.0",
     "typescript": "~5.6.2"
   },
   "browserslist": {

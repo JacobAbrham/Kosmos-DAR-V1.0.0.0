@@ -1,0 +1,25 @@
+{
+  "name": "KOSMOS Documentation",
+  "short_name": "KOSMOS Docs",
+  "description": "AI-Native Enterprise Operating System Documentation",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#25c2a0",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "categories": ["documentation", "productivity", "business"],
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/img/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/img/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ]
+}

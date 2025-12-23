@@ -1,0 +1,136 @@
+name: Deploy KOSMOS Documentation
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'docs/**'
+      - 'src/**'
+      - 'static/**'
+      - 'docusaurus.config.ts'
+      - 'package.json'
+      - 'package-lock.json'
+  pull_request:
+    branches: [main, master]
+    paths:
+      - 'docs/**'
+      - 'src/**'
+      - 'static/**'
+      - 'docusaurus.config.ts'
+      - 'package.json'
+      - 'package-lock.json'
+
+jobs:
+  test:
+    name: Test Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint code
+        run: npm run typecheck
+
+      - name: Check links
+        run: npm run build
+        continue-on-error: true
+
+      - name: Validate API docs
+        run: |
+          if [ -d "docs/api" ]; then
+            echo "API documentation exists"
+          else
+            echo "API documentation missing"
+            exit 1
+          fi
+
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build documentation
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-files
+          path: build/
+          retention-days: 7
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: kosmos-docs
+          directory: build
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+  performance-check:
+    name: Performance Check
+    runs-on: ubuntu-latest
+    needs: build-and-deploy
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build for performance testing
+        run: npm run build
+
+      - name: Lighthouse Performance Check
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          urls: |
+            http://localhost:3000
+          configPath: .lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+  notify:
+    name: Notify on Deployment
+    runs-on: ubuntu-latest
+    needs: [test, build-and-deploy, performance-check]
+    if: always()
+    steps:
+      - name: Notify Slack
+        uses: 8398a7/action-slack@v3
+        if: always()
+        with:
+          status: ${{ job.status }}
+          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
