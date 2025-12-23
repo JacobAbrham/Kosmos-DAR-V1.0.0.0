@@ -4,7 +4,13 @@ Comprehensive documentation for the KOSMOS AI-Native Enterprise Operating System
 
 ## Quick Navigation
 
-### 📋 Project Management
+### � Core Documentation
+- **[Installation Guide](INSTALLATION.md)** - Complete installation instructions
+- **[Architecture Overview](ARCHITECTURE.md)** - System design and components
+- **[Testing Guide](TESTING.md)** - Testing strategy and best practices
+- **[API Reference](developer-guide/api-reference/README.md)** - REST API documentation
+
+### �📋 Project Management
 - [Task Journal](project-management/TASK_JOURNAL.md) - Development progress tracking
 - [Implementation Roadmap](project-management/IMPLEMENTATION_ROADMAP.md) - 24-week roadmap
 - [Phase 2 Roadmap](project-management/PHASE_2_ROADMAP.md) - Next phase planning
@@ -45,12 +51,35 @@ See subdirectories:
 - `05-human-factors/` - UX and accessibility
 - `06-personal-data/` - Privacy and compliance
 
+### 🔐 Security
+- [Security Architecture](security/architecture.md) - Overall security design
+- [Identity & Access Management](security/iam.md) - Authentication and authorization
+- [Secrets Management](security/secrets-management.md) - Secure secrets handling
+
 ## Documentation Standards
 
 - Use descriptive filenames
 - Include table of contents for long documents
 - Update this index when adding new docs
 - Link between related documents
+- Follow [Markdown Style Guide](guides/CONTRIBUTING.md)
+
+## Quick Start
+
+New to KOSMOS? Start here:
+
+1. **[Installation Guide](INSTALLATION.md)** - Set up your environment
+2. **[Getting Started](deployment/GETTING_STARTED.md)** - First steps
+3. **[Architecture Overview](ARCHITECTURE.md)** - Understand the system
+4. **[API Reference](developer-guide/api-reference/README.md)** - Integrate with KOSMOS
+
+## Contributing
+
+See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines on:
+- Code style and standards
+- Pull request process
+- Documentation updates
+- Testing requirements
 - Keep docs in sync with code
 
 ## Contributing to Docs

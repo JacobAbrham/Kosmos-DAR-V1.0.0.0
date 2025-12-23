@@ -19,6 +19,10 @@ KOSMOS (Knowledge-Orchestrated System for Multi-agent Operational Superintellige
 ## Quick Links
 
 - [Philosophy](philosophy.md) — Core principles and paradigm
+- [Installation](docs/INSTALLATION.md) — Complete installation guide
+- [Architecture](docs/ARCHITECTURE.md) — System architecture overview
+- [Testing](docs/TESTING.md) — Testing guide and best practices
+- [API Reference](docs/developer-guide/api-reference/README.md) — API documentation
 - [Roadmap](docs/project-management/IMPLEMENTATION_ROADMAP.md) — Implementation timeline
 - [Agent Pantheon](docs/02-architecture/agents/README.md) — Agent documentation
 - [Getting Started](docs/deployment/GETTING_STARTED.md) — Quick start guide
@@ -154,10 +158,20 @@ docker-compose -f config/environments/development/docker-compose.yml down -v
 
 Comprehensive documentation is available in the [`docs/`](docs/) directory:
 
+### Core Documentation
+- **[Installation Guide](docs/INSTALLATION.md)** - Complete setup instructions
+- **[Architecture Overview](docs/ARCHITECTURE.md)** - System design and components
+- **[Testing Guide](docs/TESTING.md)** - Testing strategy and practices
+- **[API Reference](docs/developer-guide/api-reference/README.md)** - REST API documentation
+
+### Detailed Documentation
 - **[Project Management](docs/project-management/)** - Roadmaps, task tracking, changelog
 - **[Deployment](docs/deployment/)** - Deployment guides and status
 - **[Guides](docs/guides/)** - Development and contribution guides
 - **[Assessments](docs/assessments/)** - Gap analysis and test coverage
+- **[Architecture](docs/02-architecture/)** - Detailed architecture and ADRs
+- **[Engineering](docs/03-engineering/)** - Engineering standards and practices
+- **[Security](docs/security/)** - Security architecture and IAM
 - **[Architecture](docs/02-architecture/)** - System design and agent specifications
 
 See [docs/README.md](docs/README.md) for complete documentation index.
@@ -243,7 +257,9 @@ mkdocs build
 
 ## License
 
-Copyright © 2025 Nuvanta Holding
+Copyright © 2025 Nuvanta Holding. All Rights Reserved.
+
+This is proprietary software. See [LICENSE](LICENSE) for details.
 
 ---
 
