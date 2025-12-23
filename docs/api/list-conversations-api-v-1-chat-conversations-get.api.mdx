@@ -1,0 +1,71 @@
+---
+id: list-conversations-api-v-1-chat-conversations-get
+title: "List Conversations"
+description: "List conversations for the current user."
+sidebar_label: "List Conversations"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVUtv2zgQ/ivEnJU4MXryLestskEbJNi4vQSBMabGFluJVMmRdw1B/30xpB+UHWzbk2XO+5tvZnooKWhvWjbOwgw+m8BKO7slH1Deglo7r7gipTvvybLqAvlrKMC15KPKQwkzqE3g5chwia1Zbm+XusJzyYYYCmjRY0NMPsDstQcj8X905HdQgMWGotfGiKqnH53xVMJsjXWgAoKuqEGY9VDSGruaYTa9KYAN1xTLSHa8a+WvsUwb8jAMb+IrtM4GCmI9vbmRH+0sk2X5xLatjY6JTr4FAaXPohmmJqSwOWwvXdOg3ym3VjiCT4BqvUDFJkXMpUtTytMh63kmUg/lKf/A3tgNDAVoT8hULjHmuna+kS8okemKTUNwwmCeVNUdv+eooRBwQ0vtulT3wewxCdQ8Ci4hPAboAe3uaR17d+7++GK7ugZB/eB+EX+HArq2/NVKviTVdysZcnK8XqB7cHJe8AjJUTJZrnk/9h0+JeBW30hzhgf8vSeWikM0Hw3RXWvU11s1r/Bcck9ZVeg97mCQqs4JpjWFsO5qdQgjoT9Mp79F3zEVS2I09YjWY4Xa6ZH0Fxp+5MlbhsxnlzK6KLSAJmzeYd97jE0PJ9WP3juvFvL6M1ZIHSnUXjNr8lesTRmziw7/r8F/JrwuunXS+GuxeP6pw8vunkxUshGVQLrzhncRb3H8B6EnD7PXtzhQuAmR8VUibUNcOdnEh+XKFcxggq2ZbG8nojUZLWE4RXgRfqSO53H2xJHUV+npWErF3MYkjV27y3X46enl8elF3T2oe7clb9FqUs81soy5ulKPXc3mCjdyTpzXFQVOp0T9Y7hSz2QZva52auvY2M11tgsOrp8foACpJkWcXt9c30ivWhe4wUj7/Q25nEY4wz8boN85gHssmP7lSVujsXGt+ThQCf5XwNZInreycKq4asZNeCugcoFFte9XGOiLr4dBntMllN6XJuCqzo7fd9plt3GLdSd5xDW7RW9EObKkgIqwjJTp90Z3WlObW13siyHn0v3HBRSAnRRzHPEjGVYHQh5FaHeZ775PGgv3newwwCFzlv+yIYbhPxHz7VQ=
+sidebar_class_name: "get api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List Conversations"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/api/v1/chat/conversations"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+List conversations for the current user.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"in":"query","name":"limit","required":false,"schema":{"default":20,"title":"Limit","type":"integer"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"content":{"application/json":{"schema":{"items":{"description":"Summary of a conversation.","properties":{"conversation_id":{"title":"Conversation Id","type":"string"},"created_at":{"format":"date-time","title":"Created At","type":"string"},"message_count":{"title":"Message Count","type":"integer"},"title":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Title"},"updated_at":{"format":"date-time","title":"Updated At","type":"string"}},"required":["conversation_id","title","message_count","created_at","updated_at"],"title":"ConversationSummary","type":"object"},"title":"Response List Conversations Api V1 Chat Conversations Get","type":"array"}}},"description":"Successful Response"},"422":{"content":{"application/json":{"schema":{"properties":{"detail":{"items":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"title":"Location","type":"array"},"msg":{"title":"Message","type":"string"},"type":{"title":"Error Type","type":"string"}},"required":["loc","msg","type"],"title":"ValidationError","type":"object"},"title":"Detail","type":"array"}},"title":"HTTPValidationError","type":"object"}}},"description":"Validation Error"}}}
+>
+  
+</StatusCodes>
+
+
+      

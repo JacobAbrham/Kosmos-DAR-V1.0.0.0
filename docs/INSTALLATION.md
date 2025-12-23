@@ -19,12 +19,14 @@ Complete installation instructions for the KOSMOS AI-Native Enterprise Operating
 ### System Requirements
 
 **Minimum:**
+
 - CPU: 4 cores
 - RAM: 8GB
 - Disk: 50GB free space
 - OS: Linux, macOS, or Windows 10/11
 
 **Recommended:**
+
 - CPU: 8+ cores
 - RAM: 32GB
 - Disk: 200GB SSD
@@ -79,6 +81,7 @@ nano .env
 ```
 
 **Key variables to configure:**
+
 ```env
 # Database
 POSTGRES_PASSWORD=your_secure_password
@@ -224,11 +227,13 @@ python scripts/database/init_db.py
 ### 5. Start Application
 
 **Terminal 1 - API Backend:**
+
 ```bash
 python -m uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 **Terminal 2 - Frontend (optional):**
+
 ```bash
 cd frontend
 npm install
@@ -236,6 +241,7 @@ npm run dev
 ```
 
 **Terminal 3 - Documentation (optional):**
+
 ```bash
 cd docs
 mkdocs serve
@@ -352,6 +358,7 @@ curl -X POST "http://localhost:8000/api/v1/auth/register" \
 ### 3. Configure Authentication
 
 See [Security Configuration](security/iam.md) for details on:
+
 - Setting up Zitadel
 - Configuring OAuth providers
 - Managing API keys

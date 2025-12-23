@@ -33,6 +33,7 @@ KOSMOS employs a comprehensive testing strategy with multiple test levels:
 ```
 
 **Test Statistics:**
+
 - Total Tests: 150+
 - Unit Tests: 80+
 - Integration Tests: 50+
@@ -193,6 +194,7 @@ def test_zeus_pentarchy_decision(zeus_agent):
 ```
 
 **Run unit tests:**
+
 ```bash
 pytest tests/unit/ -v
 ```
@@ -259,6 +261,7 @@ async def test_agent_query(client, auth_token):
 ```
 
 **Run integration tests:**
+
 ```bash
 pytest tests/integration/ -v
 ```
@@ -313,6 +316,7 @@ def test_pentarchy_voting(page: Page):
 ```
 
 **Run E2E tests:**
+
 ```bash
 # Start services first
 make dev
@@ -382,6 +386,7 @@ class KosmosUser(HttpUser):
 ```
 
 **Run performance tests:**
+
 ```bash
 # Using locust
 locust -f tests/performance/load_test.py
@@ -396,6 +401,7 @@ locust -f tests/performance/load_test.py
 ### Best Practices
 
 1. **Follow AAA Pattern** (Arrange, Act, Assert)
+
 ```python
 def test_example():
     # Arrange: Set up test data
@@ -409,7 +415,8 @@ def test_example():
     assert result["agent"] in ["hermes", "athena", "aegis"]
 ```
 
-2. **Use Descriptive Names**
+1. **Use Descriptive Names**
+
 ```python
 # Good
 def test_zeus_routes_security_queries_to_aegis():
@@ -420,7 +427,8 @@ def test_routing():
     ...
 ```
 
-3. **Test One Thing Per Test**
+1. **Test One Thing Per Test**
+
 ```python
 # Good: Separate tests for different behaviors
 def test_authentication_with_valid_credentials():
@@ -435,7 +443,8 @@ def test_authentication():
     ...
 ```
 
-4. **Use Fixtures for Setup**
+1. **Use Fixtures for Setup**
+
 ```python
 @pytest.fixture
 def authenticated_client():
@@ -446,7 +455,8 @@ def authenticated_client():
     return client
 ```
 
-5. **Mock External Dependencies**
+1. **Mock External Dependencies**
+
 ```python
 @pytest.fixture
 def mock_llm_service(monkeypatch):
@@ -480,6 +490,7 @@ def test_future_feature():
 ```
 
 Run specific markers:
+
 ```bash
 pytest -m unit          # Run only unit tests
 pytest -m "not slow"    # Skip slow tests
@@ -589,6 +600,7 @@ pre-commit run --all-files
 ### Common Issues
 
 **Tests failing with database errors:**
+
 ```bash
 # Reset test database
 docker-compose -f config/environments/development/docker-compose.yml down -v
@@ -596,6 +608,7 @@ docker-compose -f config/environments/development/docker-compose.yml up -d
 ```
 
 **Import errors:**
+
 ```bash
 # Ensure PYTHONPATH is set
 export PYTHONPATH=$PWD:$PYTHONPATH
@@ -605,6 +618,7 @@ pip install -e .
 ```
 
 **Slow tests:**
+
 ```bash
 # Run tests in parallel
 pytest -n auto

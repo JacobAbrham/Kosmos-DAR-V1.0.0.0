@@ -1,0 +1,182 @@
+============================================================
+KOSMOS DOCUMENTATION VALIDATION
+============================================================
+
+Base directory: /workspaces/Kosmos-DAR-V1.0.0.0
+Docs directory: /workspaces/Kosmos-DAR-V1.0.0.0/docs
+
+Running validations...
+
+1. Validating required files...
+2. Validating volume structure...
+3. Validating markdown files...
+4. Validating internal links...
+5. Validating schemas...
+6. Validating model cards...
+7. Validating AIBOM directory...
+8. Validating ADR count...
+9. Validating runbooks...
+10. Checking for placeholders...
+11. Checking document freshness...
+12. Validating JSON schemas...
+13. Validating OpenAPI snapshot...
+2025-12-23 21:38:20,256 - root - INFO - Logging configured
+/home/vscode/.local/lib/python3.11/site-packages/passlib/utils/__init__.py:854: DeprecationWarning: 'crypt' is deprecated and slated for removal in Python 3.13
+  from crypt import crypt as _crypt
+14. Validating API docs vs OpenAPI...
+
+============================================================
+WARNINGS
+============================================================
+⚠️  WARNING: No title heading in: docs/backup-docusaurus-samples/tutorial-extras/translate-your-site.md
+⚠️  WARNING: No title heading in: docs/backup-docusaurus-samples/tutorial-extras/manage-docs-versions.md
+⚠️  WARNING: No title heading in: docs/backup-docusaurus-samples/tutorial-basics/create-a-blog-post.md
+⚠️  WARNING: No title heading in: docs/backup-docusaurus-samples/tutorial-basics/create-a-document.md
+⚠️  WARNING: No title heading in: docs/backup-docusaurus-samples/tutorial-basics/create-a-page.md
+⚠️  WARNING: No title heading in: docs/backup-docusaurus-samples/tutorial-basics/congratulations.md
+⚠️  WARNING: No title heading in: docs/backup-docusaurus-samples/tutorial-basics/deploy-your-site.md
+⚠️  WARNING: Broken link in docs/assessments/DOCUMENTATION_ASSESSMENT.md: [script](../../scripts/setup.sh)
+⚠️  WARNING: Broken link in docs/assessments/DOCUMENTATION_ASSESSMENT.md: [AgentBase](../../src/agents/base.py)
+⚠️  WARNING: Broken link in docs/assessments/DOCUMENTATION_ASSESSMENT.md: [Related Doc 1](../path/to/doc.md)
+⚠️  WARNING: Broken link in docs/assessments/DOCUMENTATION_ASSESSMENT.md: [Related Doc 2](../path/to/doc.md)
+⚠️  WARNING: Broken link in docs/assessments/DOCUMENTATION_ASSESSMENT.md: [Guide](../guides/setup.md)
+⚠️  WARNING: Broken link in docs/assessments/DOCUMENTATION_ASSESSMENT.md: [Deployment](../deployment/guide.md#installation)
+⚠️  WARNING: Broken link in docs/assessments/DOCUMENTATION_ASSESSMENT.md: [AgentBase](../../src/agents/base.py)
+⚠️  WARNING: Broken link in docs/assessments/DOCUMENTATION_ASSESSMENT.md: [Auth Config](../../src/config.py#L45-L60)
+⚠️  WARNING: Broken link in docs/assessments/REPOSITORY_AUDIT.md: [Research Paper](URL)
+⚠️  WARNING: Broken link in docs/assessments/REPOSITORY_AUDIT.md: [Document 1 Title](link)
+⚠️  WARNING: Broken link in docs/assessments/REPOSITORY_AUDIT.md: [Research Paper](URL)
+⚠️  WARNING: Broken link in docs/assessments/REPOSITORY_AUDIT.md: [Document](link)
+⚠️  WARNING: Broken link in docs/assessments/REPOSITORY_AUDIT.md: [Templates](appendices/templates/adr-template.md)
+⚠️  WARNING: Broken link in docs/assessments/REPOSITORY_AUDIT.md: [Overview](README.md)
+⚠️  WARNING: Broken link in docs/guides/BUG_REPORT.md: [Research Paper](URL)
+⚠️  WARNING: Broken link in docs/guides/BUG_REPORT.md: [Document 1 Title](link)
+⚠️  WARNING: Broken link in docs/guides/BUG_REPORT.md: [Research Paper](URL)
+⚠️  WARNING: Broken link in docs/guides/BUG_REPORT.md: [Document](link)
+⚠️  WARNING: Broken link in docs/guides/BUG_REPORT.md: [Templates](appendices/templates/adr-template.md)
+⚠️  WARNING: Broken link in docs/guides/BUG_REPORT.md: [Overview](README.md)
+⚠️  WARNING: Broken link in docs/docusaurus-new/docs/project-management/DOCUSAURUS_MIGRATION_PLAN.md: [.*\](.*\)
+⚠️  WARNING: Broken link in docs/docusaurus-new/docs/project-management/DOCUSAURUS_MIGRATION_PLAN.md: [.*\](.*)
+⚠️  WARNING: Broken link in docs/docusaurus-new/docs/project-management/DOCUSAURUS_MIGRATION_PLAN.md: [\1](\2)
+⚠️  WARNING: Broken link in docs/deployment/GETTING_STARTED.md: [RACI Matrix](raci-matrix.md)
+⚠️  WARNING: Broken link in docs/deployment/GETTING_STARTED.md: [Risk Registry](risk-registry.md)
+⚠️  WARNING: Broken link in docs/deployment/GETTING_STARTED.md: [Contributing Guidelines](README.md#contributing)
+⚠️  WARNING: Broken link in docs/deployment/GUI_QUICK_START.md: [gui/README.md](../gui/README.md)
+⚠️  WARNING: Broken link in docs/project-management/IMPLEMENTATION_ROADMAP.md: [Comprehensive Gap Analysis](COMPREHENSIVE_GAP_ANALYSIS.md)
+⚠️  WARNING: Broken link in docs/project-management/DOCUSAURUS_MIGRATION_PLAN.md: [.*\](.*\.md)
+⚠️  WARNING: Broken link in docs/project-management/DOCUSAURUS_MIGRATION_PLAN.md: [.*\](.*)
+⚠️  WARNING: Broken link in docs/project-management/DOCUSAURUS_MIGRATION_PLAN.md: [\1](\2)
+⚠️  WARNING: Broken link in docs/project-management/DOCUSAURUS_DAYS3-4_PROGRESS.md: [scripts/migrate-to-docusaurus.py](scripts/migrate-to-docusaurus.py)
+⚠️  WARNING: Broken link in docs/project-management/DOCUSAURUS_DAYS3-4_PROGRESS.md: [scripts/fix-mdx-symbols.sh](scripts/fix-mdx-symbols.sh)
+⚠️  WARNING: Broken link in docs/technical-debt/AUTOMATION_GAPS_AND_BEST_PRACTICES.md: [{{ commit.id | truncate(length=7, end="") }}]({{ commit.id }})
+⚠️  WARNING: Broken link in docs/technical-debt/TECHNICAL_DEBT_REMEDIATION.md: [test_api_endpoints.py](tests/integration/test_api_endpoints.py)
+⚠️  WARNING: Broken link in docs/technical-debt/TECHNICAL_DEBT_REMEDIATION.md: [test_pentarchy_workflow.py](tests/integration/test_pentarchy_workflow.py)
+⚠️  WARNING: Broken link in docs/technical-debt/TECHNICAL_DEBT_REMEDIATION.md: [test_zeus_orchestration.py](tests/integration/test_zeus_orchestration.py)
+⚠️  WARNING: Broken link in docs/technical-debt/TECHNICAL_DEBT_REMEDIATION.md: [test_agent_communication.py](tests/integration/test_agent_communication.py)
+⚠️  WARNING: Broken link in docs/technical-debt/TECHNICAL_DEBT_REMEDIATION.md: [test_database_integration.py](tests/integration/test_database_integration.py)
+⚠️  WARNING: Broken link in docs/technical-debt/TECHNICAL_DEBT_REMEDIATION.md: [tests/integration/README.md](tests/integration/README.md)
+⚠️  WARNING: Broken link in docs/technical-debt/TECHNICAL_DEBT_REMEDIATION.md: [frontend/package.json](frontend/package.json)
+⚠️  WARNING: Broken link in docs/technical-debt/TECHNICAL_DEBT_REMEDIATION.md: [frontend/playwright.config.ts](frontend/playwright.config.ts)
+⚠️  WARNING: Broken link in docs/technical-debt/TECHNICAL_DEBT_REMEDIATION.md: [chat.spec.ts](frontend/tests/e2e/chat.spec.ts)
+⚠️  WARNING: Broken link in docs/technical-debt/TECHNICAL_DEBT_REMEDIATION.md: [voting.spec.ts](frontend/tests/e2e/voting.spec.ts)
+⚠️  WARNING: Broken link in docs/technical-debt/TECHNICAL_DEBT_REMEDIATION.md: [.github/workflows/test-integration.yml](.github/workflows/test-integration.yml)
+⚠️  WARNING: Broken link in docs/technical-debt/TECHNICAL_DEBT_REMEDIATION.md: [.github/workflows/test-e2e.yml](.github/workflows/test-e2e.yml)
+⚠️  WARNING: Broken link in docs/technical-debt/TECHNICAL_DEBT_REMEDIATION.md: [.github/workflows/ci.yml](.github/workflows/ci.yml)
+⚠️  WARNING: Broken link in docs/technical-debt/TECHNICAL_DEBT_REMEDIATION.md: [README.md](README.md)
+⚠️  WARNING: Broken link in docs/technical-debt/TECHNICAL_DEBT_REMEDIATION.md: [PHASE_2_ROADMAP.md](PHASE_2_ROADMAP.md)
+⚠️  WARNING: Broken link in docs/technical-debt/TECHNICAL_DEBT_REMEDIATION.md: [PHASE_2_ROADMAP.md](PHASE_2_ROADMAP.md)
+⚠️  WARNING: Broken link in docs/technical-debt/TECHNICAL_DEBT_REMEDIATION.md: [PHASE_2_ROADMAP.md](PHASE_2_ROADMAP.md)
+⚠️  WARNING: Broken link in docs/technical-debt/AUTOMATION_CHECKLIST.md: [Pre-commit Hooks](.pre-commit-config.yaml)
+⚠️  WARNING: Broken link in docs/technical-debt/AUTOMATION_CHECKLIST.md: [Makefile Commands](Makefile)
+⚠️  WARNING: Broken link in docs/technical-debt/AUTOMATION_CHECKLIST.md: [CI/CD Workflows](.github/workflows/)
+⚠️  WARNING: Broken link in docs/technical-debt/AUTOMATION_CHECKLIST.md: [Monitoring](.monitoring/)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/governance/pentarchy-governance.md: [Cost Governance](cost-governance)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/governance/pentarchy-governance.md: [Kill Switch Protocol](kill-switch-protocol)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/governance/pentarchy-governance.md: [Zeus Supervisor](../02-architecture/agents/zeus-orchestrator)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/governance/pentarchy-governance.md: [Digital Agentic Realm](../00-executive/digital-agentic-realm)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/architecture/mcp-strategy.md: [Agent-MCP Matrix](agents/agent-mcp-matrix)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/architecture/mcp-strategy.md: [Cost Governance](../01-governance/cost-governance)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/complex/prompt-injection.md: [Prompt Standards](../../03-engineering/prompt-standards)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/complex/prompt-injection.md: [Security Scorecard](../../01-governance/ethics-scorecard)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/complex/c4-diagrams.md: [ADR-001](../adr/ADR-001-documentation-framework)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/complex/c4-diagrams.md: [System Topology](../topology)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/complex/c4-diagrams.md: [Data Lineage](../data-lineage)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/complex/c4-diagrams.md: [ADR-001: Documentation Framework](../adr/ADR-001-documentation-framework)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/deployment/GETTING_STARTED.md: [RACI Matrix](raci-matrix)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/deployment/GETTING_STARTED.md: [Risk Registry](risk-registry)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/deployment/GETTING_STARTED.md: [Contributing Guidelines](README#contributing)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/developer/python-sdk.md: [API Reference](api-reference/README)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/developer/python-sdk.md: [Model Cards](../03-engineering/model-cards/README)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/developer/python-sdk.md: [SLA/SLO](../04-operations/sla-slo)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/operations/sla-slo.md: [Incident Response](incident-response/README)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/operations/sla-slo.md: [Drift Detection](drift-detection)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/operations/sla-slo.md: [FinOps Metrics](finops-metrics)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/operations/sla-slo.md: [← Back to Volume IV](index)
+⚠️  WARNING: Broken link in docs/backup-docusaurus-samples/test-samples/operations/sla-slo.md: [Incident Response →](incident-response/README)
+⚠️  WARNING: Name placeholder in docs/assessments/REPOSITORY_AUDIT.md
+⚠️  WARNING: Date placeholder in docs/assessments/REPOSITORY_AUDIT.md
+⚠️  WARNING: Example domain in docs/assessments/REPOSITORY_AUDIT.md
+⚠️  WARNING: TODO marker in docs/assessments/REPOSITORY_AUDIT.md
+⚠️  WARNING: FIXME marker in docs/assessments/REPOSITORY_AUDIT.md
+⚠️  WARNING: Name placeholder in docs/guides/BUG_REPORT.md
+⚠️  WARNING: Date placeholder in docs/guides/BUG_REPORT.md
+⚠️  WARNING: Example domain in docs/guides/BUG_REPORT.md
+⚠️  WARNING: TODO marker in docs/guides/BUG_REPORT.md
+⚠️  WARNING: FIXME marker in docs/guides/BUG_REPORT.md
+
+============================================================
+INFO
+============================================================
+ℹ️  INFO: ✓ Found: docs/index.md
+ℹ️  INFO: ✓ Found: docs/01-governance/index.md
+ℹ️  INFO: ✓ Found: docs/01-governance/ethics-scorecard.md
+ℹ️  INFO: ✓ Found: docs/01-governance/risk-registry.md
+ℹ️  INFO: ✓ Found: docs/01-governance/legal-framework.md
+ℹ️  INFO: ✓ Found: docs/01-governance/raci-matrix.md
+ℹ️  INFO: ✓ Found: docs/01-governance/kill-switch-protocol.md
+ℹ️  INFO: ✓ Found: docs/02-architecture/index.md
+ℹ️  INFO: ✓ Found: docs/03-engineering/index.md
+ℹ️  INFO: ✓ Found: docs/04-operations/index.md
+ℹ️  INFO: ✓ Found: docs/05-human-factors/index.md
+ℹ️  INFO: ✓ Found: docs/mkdocs.yml
+ℹ️  INFO: ✓ Found: requirements.txt
+ℹ️  INFO: Found 244 markdown files
+ℹ️  INFO: ✓ Found schema: aibom-schema.json
+ℹ️  INFO: ✓ Found schema: model-card-schema.json
+ℹ️  INFO: ✓ Found schema: prompt-schema.json
+ℹ️  INFO: Found 9 model card files
+ℹ️  INFO:   ✓ MC-003-code-reviewer.md
+ℹ️  INFO:   ✓ MC-006-gpt-4o.md
+ℹ️  INFO:   ✓ MC-009-llama-3-2.md
+ℹ️  INFO:   ✓ MC-002-sentiment-analyzer.md
+ℹ️  INFO:   ✓ MC-008-mistral-7b-instruct.md
+ℹ️  INFO:   ✓ MC-005-translation-engine.md
+ℹ️  INFO:   ✓ MC-004-image-classifier.md
+ℹ️  INFO:   ✓ MC-001-document-summarizer.md
+ℹ️  INFO:   ✓ MC-007-claude-3-5-sonnet.md
+ℹ️  INFO: aibom/production/: 3 AIBOM files
+ℹ️  INFO: aibom/development/: 2 AIBOM files
+ℹ️  INFO: aibom/deprecated/: 1 AIBOM files
+ℹ️  INFO: Found 16 ADRs
+ℹ️  INFO:   ✓ prompt-injection.md
+ℹ️  INFO:   ✓ loop-detection.md
+ℹ️  INFO:   ✓ model-degradation.md
+ℹ️  INFO:   ✓ cost-spike.md
+ℹ️  INFO:   ✓ data-pipeline-failure.md
+ℹ️  INFO:   ✓ third-party-api-outage.md
+ℹ️  INFO:   ✓ high-error-rate.md
+ℹ️  INFO:   ✓ aibom-schema.json is valid JSON
+ℹ️  INFO:   ✓ prompt-schema.json is valid JSON
+ℹ️  INFO:   ✓ model-card-schema.json is valid JSON
+ℹ️  INFO: ✓ OpenAPI snapshot matches src.main:app.openapi()
+ℹ️  INFO: ✓ Key API docs endpoints match OpenAPI
+
+============================================================
+SUMMARY
+============================================================
+Errors:   0
+Warnings: 95
+Info:     43
+============================================================
+
+❌ VALIDATION FAILED

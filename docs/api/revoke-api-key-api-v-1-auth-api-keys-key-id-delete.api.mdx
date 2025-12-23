@@ -1,0 +1,71 @@
+---
+id: revoke-api-key-api-v-1-auth-api-keys-key-id-delete
+title: "Revoke Api Key"
+description: "Revoke an API key."
+sidebar_label: "Revoke Api Key"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVE1v2zAM/SsCTxvgNmmwk28ZGmxBWzRosl2CIFBsJlZjS6pEezMM//eBthN7SbdhJ31RJN/jIyuI0UdOWVJGQwgvWJgjCqnFdDEXRyxvIQBj0Uk2mMcQgmtMttKq7RHLZi3utjKn5HTnt82LirfbGFMkhACsdDJDQuchXFegOJiVlEAAWmYIIbRfIACHb7lyGENILscAfJRgJiGsgBSlbPqApZizKZWWz56c0geo6w3/9tZoj54/TMZjXiKjCTXxVlqbqqhBM3r1jLnqA9R1HVwQssyjCL3f56l46TxDHcCnyeR/HIN1TCKpNq0YSaqUd4ow89cGqYl+e5W6fN43xF0gDs43ShMe0EG9qYMzUY+mzainSjonS0aQ+cOQ0if0Xh7wmtPTRW86c844seLb6woMy7ducLShOstNn9t3maq4ya5x2Psyu1eMCAYw7lu+LkEMLL6uVot/Oryubv9FtH/YxGOUO0Vlwzc7/ozSoYNwvWGBkTywhmGaU4KaupozsgwpMdwiA9VTAiGMpFWj4m7ETcL7G26SUdUqvoY+5JIF00pgGLhTEmPZtVdnbAmRbbJWem9abQ0BPjwvn56XYjoXX0yBTksdoVikkvbGZeJGPOUpqRt5QE3CuChBT22rix+KErFATdJFSSkKQ0ofeBqcm7BzvZhDAAU630ac3I5vx1w8azxlsumDrsO74TK1SjxgCRfFGHTT+2OoQ0z4k0Y2lUpzlNw1fdQSvQZpFWdzBwEw2bx0dEMAYTdiNgEkxhPbV9VOevzm0rrm67ccHdd9E0AhnZI7RrquIFae9zGEe5l6/EvmH146+X8Uf0r5JGLNFBQyzfkEAQ/Afgw2bZygjBvhVd3jNIrQ0uDb1dSphzq8nz3OVrMTF+F5VpxFtDspu3o/q6pqLVbmiLquz0kSnznHuv4Fnyggaw==
+sidebar_class_name: "delete api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Revoke Api Key"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/api/v1/auth/api-keys/{key_id}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Revoke an API key.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"in":"path","name":"key_id","required":true,"schema":{"title":"Key Id","type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"content":{"application/json":{"schema":{}}},"description":"Successful Response"},"422":{"content":{"application/json":{"schema":{"properties":{"detail":{"items":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"title":"Location","type":"array"},"msg":{"title":"Message","type":"string"},"type":{"title":"Error Type","type":"string"}},"required":["loc","msg","type"],"title":"ValidationError","type":"object"},"title":"Detail","type":"array"}},"title":"HTTPValidationError","type":"object"}}},"description":"Validation Error"}}}
+>
+  
+</StatusCodes>
+
+
+      

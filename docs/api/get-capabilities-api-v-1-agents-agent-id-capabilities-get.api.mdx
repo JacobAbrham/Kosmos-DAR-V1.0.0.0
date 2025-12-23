@@ -1,0 +1,71 @@
+---
+id: get-capabilities-api-v-1-agents-agent-id-capabilities-get
+title: "Get Capabilities"
+description: "Get detailed capabilities and tools for an agent."
+sidebar_label: "Get Capabilities"
+hide_title: true
+hide_table_of_contents: true
+api: eJydVE1v2zAM/SsCTxvgNmmwk2/dVnTBVjRosl2CIGBsxlZnS6pEZzMM//eBdj6cBtuwnSxTJPX4+MgGUgqJ1461NRDDPbFKiVEXlKoEHW50oVlTUGhSxdYWQW2tV2gUZmT4GiKwjjxK/DSFGDLi9TBwjU6vdzfrzj2s++9ap+tzr4wYInDosSQmHyBeNqAFkkPOIQKDJUEMh3CIwNNLpT2lELOvKIKQ5FQixA2w5kKcb8VZTcWZayeWwF6bDNp2JfHBWRMoSMhkPJZPYg2TYTmic4VOusJGz0HYaU5PtG0bvaJuXiUJhbCtCvW0zwxtBO8mk39JDM4Ln8KJ/PW9kJNmKsOlQ2GTs1s09eO2I+9VxdHRog1TRh7aVRsdqfpie0QnqtB7rKWCMmRDUh8oBMzoktOD4eR65731aiHWyw4MG7js6uif2nuuTti+YaHTDl2X8JTLbp4pYRiU8bHn63URA49Pi8Xsrwkvu3sKUX1MlxMzEWovyiCQS+Lc7seg0zPnEMMInR7tbka936g5iLgdDWcAIgiUVF5zPRc59A0WvO8JPfmjTgTppjcdkefMrsOkzdb2yhnC//w4f3icq9upurc78gZNQmpWIG+tL9WVeqgK1lcdLmV9klPgfqbVD825mpFh9Eleq51lbTIZ+wOhh9SzKUSwIx/6FyfX4+uxtMbZwCV2Kt/PsCyZD+eFn6EdTMt/LaQ9JUw/eeQK1EZgVL4bo74jS0CnBe4NRIfuRRAPlstZY1YR5DawxDXNBgN99UXbivmlIl9DvFxFsEOvcSOULBtIdZBzCvEWi0B/KPDN034K3qrfQT9o2dQCGYtK/iCC71QPN2I3zzlhKlJZNvvr2yQhx4PAi/XTDnV7f7eAtv0Fm3kWpg==
+sidebar_class_name: "get api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get Capabilities"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/api/v1/agents/{agent_id}/capabilities"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get detailed capabilities and tools for an agent.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"in":"path","name":"agent_id","required":true,"schema":{"title":"Agent Id","type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"content":{"application/json":{"schema":{}}},"description":"Successful Response"},"422":{"content":{"application/json":{"schema":{"properties":{"detail":{"items":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"title":"Location","type":"array"},"msg":{"title":"Message","type":"string"},"type":{"title":"Error Type","type":"string"}},"required":["loc","msg","type"],"title":"ValidationError","type":"object"},"title":"Detail","type":"array"}},"title":"HTTPValidationError","type":"object"}}},"description":"Validation Error"}}}
+>
+  
+</StatusCodes>
+
+
+      

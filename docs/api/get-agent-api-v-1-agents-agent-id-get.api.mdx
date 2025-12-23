@@ -1,0 +1,71 @@
+---
+id: get-agent-api-v-1-agents-agent-id-get
+title: "Get Agent"
+description: "Get details about a specific agent."
+sidebar_label: "Get Agent"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVU1v20YQ/SuLOTUAY9lGT7y5beAKrWsjUnMxBGFEjshNSO5md6hWIPjfi9mlKNJSm/RE7vDNztebxw5y8pnTlrVpIIVHYpUTo668wp1pWaHyljK915nCghq+gQSMJYfiscwhhYJ4Gz5t0ert4S4e/HYw6ny7LYghAYsOa2JyHtLXDrQEtMglJNBgTZDCyQMScPS11Y5ySNm1lIDPSqoR0g5YcyXgBwGrpYD5aMXi2emmgL7fiL+3pvHkxeX+9lYemWmYGpZXtLbSWShi8dlL7d0kxLwpMVBNjDkySgOskxawjrdnaHGnK306a6Y6vLxJKxlT/3nqMaaPzuFRYLPw54J/mZgvak4gNzXquUO0XMHqfIq71sPTTM6oP+R8BWepYXRZeZyCX0bj6LEzpiJsxMUzcutjp/fYVizVH1BXuKtCjOGWVcRdDnjKj1cIhGlievmsSfmpA9m84+ecN8mcUMtmb84Bze4zZQx9/3YqsGqzjLzft5X6OFBNKvvx/v5/MW3OpLh6Mw7NAZXJZl+xOT7vwza9Hcto0Q1TQQ76zYSAv5uY0RXy1b6YDvKJvMfi6uCj4Qz94Jxxai3Wb01M6oihBuRkDJ+w0nnILlx4OYxkshGhX2+LmCB+Xa9fvnnh5XTPLir6CMRT1jrNx9BvufgnQkcO0teNKA5jIcIWRcxLRTVxaQaJDPrHJaSwQKsXh7tFxC26k+j1cA6xEoLEkU8DDcwJ2xRNYy0lsw1ZaiHwhYb99rx6el6ph6V6NAdyDTYZqZcKeW9crd6rp7Zi/T6koozLSvIcJV79pblU4zqrg2HdFDeTJT1d/bKEBA7kfIx4f3N7cxv0wXiuMfB+kHn5y4RlgwutGxfnO39FQ/VMf/PCVrLrfQKtCzsU+/0KaLVkdgfJaTYJpOOvZpNAaTwLsOt26OlPV/W9mL+25GTYmwQO6HTQJhl9rr2855DusfL0HzX88HHg/Dv1b7memNuIUh6wauUECXyh4/SHGLa3JMwD37rh80OWkeWJ44XY9FMaPn5YSw9aacuoDyORdic2d9eT6rqIWJsv1PT9mCPLWRLs+38A14rTfw==
+sidebar_class_name: "get api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get Agent"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/api/v1/agents/{agent_id}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get details about a specific agent.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"in":"path","name":"agent_id","required":true,"schema":{"title":"Agent Id","type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"content":{"application/json":{"schema":{"description":"Agent metadata.","properties":{"capabilities":{"items":{"type":"string"},"title":"Capabilities","type":"array"},"description":{"title":"Description","type":"string"},"domain":{"title":"Domain","type":"string"},"id":{"title":"Id","type":"string"},"name":{"title":"Name","type":"string"},"pentarchy":{"title":"Pentarchy","type":"boolean"},"status":{"default":"available","title":"Status","type":"string"}},"required":["id","name","description","domain","capabilities","pentarchy"],"title":"AgentInfo","type":"object"}}},"description":"Successful Response"},"422":{"content":{"application/json":{"schema":{"properties":{"detail":{"items":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"title":"Location","type":"array"},"msg":{"title":"Message","type":"string"},"type":{"title":"Error Type","type":"string"}},"required":["loc","msg","type"],"title":"ValidationError","type":"object"},"title":"Detail","type":"array"}},"title":"HTTPValidationError","type":"object"}}},"description":"Validation Error"}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -70,6 +70,7 @@ KOSMOS-Digital-Agentic-V-1.0.0/
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Python 3.11+
 - Node.js 18+
 - Docker & Docker Compose (recommended)
@@ -96,6 +97,7 @@ docker-compose -f config/environments/development/docker-compose.yml down
 ```
 
 **Services:**
+
 - API Gateway: http://localhost:8000
 - Frontend UI: http://localhost:3000
 - API Docs: http://localhost:8000/docs
@@ -107,6 +109,7 @@ docker-compose -f config/environments/development/docker-compose.yml down
 ### Option 2: Native Development
 
 1. **Setup Environment**
+
    ```powershell
    # Use interactive setup wizard
    .\scripts\setup\setup-interactive.ps1
@@ -119,18 +122,23 @@ docker-compose -f config/environments/development/docker-compose.yml down
    ```
 
 2. **Start the API Gateway** (Backend)
+
    ```powershell
    .\scripts\development\run_api.ps1
    ```
+
    *Runs on http://localhost:8000*
 
 3. **Start the Frontend** (UI)
+
    ```powershell
    .\scripts\development\run_frontend.ps1
    ```
+
    *Runs on http://localhost:3000*
 
 4. **Run Integration Tests**
+
    ```powershell
    python tests/test_swarm_integration.py
    ```
@@ -159,12 +167,14 @@ docker-compose -f config/environments/development/docker-compose.yml down -v
 Comprehensive documentation is available in the [`docs/`](docs/) directory:
 
 ### Core Documentation
+
 - **[Installation Guide](docs/INSTALLATION.md)** - Complete setup instructions
 - **[Architecture Overview](docs/ARCHITECTURE.md)** - System design and components
 - **[Testing Guide](docs/TESTING.md)** - Testing strategy and practices
 - **[API Reference](docs/developer-guide/api-reference/README.md)** - REST API documentation
 
 ### Detailed Documentation
+
 - **[Project Management](docs/project-management/)** - Roadmaps, task tracking, changelog
 - **[Deployment](docs/deployment/)** - Deployment guides and status
 - **[Guides](docs/guides/)** - Development and contribution guides
@@ -179,6 +189,7 @@ See [docs/README.md](docs/README.md) for complete documentation index.
 ## 🤝 Contributing
 
 We welcome contributions! Please see:
+
 - [Contributing Guide](CONTRIBUTING.md) - How to contribute
 - [Development Environment Guide](docs/guides/DEVELOPMENT_ENVIRONMENT_GUIDE.md) - Setup instructions
 - [Code Owners](.github/CODEOWNERS) - Review assignments
@@ -189,18 +200,23 @@ See LICENSE file for details.
 docker-compose ps
 
 # Access service logs
+
 docker-compose logs -f <service-name>
 
 # Execute commands in running container
+
 docker-compose exec api python -c "print('Hello')"
 
 # Clean up volumes (WARNING: deletes data)
+
 docker-compose down -v
+
 ```
 
 ## Architecture
 
 ```
+
 ┌─────────────────────────────────────────────────────────────────┐
 │                     KOSMOS ARCHITECTURE                          │
 ├─────────────────────────────────────────────────────────────────┤
@@ -212,11 +228,13 @@ docker-compose down -v
 ├─────────────────────────────────────────────────────────────────┤
 │  Layer 1: Cloud Infrastructure (K3s, Alibaba Cloud)             │
 └─────────────────────────────────────────────────────────────────┘
+
 ```
 
 ## Documentation Structure
 
 ```
+
 docs/
 ├── 00-executive/      # Strategy, roadmap, value proposition
 ├── 01-governance/     # Pentarchy, cost governance, kill switch
@@ -226,6 +244,7 @@ docs/
 ├── 05-human-factors/  # UI/UX, accessibility, ergonomics
 ├── 06-personal-data/  # Personal data ecosystem, privacy
 └── 07-entertainment/  # Media management, curation
+
 ```
 
 ## Getting Started

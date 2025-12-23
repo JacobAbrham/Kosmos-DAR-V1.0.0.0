@@ -88,6 +88,7 @@ KOSMOS is an AI-native enterprise operating system built around a multi-agent ar
 ### Layer 1: Presentation Layer
 
 **Frontend (Next.js 14)**
+
 - Server-side rendering (SSR)
 - TypeScript for type safety
 - Tailwind CSS for styling
@@ -95,6 +96,7 @@ KOSMOS is an AI-native enterprise operating system built around a multi-agent ar
 - Responsive design
 
 **Responsibilities:**
+
 - User interface rendering
 - User input validation
 - State management
@@ -103,6 +105,7 @@ KOSMOS is an AI-native enterprise operating system built around a multi-agent ar
 ### Layer 2: API Gateway Layer
 
 **FastAPI Application**
+
 - REST API endpoints
 - WebSocket support for real-time
 - Authentication middleware
@@ -110,6 +113,7 @@ KOSMOS is an AI-native enterprise operating system built around a multi-agent ar
 - CORS handling
 
 **Key Routers:**
+
 - `/api/v1/auth` - Authentication & authorization
 - `/api/v1/chat` - Chat and conversations
 - `/api/v1/agents` - Agent management
@@ -155,6 +159,7 @@ See [MCP Strategy](03-engineering/mcp-strategy.md) for details.
 ### Layer 5: Infrastructure Layer
 
 **Core Services:**
+
 - **PostgreSQL 15** - Primary database with pgvector extension
 - **Redis 7** - Caching and session storage
 - **MinIO** - Object storage for documents and media
@@ -162,6 +167,7 @@ See [MCP Strategy](03-engineering/mcp-strategy.md) for details.
 - **Ollama** (optional) - Local LLM inference
 
 **Observability:**
+
 - **Prometheus** - Metrics collection
 - **Grafana** - Visualization
 - **Loki** - Log aggregation
@@ -192,6 +198,7 @@ src/agents/<agent-name>/
 ### Agent Communication
 
 **Message Bus (NATS):**
+
 ```python
 # Agent publishes a message
 await nats_client.publish(
@@ -211,6 +218,7 @@ async def handle_task(msg):
 ```
 
 **Direct API Calls:**
+
 ```python
 # One agent calling another via API
 response = await http_client.post(
@@ -223,6 +231,7 @@ response = await http_client.post(
 ### Pentarchy Governance
 
 **Decision Flow:**
+
 ```
 1. Action proposal created (amount: $50-$100)
 2. Zeus initiates Pentarchy vote
@@ -235,6 +244,7 @@ response = await http_client.post(
 ```
 
 **Vote Structure:**
+
 ```json
 {
   "proposal_id": "prop-123",
@@ -298,6 +308,7 @@ response = await http_client.post(
 ### Data Storage
 
 **PostgreSQL Database:**
+
 ```
 kosmos_db
 ├── users                  # User accounts
@@ -312,6 +323,7 @@ kosmos_db
 ```
 
 **MinIO Object Storage:**
+
 ```
 kosmos-bucket/
 ├── documents/            # Uploaded documents
@@ -321,6 +333,7 @@ kosmos-bucket/
 ```
 
 **Redis Cache:**
+
 ```
 redis:
 ├── sessions:<session_id>     # User sessions
@@ -419,16 +432,19 @@ Kubernetes Cluster
 ### Scaling Strategy
 
 **Horizontal Scaling:**
+
 - API Gateway: 3-10 replicas (auto-scaling)
 - Agents: 1-3 replicas per agent
 - Database: Read replicas for query load
 
 **Vertical Scaling:**
+
 - Agent pods: 2-4 CPU, 4-8GB RAM
 - Database: 8-16 CPU, 32-64GB RAM
 - Redis: 2-4 CPU, 8-16GB RAM
 
 **Resource Targets:**
+
 - **Development:** 8GB RAM, 4 cores
 - **Staging:** 32GB RAM, 8 cores
 - **Production:** 128GB+ RAM, 32+ cores
