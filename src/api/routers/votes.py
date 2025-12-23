@@ -242,6 +242,191 @@ async def get_voting_stats():
     }
 
 
+class ActionAnalysis(BaseModel):
+    """Analysis result for determining if action requires voting."""
+    requires_voting: bool
+    estimated_cost: float
+    risk_level: str
+    action_type: str
+    description: str
+
+
+class AnalyzeActionRequest(BaseModel):
+    """Request body for analyze-action endpoint."""
+    message: str = Field(..., description="User message to analyze")
+    context: Optional[Dict[str, Any]] = None
+
+
+@router.post("/analyze-action", response_model=ActionAnalysis)
+async def analyze_action(request: AnalyzeActionRequest):
+    """
+    Analyze a user message to determine if it requires Pentarchy voting.
+    
+    This endpoint checks if the action described in the message:
+    - Has an estimated cost >= $50 (triggers voting)
+    - Has an estimated cost >= $100 (requires human review)
+    - Involves sensitive operations (security, legal, financial)
+    """
+    import re
+    
+    message = request.message
+    
+    # Keywords that suggest costly or sensitive operations
+    cost_keywords = {
+        "purchase": 75.0,
+        "buy": 75.0,
+        "subscribe": 60.0,
+        "deploy": 80.0,
+        "provision": 100.0,
+        "scale": 70.0,
+        "upgrade": 85.0,
+        "migrate": 150.0,
+        "delete": 50.0,
+        "remove": 40.0,
+        "transfer": 90.0,
+        "payment": 100.0,
+        "invoice": 50.0,
+        "hire": 200.0,
+        "contract": 150.0,
+    }
+    
+    security_keywords = ["security", "access", "permission", "credential", "secret", "key", "password"]
+    legal_keywords = ["legal", "compliance", "gdpr", "contract", "agreement", "terms"]
+    
+    message_lower = message.lower()
+    
+    # Detect explicit cost mentions (e.g., "$75", "100 dollars")
+    cost_patterns = [
+        r'\$(\d+(?:,\d{3})*(?:\.\d{2})?)',
+        r'(\d+(?:,\d{3})*(?:\.\d{2})?)\s*(?:dollars?|usd)',
+        r'cost(?:s|ing)?\s*(?:about|around|approximately)?\s*\$?(\d+)',
+    ]
+    
+    detected_cost = 0.0
+    for pattern in cost_patterns:
+        matches = re.findall(pattern, message_lower)
+        for match in matches:
+            try:
+                cost = float(match.replace(",", ""))
+                detected_cost = max(detected_cost, cost)
+            except ValueError:
+                pass
+    
+    # Check for action keywords
+    action_type = "general"
+    estimated_cost = detected_cost
+    
+    for keyword, default_cost in cost_keywords.items():
+        if keyword in message_lower:
+            action_type = keyword
+            if estimated_cost == 0:
+                estimated_cost = default_cost
+            break
+    
+    # Check for security/legal sensitivity
+    is_security = any(kw in message_lower for kw in security_keywords)
+    is_legal = any(kw in message_lower for kw in legal_keywords)
+    
+    if is_security:
+        action_type = "security"
+        estimated_cost = max(estimated_cost, 100.0)  # Always requires human review
+    elif is_legal:
+        action_type = "legal"
+        estimated_cost = max(estimated_cost, 100.0)
+    
+    # Determine risk level based on cost
+    from src.core.governance import AUTO_APPROVE_LIMIT, HUMAN_REVIEW_LIMIT
+    
+    if estimated_cost >= HUMAN_REVIEW_LIMIT:
+        risk_level = "high"
+    elif estimated_cost >= AUTO_APPROVE_LIMIT:
+        risk_level = "medium"
+    else:
+        risk_level = "low"
+    
+    requires_voting = estimated_cost >= AUTO_APPROVE_LIMIT
+    
+    return ActionAnalysis(
+        requires_voting=requires_voting,
+        estimated_cost=estimated_cost,
+        risk_level=risk_level,
+        action_type=action_type,
+        description=f"Action '{action_type}' with estimated cost ${estimated_cost:.2f}"
+    )
+
+
+class AutoProposalRequest(BaseModel):
+    """Request body for auto-proposal endpoint."""
+    message: str
+    conversation_id: Optional[str] = None
+
+
+@router.post("/auto-proposal")
+async def create_auto_proposal(
+    request: AutoProposalRequest,
+    background_tasks: BackgroundTasks,
+    current_user: Optional[dict] = Depends(get_optional_user),
+):
+    """
+    Automatically create a proposal if the message warrants Pentarchy voting.
+    
+    This is called by the chat system when an action is detected that requires governance.
+    """
+    message = request.message
+    conversation_id = request.conversation_id
+    
+    # First analyze the action
+    analysis_request = AnalyzeActionRequest(message=message)
+    analysis = await analyze_action(analysis_request)
+    
+    if not analysis.requires_voting:
+        return {
+            "proposal_created": False,
+            "reason": "Action does not require voting (cost below threshold)",
+            "analysis": analysis.model_dump()
+        }
+    
+    # Create proposal
+    proposal_request = ProposalRequest(
+        title=f"Auto-generated: {analysis.action_type.title()} Action",
+        description=message,
+        cost=analysis.estimated_cost,
+        risk_level=analysis.risk_level,
+        context={"conversation_id": conversation_id, "auto_generated": True},
+        auto_execute=False
+    )
+    
+    response = await create_proposal(proposal_request, background_tasks, current_user)
+    
+    return {
+        "proposal_created": True,
+        "proposal_id": response.proposal_id,
+        "analysis": analysis.model_dump(),
+        "status": response.status
+    }
+
+
+@router.get("/pending")
+async def get_pending_proposals():
+    """Get all pending proposals that are awaiting votes."""
+    pending = [p for p in _proposals.values() if p["status"] == "pending"]
+    pending.sort(key=lambda x: x["created_at"], reverse=True)
+    
+    return [
+        {
+            "proposal_id": p["id"],
+            "title": p["title"],
+            "description": p["description"][:200] + "..." if len(p["description"]) > 200 else p["description"],
+            "cost": p["cost"],
+            "risk_level": p["risk_level"],
+            "votes_collected": len(p["votes"]),
+            "votes_needed": len(PENTARCHY_AGENTS),
+            "created_at": p["created_at"].isoformat(),
+        }
+        for p in pending
+    ]
+
+
 def _format_proposal_response(proposal: dict) -> ProposalResponse:
     """Format proposal dict to response model."""
     return ProposalResponse(

@@ -1,0 +1,3 @@
+(?i)http://localhost\b
+(?i)http://127\.0\.0\.1\b
+(?i)https?://api\.kosmos\.nuvanta\.(com|local)\b

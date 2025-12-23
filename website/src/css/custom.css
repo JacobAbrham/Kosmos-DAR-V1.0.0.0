@@ -1,0 +1,278 @@
+/**
+ * KOSMOS Documentation - Advanced Custom CSS
+ * Brand colors: Deep Purple (#673ab7) with Amber accents
+ * Enterprise-grade theming with animations and modern design
+ */
+
+/* Enhanced typography and spacing */
+:root {
+  --ifm-color-primary: #673ab7;
+  --ifm-color-primary-dark: #5e35b1;
+  --ifm-color-primary-darker: #5c33b0;
+  --ifm-color-primary-darkest: #4c2a93;
+  --ifm-color-primary-light: #7e57c2;
+  --ifm-color-primary-lighter: #805dc4;
+  --ifm-color-primary-lightest: #9575cd;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(103, 58, 183, 0.1);
+
+  /* Custom KOSMOS variables */
+  --kosmos-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --kosmos-accent: #ff9800;
+  --kosmos-success: #4caf50;
+  --kosmos-warning: #ff9800;
+  --kosmos-error: #f44336;
+
+  /* Enhanced spacing */
+  --ifm-container-width-xl: 1400px;
+  --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ifm-heading-font-weight: 600;
+}
+
+/* Dark mode - Lighter purple for readability */
+[data-theme='dark'] {
+  --ifm-color-primary: #9575cd;
+  --ifm-color-primary-dark: #7e57c2;
+  --ifm-color-primary-darker: #7c54c0;
+  --ifm-color-primary-darkest: #673ab7;
+  --ifm-color-primary-light: #b39ddb;
+  --ifm-color-primary-lighter: #b6a1df;
+  --ifm-color-primary-lightest: #d1c4e9;
+  --docusaurus-highlighted-code-line-bg: rgba(149, 117, 205, 0.3);
+}
+
+/* Hero section gradient */
+.hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.hero__title {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+/* Custom admonition colors */
+.admonition {
+  border-radius: 8px;
+}
+
+/* Code blocks */
+.prism-code {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced hero section with animations */
+.hero {
+  background: var(--kosmos-gradient);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  pointer-events: none;
+}
+
+.hero__title {
+  font-size: 3rem;
+  font-weight: bold;
+  animation: fadeInUp 1s ease-out;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero__subtitle {
+  font-size: 1.25rem;
+  animation: fadeInUp 1s ease-out 0.2s both;
+  opacity: 0.9;
+}
+
+/* KOSMOS brand animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced navbar */
+.navbar__brand {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.navbar__link:hover {
+  color: var(--ifm-color-primary-light);
+  transition: color 0.2s ease;
+}
+
+/* Custom card styling */
+.card {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid rgba(103, 58, 183, 0.1);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Enhanced buttons */
+.button {
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.button--primary {
+  background: var(--kosmos-gradient);
+  border: none;
+}
+
+.button--primary:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+}
+
+/* Custom admonitions with KOSMOS colors */
+.admonition {
+  border-radius: 12px;
+  border-left: 4px solid;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.admonition--note {
+  border-left-color: var(--ifm-color-primary);
+  background-color: rgba(103, 58, 183, 0.05);
+}
+
+.admonition--tip {
+  border-left-color: var(--kosmos-success);
+  background-color: rgba(76, 175, 80, 0.05);
+}
+
+.admonition--warning {
+  border-left-color: var(--kosmos-warning);
+  background-color: rgba(255, 152, 0, 0.05);
+}
+
+.admonition--danger {
+  border-left-color: var(--kosmos-error);
+  background-color: rgba(244, 67, 54, 0.05);
+}
+
+/* Enhanced footer */
+.footer {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  color: white;
+}
+
+.footer__link-item:hover {
+  color: var(--ifm-color-primary-light);
+  transition: color 0.2s ease;
+}
+
+/* API documentation enhancements */
+.api-method {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.875em;
+}
+
+.api-method--get {
+  background-color: rgba(25, 135, 84, 0.1);
+  color: #198754;
+}
+
+.api-method--post {
+  background-color: rgba(13, 110, 253, 0.1);
+  color: #0d6efd;
+}
+
+.api-method--put {
+  background-color: rgba(255, 193, 7, 0.1);
+  color: #ffc107;
+}
+
+.api-method--delete {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+}
+
+/* Responsive enhancements */
+@media (max-width: 768px) {
+  .hero__title {
+    font-size: 2rem;
+  }
+
+  .navbar__brand {
+    font-size: 1.25rem;
+  }
+}
+
+/* Loading animations */
+.loading {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ifm-background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ifm-color-primary-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ifm-color-primary);
+}
+
+/* Navigation improvements */
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+.footer {
+  background-color: var(--ifm-color-emphasis-100);
+}
+
+[data-theme='dark'] .footer {
+  background-color: #1a1a1a;
+}

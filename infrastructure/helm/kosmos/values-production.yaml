@@ -34,8 +34,7 @@ secrets:
 database:
   url: "postgresql://kosmos:${DB_PASSWORD}@kosmos-postgresql:5432/kosmos"
 
-redis:
-  url: "redis://:${REDIS_PASSWORD}@kosmos-redis-master:6379/0"
+redisUrl: "redis://:${REDIS_PASSWORD}@kosmos-redis-master:6379/0"
 
 auth:
   jwtSecretKey: ""  # Must be provided via --set or external secrets

@@ -2,15 +2,25 @@
 Agents API Router - Agent management and direct invocation.
 """
 import logging
+import os
 from datetime import datetime
-from typing import Optional, List, Dict, Any
+from typing import Any, Dict, List, Optional
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
+
+from src.api.auth_deps import get_current_user, get_optional_user, require_permission
+from src.services.auth_service import Permission
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/agents", tags=["agents"])
+
+REQUIRE_AUTH = os.getenv("REQUIRE_AUTH", "true").lower() == "true"
+ALLOW_AGENT_LLM_FALLBACK = os.getenv("ALLOW_AGENT_LLM_FALLBACK", "false").lower() == "true"
+UserDependency = get_current_user if REQUIRE_AUTH else get_optional_user
+agent_view_dep = [Depends(require_permission(Permission.AGENT_VIEW))] if REQUIRE_AUTH else []
+agent_execute_dep = [Depends(require_permission(Permission.AGENT_EXECUTE))] if REQUIRE_AUTH else []
 
 
 # Agent registry with metadata
@@ -138,7 +148,7 @@ class AgentToolResponse(BaseModel):
     error: Optional[str] = None
 
 
-@router.get("", response_model=List[AgentInfo])
+@router.get("", response_model=List[AgentInfo], dependencies=agent_view_dep)
 async def list_agents(
     domain: Optional[str] = Query(None, description="Filter by domain"),
     pentarchy_only: bool = Query(
@@ -164,8 +174,8 @@ async def list_agents(
     return agents
 
 
-@router.get("/{agent_id}", response_model=AgentInfo)
-async def get_agent(agent_id: str):
+@router.get("/{agent_id}", response_model=AgentInfo, dependencies=agent_view_dep)
+async def get_agent(agent_id: str, current_user: Optional[dict] = Depends(UserDependency)):
     """Get details about a specific agent."""
     if agent_id not in AGENT_REGISTRY:
         raise HTTPException(
@@ -182,14 +192,21 @@ async def get_agent(agent_id: str):
     )
 
 
-@router.post("/{agent_id}/query", response_model=AgentQueryResponse)
-async def query_agent(agent_id: str, request: AgentQueryRequest):
+@router.post(
+    "/{agent_id}/query",
+    response_model=AgentQueryResponse,
+    dependencies=agent_execute_dep,
+)
+async def query_agent(agent_id: str, request: AgentQueryRequest, current_user: Optional[dict] = Depends(UserDependency)):
     """Send a query directly to a specific agent."""
     import time
 
     if agent_id not in AGENT_REGISTRY:
         raise HTTPException(
             status_code=404, detail=f"Agent '{agent_id}' not found")
+
+    if REQUIRE_AUTH and current_user is None:
+        raise HTTPException(status_code=401, detail="Authentication required")
 
     start_time = time.time()
 
@@ -231,11 +248,13 @@ async def query_agent(agent_id: str, request: AgentQueryRequest):
         if agent_module and hasattr(agent_module, "process_query"):
             response = await agent_module.process_query(
                 request.query,
-                conversation_id=request.conversation_id or ""
+                conversation_id=request.conversation_id or "",
             )
-        else:
+        elif ALLOW_AGENT_LLM_FALLBACK:
             # Fallback to LLM with agent persona
-            from src.services.llm_service import get_llm_service, Message as LLMMessage
+            from src.services.llm_service import Message as LLMMessage
+            from src.services.llm_service import get_llm_service
+
             llm = get_llm_service()
 
             meta = AGENT_REGISTRY[agent_id]
@@ -243,13 +262,19 @@ async def query_agent(agent_id: str, request: AgentQueryRequest):
 Your domain: {meta['domain']}
 Your capabilities: {', '.join(meta['capabilities'])}
 
-Respond helpfully to user queries within your domain of expertise."""
+Respond concisely within your domain. Avoid actions you cannot execute."""
 
             llm_response = await llm.chat(
                 messages=[LLMMessage(role="user", content=request.query)],
                 system_prompt=system_prompt,
+                temperature=0.2,
             )
             response = llm_response.content
+        else:
+            raise HTTPException(
+                status_code=501,
+                detail="Agent runtime not available; enable ALLOW_AGENT_LLM_FALLBACK to use LLM fallback.",
+            )
 
         processing_time = int((time.time() - start_time) * 1000)
 
@@ -265,21 +290,23 @@ Respond helpfully to user queries within your domain of expertise."""
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.post("/{agent_id}/tools/{tool_name}", response_model=AgentToolResponse)
-async def invoke_tool(agent_id: str, tool_name: str, request: AgentToolRequest):
+@router.post(
+    "/{agent_id}/tools/{tool_name}",
+    response_model=AgentToolResponse,
+    dependencies=agent_execute_dep,
+)
+async def invoke_tool(agent_id: str, tool_name: str, request: AgentToolRequest, current_user: Optional[dict] = Depends(UserDependency)):
     """Invoke a specific tool on an agent."""
     if agent_id not in AGENT_REGISTRY:
         raise HTTPException(
             status_code=404, detail=f"Agent '{agent_id}' not found")
 
-    # This would invoke the actual MCP tool
-    # For now, return a placeholder
-    return AgentToolResponse(
-        agent=agent_id,
-        tool=tool_name,
-        result={"status": "mock",
-                "message": f"Tool {tool_name} invoked with {request.parameters}"},
-        success=True,
+    if REQUIRE_AUTH and current_user is None:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    raise HTTPException(
+        status_code=501,
+        detail="Agent tool invocation is not wired to MCP yet. Implement tool handler before enabling.",
     )
 
 

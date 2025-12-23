@@ -1,0 +1,71 @@
+---
+id: check-server-health-api-v-1-mcp-servers-server-id-health-get
+title: "Check Server Health"
+description: "Check health of a specific server."
+sidebar_label: "Check Server Health"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVNtu2zAM/RWBTxug1m2wJ7/tUrTBVjRosr0EQcDITKzWtlSJzhYY+vdBvuSyrMX2ZFk8pMjDQzbAuPGQzqFUFhYSMvLKacvaVJDC55zUs8gJC86FWQsU3pLSa62EJ7cldwkSjCWH0WGcQQoquiw767LzXKLVy+31slS2N/jlgNDZckBtiEGCRYclMbmYVQMVlgQp7NEgQcfMLHIOEhy91NpRBim7miR4lVOJkDbAO9s6stPVBiSw5iJeTNtIYpxBCIsYwFtTefLRZ3R1FT+nHExrpcj7dV2Ixx4MEpSpmCqOcLS20KplIHny0ac55BFCCBI+jEbngX9gobPWTdw4Z9x/RAXrIuusu7wzYtRFPGmm0p8DCqNOrFjtHtYtv6c0Bbm/0RXThhyERZDDHTqHuyMuv5kuQQgSSr95i/Z78h43BPtgr0NbMsQsWsPhbbN6IsUnLZ+3dXVP97jFIcyB3o7d18v40tH3t8cGyN1sNjkL2PW2JM5NVP6gX84hhQStTrbXSals0ms+afYqDkmneZDgSdVO824ae9t1Kz72idCRO6IpZ7bQCzz+rzpAzEBXa9Mi+2S/PkzvH6bi42QMfw70YBqLW7MlV2GlSEwK5LVxpbgQ93XB+gI3VLEwTuXkuZtt8VNzLiZUMTqV78TWsK42cfxjaV3w0eXV5VXk2RrPJbaS7ee3WyT97N0NtZ/k1hzU/297pyeG6RcntkDdyrB27Rx0XZgDWh1TvI4qUS1/XS9AQnq8U/p2LCTkxnP0bJoVevruihDi9UtNbgfpfCFhi07jKjI9byDTPp4zSNdYeHqjpnePvXDfi9eSH/RZRXVusajjH0h4pt3JDmxnMifMokLmTW//qBRZPvI8WyFx4e3lenszgxB+A7NKDl8=
+sidebar_class_name: "get api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Check Server Health"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/api/v1/mcp/servers/{server_id}/health"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Check health of a specific server.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"server_id","in":"path","required":true,"schema":{"type":"string","title":"Server Id"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"properties":{"detail":{"items":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

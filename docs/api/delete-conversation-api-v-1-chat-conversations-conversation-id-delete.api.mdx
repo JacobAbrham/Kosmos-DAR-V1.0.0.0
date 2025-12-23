@@ -1,0 +1,71 @@
+---
+id: delete-conversation-api-v-1-chat-conversations-conversation-id-delete
+title: "Delete Conversation"
+description: "Delete a conversation owned by the user."
+sidebar_label: "Delete Conversation"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVFFv2kAM/isnP23StVC0p7xtK9rQWhUVtheEkEkMuTbcpXcOHYry3ycnQAJ0m/qUi8/2+fv82SUkFGJvcjbOQgS3lBGTQhU7uyUfUOzKvVpK1HKnOCVVBPLXoMHl5OvrUQIRJHXgohu2wNwstjeLOEU+uQiLUz+TLBZNPGjI0eOGmHyAaFaCkapy5BQ0WNwQRHAWCxo8vRTGUwIR+4I0hDilDUJUAhvOJOZrF85IYniXy0Vgb+waqmouaULubKAgkYN+Xz6xs0yW5Yh5npm4TtF7CkJX2b5UVZU+43JSxDGFsCoy9bjPDJWGT4PBexJD7oVpNk1ZCTGaTE6GaRMuHTIXn9yi3T2sairPEOujxVimNXmo5pU+MnbnmopaqtB73AmCTVh3ub2nEHBNl5weDK3r0Hvn1VSslx3o9nFW42ie2nvO29p+YWaSuro6YZvLLZ8oZujAuG34OgfR8fg+nY7/m/Cyu22IamLEJVBceMO7mm9J/IXQk4doNheBMa5F1SATIXg2xKlrp6dWP6cQQQ9z09ve9MSxdzI6vfJM/hW0z05ENI0Muo/v1SR4lo3piC9lzuvKjV25Rl9dkD8eJvcPE/V5pL65LXmLNiY1zpBXzm/UlbovMjZXuCbLyvk4pcDNTlCvhlM1Jsvo43Snto6NXcvaONB+SD0egQYB1Lw4uO5f96WBuQu8wXoW9nO/303dUYazrnTG6j2rbE8G02/u5RkaKwUUvh6zpiMzwNxIoTegm/bpkz0UQEN0vpjmGlIXWKLLcomBfvqsqsT8UpAXkcw1bNEbXAolsxISE+ScQLTCLNA/0H143M/KR/U3AAfF250Ujlkhf6DhmXZvbNF6+FPCpJZruff6HMeUcyf+YldVXR3fDu+G0yFowEJYO26Yo+yWh3ko3y6vLBuPqXsmW1XHaln+pcaq+gN+BVBB
+sidebar_class_name: "delete api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete Conversation"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/api/v1/chat/conversations/{conversation_id}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Delete a conversation owned by the user.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"in":"path","name":"conversation_id","required":true,"schema":{"title":"Conversation Id","type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"content":{"application/json":{"schema":{}}},"description":"Successful Response"},"422":{"content":{"application/json":{"schema":{"properties":{"detail":{"items":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"title":"Location","type":"array"},"msg":{"title":"Message","type":"string"},"type":{"title":"Error Type","type":"string"}},"required":["loc","msg","type"],"title":"ValidationError","type":"object"},"title":"Detail","type":"array"}},"title":"HTTPValidationError","type":"object"}}},"description":"Validation Error"}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,71 @@
+---
+id: manual-vote-api-v-1-votes-proposals-proposal-id-vote-post
+title: "Manual Vote"
+description: "Manually add a vote (for testing or override)."
+sidebar_label: "Manual Vote"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1VU1v2zgQ/SvEnFpAiZNgT7ql3aIb7AYx4mwvhmGMpbHErkSyJOVUEPTfF0NKltx0WwfY5mDYk5k3b74eO8jJZVYaL7WCFO5RNVhVrcA8FygO2pN4s9dWeHJeqkJoK/SBrJU5vb2EBLQhixx8l0MKdQjfctgWjdwersN3tzVWG+2wctvj163Mt9HTaOchAYMWa/JkHaTrDiTzMehLSEBhTfxrCoUELH1ppKUcUm8bSsBlJdUIaQde+or9l4O/uGN/3xo2Om+lKqDvkyHHl4ZsOyXBgpQ/C/528DwTmGs9C/dTdDwT1mXanoe7GjwHYNXUO7LQ95sYTM6/03nLEZlWnmtLO0BjKpmFES8+O16SbgYtPdUu5DglmxyTPhI6rdh4TIzWYgt9339LOhic0cpRAL25unoNm4B4us+rJsvIuX1TiccBmcn9dnPzqjJ58ch6GWnl5FFWJ+WfOlQ6O/kvqvZhH5b62zYdLVJ5Kngam1nv/tKR0YvWJVC7Yj7ae3IOi+9szWiYXD9Yq614Yut3dmw2kXWoI6YaPDcTt09YyTywC4ATlt59pszPV+D32K8X8588/nh6Wv4U8OV0pxARYwImFiwgULBOKVRZoF2TLzVL1FFsfAkpLNDIxeF6EVRqcVSpRTeTmn4xXK6jrLHStyveizhpJv6O0JI9LgxT3kXTsYTSexPI8Wo9Trf24SvWhjuwHkewSUCqvY5rNq/1z4fV/cNK3N6Jj8fCxLJCv9e2Fhfivqm8vAjiJbTNSnI+CrN4lr4US1IebVa2rOlSFazdY/dH6OUdJHAg62LGm8uryyueI7esxnASg+bEZ0IMQnVCdHZVr39NhnZ5+uoXpkKpOH1jw63Fia0BjWSa1/zBU+NhjnODBNLTRyKMbpNAyWNP19B1O3T0t636ns1RS/kyc+lwV/He77Fy9IOq3jwOJ/JW/Bflf6idvSQHrBr2Cff+C/IM6/mr04wPzZRnwz+s5ET/fw9HsVDtPOdIZj7loJklYc5XuO4Gj/cx2cWgdCPCC6HnbsWI2ywj43/oO1eS5cPqCRLYDW9mrXOOsfjMjzE+R7Y6FB+0Itg6qFAVDWt1ChGT//4Fe9JClA==
+sidebar_class_name: "post api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Manual Vote"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/api/v1/votes/proposals/{proposal_id}/vote"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Manually add a vote (for testing or override).
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"in":"path","name":"proposal_id","required":true,"schema":{"title":"Proposal Id","type":"string"}},{"in":"query","name":"agent","required":true,"schema":{"title":"Agent","type":"string"}},{"in":"query","name":"vote","required":true,"schema":{"title":"Vote","type":"string"}},{"in":"query","name":"score","required":true,"schema":{"title":"Score","type":"number"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"items":{"type":"string"},"title":"Reasoning","type":"array"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"content":{"application/json":{"schema":{}}},"description":"Successful Response"},"422":{"content":{"application/json":{"schema":{"properties":{"detail":{"items":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"title":"Location","type":"array"},"msg":{"title":"Message","type":"string"},"type":{"title":"Error Type","type":"string"}},"required":["loc","msg","type"],"title":"ValidationError","type":"object"},"title":"Detail","type":"array"}},"title":"HTTPValidationError","type":"object"}}},"description":"Validation Error"}}}
+>
+  
+</StatusCodes>
+
+
+      

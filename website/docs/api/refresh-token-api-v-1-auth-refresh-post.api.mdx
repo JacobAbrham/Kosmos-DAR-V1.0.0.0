@@ -1,0 +1,71 @@
+---
+id: refresh-token-api-v-1-auth-refresh-post
+title: "Refresh Token"
+description: "Refresh access token using refresh token."
+sidebar_label: "Refresh Token"
+hide_title: true
+hide_table_of_contents: true
+api: eJydVU1v2kAQ/SurObWSEwjqybdUjVrURqBAe0EILWawN7F3N7tjWmT5v1fjNcGGkH6cMJ6PnXnv7XMFJFMP8QJuS8pQk0okKaNhGcEGfeKUbf7G8IBbhz4TMknQe0HmCbUovdKpcG2oeXcNERiLrmkz3kAMbXjVhFfSqtXuZiVLylaHiDWeIAIrnSyQ0PFAFWhZ4Gk5RKB4mucS3R4icPhcKocbiMmVGIFPMiwkxBXQ3nK1J6d0ChGQohw7e8ybdnW95CbeGu3Rc91oOOSf/vKzstl6W+bioU2GCBKjCTVxurQ2b6EbPHquqTqzWMeIkAonBATbfd6Y9DYg3Q4anQDx9ytGEJAP6ZfLmnQx5yiTv5VlThDDGqVDx23wl1UO/Up1T1eaMEXX6XMX0sSY4Y0OeWb9iAn1KFv0oTjdsHfg8mTODg19qsIWB0pFIOEa6ppn+TAanZP7Q+Zq01An7pwz7v+Z3SBJlfOTIiz8eUJukl5U6v1k24i9T0odneFbL49YSufkvoP4N9Pe2jqCwqdvkXyP3ssU4aXZ5dQGjKCHP/HIe4Wj27wOXUd4A7qX1/gU4HvtsEPKl/l8etYwcFsgZYb95sVNKIMYBtKqwe5mwIYzaAUGEXhMSqdoP2MqAznc+2MQ+xGVjMhC6yvYuQ01G9HWNJntbF8ns/vJTNxOx2eiPITG4rPZodNSJyimuaStcYW4EvdlTupKpqhJGJdk6CkYqPipKBNT1CRdku3FzpDSKXvsDp0PzUfXw+shw8qLF7JRaOudfSc4mao6yvyf3L1FhvAXDWwuVSO70jW6D6AvQFrFM95ABAz88W6zMjImKF5AVa2lx+8ur2t+HTydL8NGebnOWVpbmXt8Y+53D60K34tLkz3h/pWvyE7mJecCfwB20ik+EOIF37IM5YZFsKjaYnZiS52qM1PgLi8CnE5mc6jr31ciiWM=
+sidebar_class_name: "post api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Refresh Token"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/api/v1/auth/refresh"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Refresh access token using refresh token.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"refresh_token","in":"query","required":true,"schema":{"type":"string","title":"Refresh Token"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"properties":{"access_token":{"type":"string","title":"Access Token"},"refresh_token":{"type":"string","title":"Refresh Token"},"token_type":{"type":"string","title":"Token Type","default":"bearer"},"expires_in":{"type":"integer","title":"Expires In"}},"type":"object","required":["access_token","refresh_token","expires_in"],"title":"TokenResponse","description":"Token response schema."}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"properties":{"detail":{"items":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

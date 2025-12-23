@@ -1,0 +1,71 @@
+---
+id: query-agent-api-v-1-agents-agent-id-query-post
+title: "Query Agent"
+description: "Send a query directly to a specific agent."
+sidebar_label: "Query Agent"
+hide_title: true
+hide_table_of_contents: true
+api: eJylVk1v4zYQ/SvEnFpAiZ2g6EG3bLpog24QN3F7MQJjLI1t7lKkQlJODEH/vRhSkmXLm23QmzSczzdvhqwhJ5dZWXppNKTwRDoXKF4qsnuRS0uZV3vhjUDhSsrkWmYCN6T9JSRgSrLIhnc5pBBsluFwiaVc7q7ij1u2Qpkvl1GpNM5DAiVaLMiTdZAuapCcQIl+CwloLAhS6AwhAUsvlbSUQ+ptRQm4bEsFQlqDl16x8g0riztW9vuSJc5bqTfQNM/Rnpz/ZPI9G2VGe9KeP7EslcxCIZOvjmGoB96P8XmMXhiRiBHqiEcPFgNTWobGS3J9qLcYSu8f1qFYzHPJPlHNBsqxtDZ7s/pKmYcmqTuJrpQCLqYr+bZ13SQcZUfWhTIYsaNoJ3i877F3w1g2SWws+yvw7Qvpjd9CevXrdDpNoJC6lxx8/BUMxl0YNnHRuh2EDv0Lti3KMILi2AejFQSuNNpFsK+n0//V3uhKrK0p2saGPMddDYcj+o2rDnYZOSf1ZullQcvCDc1m/amYy4LEvTv4kNrThiwMihyadtmeC8qRnMeiZIO1sQV6SCFHTxd8BAfY573mOTfGqGWGSrljQklPsYyP8LgToLW4f5eFc2OUuA1hT2mDLcz2UPwZgIcAfIdip9gNOXayFKuM/a8rJXqzJoFfrq8/RLVj/uTkUSr+6rE8VlAmOzr9D9Pc8+W5OdT8xcSMYIQ/FG4z5NM9OYeb83QKgoPqZ2uNFXOW/mjOuY4YqtUc9OMfVDIP2QWH42YcVH+LeJ0WMdD4Yz6f/dDhuLsHExFtWMVRVlnp9wFvdvyJ0JKFdPEceIob15PRcUUF+a3ha7C/23gpwgRLOdldTaLipO4utGby0i7JLtIT8yR2fhivJRCXsIqivqSt92VIlqn2eLjePr9hUSo6vnrO3RBdx/oVP2i41Gsz3o9/PjzdPzyJmzvxu9mR1agzEjOFnjeMuBD3lfLyIu5NY7MtOR9fCOJV+q2YkfZos+1e7IyXenM5WEOd69kdJMB5xojXl9PLadiixvkCw0i1j4Mwx6Jbu0eJDqbyY0+aFloGbVIqlJpDVzbMaWzpArCUnOIVJF3/E0gHL5X+YtsyFdIF1PUKHf1tVdOwuAV78ZzADq3EFde/qCGXjr9zSNeoHL1T0k+P7Xz9LL6Xczclmjm2Q1XxHyTwjfbDd1XYFFvCPHC7bo9vY6SLdr4789F649UTLW6yjEr/ru5wSGYPT3NIYNU+xgqTs43FV17s+BpTNaHyMBFBVoNCval4Q6UQfTL7seK29Duwn5JVN7H1eTDqOmrMzTfSTdNj4/mfgWmafwGXTtVm
+sidebar_class_name: "post api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Query Agent"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/api/v1/agents/{agent_id}/query"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Send a query directly to a specific agent.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"in":"path","name":"agent_id","required":true,"schema":{"title":"Agent Id","type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"description":"Request to query an agent directly.","properties":{"context":{"anyOf":[{"additionalProperties":true,"type":"object"},{"type":"null"}],"title":"Context"},"conversation_id":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Conversation Id"},"query":{"maxLength":16000,"minLength":1,"title":"Query","type":"string"}},"required":["query"],"title":"AgentQueryRequest","type":"object"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"content":{"application/json":{"schema":{"description":"Response from agent query.","properties":{"agent":{"title":"Agent","type":"string"},"processing_time_ms":{"title":"Processing Time Ms","type":"integer"},"response":{"title":"Response","type":"string"},"timestamp":{"format":"date-time","title":"Timestamp","type":"string"},"tool_calls":{"anyOf":[{"items":{"additionalProperties":true,"type":"object"},"type":"array"},{"type":"null"}],"title":"Tool Calls"}},"required":["agent","response","processing_time_ms","timestamp"],"title":"AgentQueryResponse","type":"object"}}},"description":"Successful Response"},"422":{"content":{"application/json":{"schema":{"properties":{"detail":{"items":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"title":"Location","type":"array"},"msg":{"title":"Message","type":"string"},"type":{"title":"Error Type","type":"string"}},"required":["loc","msg","type"],"title":"ValidationError","type":"object"},"title":"Detail","type":"array"}},"title":"HTTPValidationError","type":"object"}}},"description":"Validation Error"}}}
+>
+  
+</StatusCodes>
+
+
+      

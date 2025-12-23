@@ -1,0 +1,259 @@
+site_name: KOSMOS Documentation
+site_description: AI-Native Enterprise Operating System
+site_author: Nuvanta Holding
+site_url: https://docs.nuvanta-holding.com
+
+repo_name: Nuvanta-Holding/kosmos-docs
+repo_url: https://github.com/Nuvanta-Holding/kosmos-docs
+
+docs_dir: .
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.copy
+    - content.code.annotate
+  palette:
+    - scheme: slate
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - tags
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Home: index.md
+  - Quick Start:
+      - Getting Started: deployment/GETTING_STARTED.md
+      - GUI Quick Start: deployment/GUI_QUICK_START.md
+      - Deployment Summary: deployment/DEPLOYMENT_SUMMARY.md
+
+  - Core Documentation:
+      - Executive Summary:
+          - Overview: 00-executive/index.md
+      - Governance & Security:
+          - Overview: 01-governance/index.md
+          - RACI Matrix: 01-governance/raci-matrix.md
+          - Ethics Scorecard: 01-governance/ethics-scorecard.md
+          - Risk Registry: 01-governance/risk-registry.md
+          - Kill Switch Protocol: 01-governance/kill-switch-protocol.md
+      - Architecture & Engineering:
+          - Architecture Overview: 02-architecture/index.md
+          - System Topology: 02-architecture/topology.md
+          - Data Dictionary: 02-architecture/data-dictionary.md
+          - Data Lineage: 02-architecture/data-lineage.md
+          - Cloud Inference: 02-architecture/cloud-inference.md
+          - MCP Strategy: 02-architecture/mcp-strategy.md
+          - Unified Data Fabric: 02-architecture/unified-data-fabric.md
+          - Architectural Decisions:
+              - ADR Index: 02-architecture/adr/index.md
+          - Agents:
+              - Agent Overview: 02-architecture/agents/README.md
+          - C4 Diagrams:
+              - System Context: 02-architecture/c4-diagrams/system-context.md
+      - Engineering Standards:
+          - Engineering Overview: 03-engineering/index.md
+          - API Design: 03-engineering/api-design.md
+          - Testing Strategy: 03-engineering/testing-strategy.md
+          - Prompt Standards: 03-engineering/prompt-standards.md
+          - AIBOM: 03-engineering/aibom.md
+          - Canary Playbooks: 03-engineering/canary-playbooks.md
+          - Watermarking Standard: 03-engineering/watermarking-standard.md
+          - Penetration Testing: 03-engineering/penetration-testing.md
+          - Enhanced Detection: 03-engineering/enhanced-detection-mechanisms.md
+          - Model Cards:
+              - Overview: 03-engineering/model-cards/README.md
+              - Template: 03-engineering/model-cards/template.md
+          - Testing:
+              - Test Strategy: 03-engineering/testing/strategy.md
+      - Operations & Observability:
+          - Operations Overview: 04-operations/index.md
+          - Deployment Checklist: 04-operations/deployment-checklist.md
+          - Backup & Recovery: 04-operations/backup-recovery.md
+          - Drift Detection: 04-operations/drift-detection.md
+          - SLA & SLO: 04-operations/sla-slo.md
+          - FinOps Metrics: 04-operations/finops-metrics.md
+          - Incident Response: 04-operations/incident-response.md
+          - Infrastructure:
+              - Overview: 04-operations/infrastructure/README.md
+              - Kubernetes: 04-operations/infrastructure/kubernetes.md
+              - K3s Configuration: 04-operations/infrastructure/k3s-config.md
+              - Deployment: 04-operations/infrastructure/deployment.md
+              - CI/CD Pipeline: 04-operations/infrastructure/cicd-pipeline.md
+              - Boot Sequence: 04-operations/infrastructure/boot-sequence.md
+              - Disaster Recovery: 04-operations/infrastructure/disaster-recovery.md
+              - Database Ops: 04-operations/infrastructure/database-ops.md
+              - Backup Procedures: 04-operations/infrastructure/backup-procedures.md
+              - AWS: 04-operations/infrastructure/aws.md
+              - GCP: 04-operations/infrastructure/gcp.md
+              - Alibaba Cloud: 04-operations/infrastructure/alibaba-cloud.md
+          - Observability:
+              - Overview: 04-operations/observability/README.md
+              - Metrics: 04-operations/observability/metrics.md
+              - Logging: 04-operations/observability/logging.md
+              - Tracing: 04-operations/observability/tracing.md
+              - Dashboards: 04-operations/observability/dashboards.md
+              - Alerting: 04-operations/observability/alerting.md
+              - Prometheus: 04-operations/observability/prometheus.md
+              - Grafana: 04-operations/observability/grafana.md
+              - SigNoz: 04-operations/observability/signoz.md
+              - Langfuse: 04-operations/observability/langfuse.md
+              - LLM Observability: 04-operations/observability/llm-observability.md
+          - Runbooks:
+              - Agent Deployment: 04-operations/runbooks/agent-deployment.md
+              - Agent Recovery: 04-operations/runbooks/agent-recovery.md
+              - Agent Scaling: 04-operations/runbooks/agent-scaling.md
+              - Zeus Deployment: 04-operations/runbooks/zeus-deployment.md
+              - Zeus Scaling: 04-operations/runbooks/zeus-scaling.md
+              - Zeus Recovery: 04-operations/runbooks/zeus-conversation-recovery.md
+              - Zeus Troubleshooting: 04-operations/runbooks/zeus-routing-troubleshooting.md
+              - MCP Troubleshooting: 04-operations/runbooks/mcp-troubleshooting.md
+          - Incident Response:
+              - Overview: 04-operations/incident-response/README.md
+              - High Error Rate: 04-operations/incident-response/high-error-rate.md
+              - Cost Spike: 04-operations/incident-response/cost-spike.md
+              - Loop Detection: 04-operations/incident-response/loop-detection.md
+              - Model Degradation: 04-operations/incident-response/model-degradation.md
+              - Prompt Injection: 04-operations/incident-response/prompt-injection.md
+              - Data Pipeline Failure: 04-operations/incident-response/data-pipeline-failure.md
+              - API Outage: 04-operations/incident-response/third-party-api-outage.md
+      - Human Factors:
+          - Overview: 05-human-factors/index.md
+      - Personal Data & Privacy:
+          - Overview: 06-personal-data/index.md
+          - Personal Data Ecosystem: 06-personal-data/personal-data-ecosystem.md
+          - Privacy Controls: 06-personal-data/privacy-controls.md
+          - Data Portability: 06-personal-data/data-portability.md
+          - Cloud Integrations: 06-personal-data/cloud-integrations.md
+      - Entertainment:
+          - Overview: 07-entertainment/index.md
+          - Media Management: 07-entertainment/media-management.md
+          - Music Curation: 07-entertainment/music-curation.md
+          - Content Compliance: 07-entertainment/content-compliance.md
+
+  - Deployment & Infrastructure:
+      - Getting Started: deployment/GETTING_STARTED.md
+      - Deployment Summary: deployment/DEPLOYMENT_SUMMARY.md
+      - GUI Quick Start: deployment/GUI_QUICK_START.md
+      - Cloudflare Deployment: deployment/CLOUDFLARE_DEPLOYMENT.md
+      - Cloudflare Pages Setup: deployment/CLOUDFLARE_PAGES_SETUP.md
+
+  - Security:
+      - Security Overview: security/index.md
+      - Security Architecture: security/architecture.md
+      - IAM: security/iam.md
+      - Secrets Management: security/secrets-management.md
+      - Kubernetes Security: security/kubernetes.md
+      - Threat Model: security/threat-model.md
+      - Vulnerability Management: security/vulnerability-management.md
+      - Compliance Mapping: security/compliance-mapping.md
+      - Zitadel Identity: security/zitadel-identity.md
+      - Kyverno Policies: security/kyverno-policies.md
+      - Falco Runtime: security/falco-runtime.md
+      - Disaster Recovery: security/disaster-recovery.md
+      - Deployment Security: security/deployment.md
+
+  - Developer Guide:
+      - Overview: developer-guide/README.md
+      - Development Environment: guides/DEVELOPMENT_ENVIRONMENT_GUIDE.md
+      - Contributing: guides/CONTRIBUTING.md
+      - Build Plan: guides/BUILD_PLAN.md
+      - Python SDK: developer-guide/python-sdk.md
+      - Codespaces: developer-guide/codespaces.md
+      - API Reference:
+          - API Overview: developer-guide/api-reference/README.md
+      - MCP Integration:
+          - MCP Overview: developer-guide/mcp-integration/README.md
+          - Memory Server Setup: developer-guide/MCP_MEMORY_SERVER_SETUP.md
+          - Sequential Thinking: developer-guide/MCP_SEQUENTIAL_THINKING_SETUP.md
+          - Context7 Setup: guides/CONTEXT7_MCP_SETUP.md
+
+  - Guides & Tutorials:
+      - Bug Reporting: guides/BUG_REPORT.md
+      - Mattermost Setup: guides/mattermost-setup.md
+      - Sequential Thinking Demo: guides/sequential_thinking_demo.md
+      - Sequential Thinking Results: guides/SEQUENTIAL_THINKING_TEST_RESULTS.md
+      - Video Scripts: guides/VIDEO_SCRIPTS.md
+
+  - Project Management:
+      - Task Journal: project-management/TASK_JOURNAL.md
+      - Implementation Roadmap: project-management/IMPLEMENTATION_ROADMAP.md
+      - Phase 2 Roadmap: project-management/PHASE_2_ROADMAP.md
+      - Sprint Delivery Plan: project-management/SPRINT_DELIVERY_PLAN.md
+      - Changelog: project-management/CHANGELOG.md
+
+  - Assessments & Audits:
+      - Comprehensive Gap Analysis: assessments/COMPREHENSIVE_GAP_ANALYSIS.md
+      - Gap Analysis Status: assessments/GAP_ANALYSIS_STATUS.md
+      - Test Coverage: assessments/TEST_COVERAGE.md
+      - Repository Audit: assessments/REPOSITORY_AUDIT.md
+      - Navigation Audit: assessments/NAVIGATION_AUDIT.md
+      - Documentation Assessment: assessments/DOCUMENTATION_ASSESSMENT.md
+
+  - Technical Debt:
+      - Technical Debt Remediation: technical-debt/TECHNICAL_DEBT_REMEDIATION.md
+      - All Debts Fixed: technical-debt/ALL_DEBTS_FIXED_SUMMARY.md
+      - Automation Assessment: technical-debt/DEV_STAGE_AUTOMATION_ASSESSMENT.md
+      - Automation Checklist: technical-debt/AUTOMATION_CHECKLIST.md
+      - Automation Gaps: technical-debt/AUTOMATION_GAPS_AND_BEST_PRACTICES.md
+
+  - Resources:
+      - Academy: academy/README.md
+      - Archive:
+          - V0 Agents: archive/v0-agents/README.md
+      - Appendices:
+          - Changelog: appendices/changelog.md
+
+copyright: Copyright &copy; 2025 Nuvanta Holding
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Nuvanta-Holding
+  analytics:
+    provider: google
+    property: !ENV GOOGLE_ANALYTICS_KEY

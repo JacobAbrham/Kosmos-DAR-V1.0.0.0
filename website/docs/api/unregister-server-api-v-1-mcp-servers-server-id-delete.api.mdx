@@ -1,0 +1,71 @@
+---
+id: unregister-server-api-v-1-mcp-servers-server-id-delete
+title: "Unregister Server"
+description: "Unregister an MCP server."
+sidebar_label: "Unregister Server"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVE1v2zAM/SsCTxugNm2wk2/dGmzBGjRosl2CIGBkxlZny6pEZwsM/fdBtvPVrAV2skw9fj09sgHGzEOygFJZWEpIySunLevKQAI/jKNMeyYn0IjJl6nw5LbkrkFCZclhxI1TSKA+IFcdZIVWr7a3q1LZ3uJX+yudrlYpFcQEEiw6LInJxTIaMFgSJHBAggQdS7HIOUhw9FJrRykk7GqS4FVOJULSAO9s68hOmwwksOYiGmZtJDFOIYRlDOBtZTz56DO8uYmf86ZntVLk/aYuxFMPBgmqMkyGIxytLbRqex88++jTHOsIIQQJn4bDy8A/sdBp6yZGzlXuP6KCdZFv1l3dKTHqIp40U+kvAUWlzm7R7B43Lb/nNAV5sGjDlJGDsAxyb0PncHfC5UPVFQhBQumz92ifkPeYERyCvQ1tyRDzeBuOuav1Myk+e/JF21eXusctj2GO9Hbsvt3GfUffv5LtId/m8+lFwO5tS+K8ipo/kTDnkMAArR5sbwelsoNe8oPmIOQAEjyp2mnezeK7di8VE30mdOROKMqZLfTijv/rDhCza7OpWmRf6PfH2eRxJu6mY3g9vfursfhabckZNIrEtEDeVK4UV2JSF6yvMCPDonIqJ8/dRIvfmnMxJcPoVL4T24q1yeLQx5664MPrm+ubyLGtPJfYyrWf3ZOt0Q3f68qao+7fXTE9G0x/eGAL1K3uatcKv+N8AWh1rOs2ykK1pHXMg4TkuESWEvLKc3RomjV6+uGKEKL5pSa3g2SxlLBFp3EdWV00kGofzykkGyw8vdPBh6deoB/FWzXvdWiiCrdY1PEPJPyi3dmua2cvJ0yjGhZNf3+nFFk+8bxYFXGxHWR5P3oYzUcQwl9stgIP
+sidebar_class_name: "delete api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Unregister Server"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/api/v1/mcp/servers/{server_id}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Unregister an MCP server.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"server_id","in":"path","required":true,"schema":{"type":"string","title":"Server Id"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"properties":{"detail":{"items":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

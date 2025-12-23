@@ -1,0 +1,71 @@
+---
+id: create-api-key-api-v-1-auth-api-keys-post
+title: "Create Api Key"
+description: "Create a new API key for the current user."
+sidebar_label: "Create Api Key"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVlFv4jgQ/ivWPN1KodDqnvLG7lZ3qNcrWrh7QQiZZCDeBjtrT6ARyn8/jZ2QsLR0d3UvxNjjmcn3fTOTI5DcOogXMC4pQ00qkaSMhmUEKbrEqsL/jeGTRUkopNB4EOPpRDxjJTbGCspQJKW1qEmUDu0NRGAKtN7PJIUYEn91JQu1esbKP/e3K1lS1u65VWEcQQQWv5Xo6KNJK4iPkBhNqImXsijyJrnhV8cpHcElGe4krwrLIUmh439a7pCfVBUIMTiySm8hAlKU88bffF5H4BJThBuKcOcur9RRuyGtlVXPxSxcZZQ2ssyJIUwySbFFmUIU1gerCGFZR4AvhbLoVkqvUln5SFJXTxuIF6eYShNu0UIdnbZ0medQL7uw98GPmGjxmf3UXYZm/RWTFkNlMeWUPBK9++Pp5AGrwCV8T3HLqudLGS0aNm6g5jidX7Il+g1XGO0CgnejET/OPc7KJEHnNmUuvjTGjM2vsarSa5xOUmbrR5kvLG7UyzXLabCoI3jG6prhA1b/j5bqqKmUdCXptYgbY3d8AqkkHJDaYc9J4DQVY4Ke3oKjC6ldc/kj8uMg7yhPcRV4Ok5oByhPUJ297oVGe3p5V6XBUvymdJKXKTqxKfPcGxmd80+CH7yI6wh+v7u71Om/Mldp8HZvrbG/LtIUSar8TAbnBrlJzk7f4qZHw6kxLN/W0F+madx1BDu3vSbYR3RObrET5NumHgwx59P3+Ob3CqEbux6jHbwB3bdf43OA77Vgrcmf8/n0wmHg1mFSWkWVh5PtPqK0aCFeLFnFO6TM8EBqhk0hKYMYhrJQw/3tkAcSrwc8kKDzNmOqA3l9nyfUMqLCq5rNIIZ1MOCEWC1fupF2/yJ3RY7diOoQb9vHot1avjI0RnUESm+MD962n6fZ49OMJ/JFpbRHE/GH2aPVUicoprkkrnoxEI9lTmogtzy5jU0ydBSmtjgoysQUNUmbZJXYG1J6y4N9j9YF53c3o5uRb6XG0U7q3ks1nwrjQokHX/BnafWm+s99VDRwE77QsMil8lovrS+2QOUCZKE4y1uIgOnkR0voMoKMeY8XcDyupcN/bF7XvP2tRMuaWUawl1bJNQO74GLLUKZeP8cwBeBTSH3gS4LN89LL+PsOwdUbboyTBAu6atuX5vRpNocI1s0H0M6kfMfKA5ebPEAM/vOKb3tF+r0j5FJvSy7qGIJPVp9HoNNpo8uoXfR6jtRVL8PjMVjMzTPqum76dgzE/7kL1fV/JcF6wA==
+sidebar_class_name: "post api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create Api Key"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/api/v1/auth/api-keys"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Create a new API key for the current user.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"properties":{"name":{"type":"string","title":"Name"},"scopes":{"items":{"type":"string"},"type":"array","title":"Scopes","default":["chat:read","chat:write"]},"expires_in_days":{"anyOf":[{"type":"integer"},{"type":"null"}],"title":"Expires In Days"}},"type":"object","required":["name"],"title":"APIKeyCreate","description":"API key creation request."}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"properties":{"id":{"type":"string","title":"Id"},"name":{"type":"string","title":"Name"},"prefix":{"type":"string","title":"Prefix"},"key":{"type":"string","title":"Key"},"scopes":{"items":{"type":"string"},"type":"array","title":"Scopes"},"created_at":{"type":"string","format":"date-time","title":"Created At"},"expires_at":{"anyOf":[{"type":"string","format":"date-time"},{"type":"null"}],"title":"Expires At"}},"type":"object","required":["id","name","prefix","key","scopes","created_at"],"title":"APIKeyResponse","description":"API key creation response (includes full key only once)."}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"properties":{"detail":{"items":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

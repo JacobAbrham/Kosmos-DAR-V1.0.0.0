@@ -1,0 +1,71 @@
+---
+id: list-proposals-api-v-1-votes-proposals-get
+title: "List Proposals"
+description: "List all proposals with optional filtering."
+sidebar_label: "List Proposals"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVk1v40YM/SsDoocWUOIP9ORbut2mQRPEqNNcjNSgJcqe7UijnaHcNRz994L6HEfedPckiX5DPg4fSZ8gIR87XbC2OSzgXntWaIwqnC2sR+PVv5r3ytYANCrVhsnpfHcNEdiCHMoPdwkswGjPm/7cBgu9Ocw2B8vkA/OOGCIo0GFGTM7DYn0CLbE/l+SOEEGOGcECPCOXHiJw9LnUjhJYpGg8ReDjPWUIixNgfnxMaw8FMpMTN3//WFCe6Hz3ikXh7IGSV0efKGZKXsnHaJAp+ekHiICPRRNI8oEqOnWWvDQGqpcIWLMRw6rhUgnmElejM83vU00oxdIwLObTCDL8orMyg8VsKl86b7+GiPetx5aRzpl25L7OwKapp2+lEMacDjEfOx+joC/i1xc29+TF03w6lUdsc6ac60oUhdFxLYbJJy9aOgWRNVPmGwqh2lZllqE7Kpsq7BUnwpJ3cqybaLEjqdkG60ipdZm8QYJMV6wzgiGFDw1U3fCF+kKqczQbH1tH5+rp655tJd93lPCbuFCr2kXVEBXSG52Ixw61bM3qLrnEo5V2cGDViX2EbRED9Kl+XkBKp21iWzYF6eDPlkl9qK2X1BToZX2WTRc5GhoxvL6zcFFYouCyumto6zwQsFtpyCA9+LOVl6on0LKfPjeFVs8zJVn4wHwb6hSdwyNUks1bfcUxeZ+WRnX+JebP8/l3qfdcjQkxanOm6nOAsfHZryOZjQdOX5CX4ErubcNolGgEmd+FNX4g73F3URSNYYB+dM469STWEfqNGiSPJlSLDCr7jEYnNbva4XuV/bW5r1G1BsTvT0/L/3U4ru5wRDVnap+4k5UCO3sgl2Me17Qz4r2VHdVtH97DAiZY6MlhNqlX1KRfUSJ5ikun+bgSDTRVFZK/EDpyvTiE3rYx9XT3zEVNROepHU+8Px5XD48rdXOnbnuCammQZaqpK/VQGtZXuKOclXXxnjw3G7ZZw0vKGV28P6qD5XYJd7fYuV7eSXOS803E+fX0elqPKus5w1ra7c44bzV4c79Bg3zn34L2Kpi+8KQwqHMJX7q6Z5qrXwMWWmjO2kHiYZilXiq2t54Fdzpt0dNfzlSVmJutJ72UaI9bE+y5f+gY/ms4oCmFRd1mXwF3a/tbsP2CHcAv8uG0oGGxltbdEyYikPWpPXUTx1SEp0aTpgrlefvxCarqPylFSD4=
+sidebar_class_name: "get api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List Proposals"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/api/v1/votes/proposals"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+List all proposals with optional filtering.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"in":"query","name":"status","required":false,"schema":{"anyOf":[{"pattern":"^(pending|approved|rejected|escalated)$","type":"string"},{"type":"null"}],"title":"Status"}},{"in":"query","name":"limit","required":false,"schema":{"default":20,"maximum":100,"minimum":1,"title":"Limit","type":"integer"}},{"in":"query","name":"offset","required":false,"schema":{"default":0,"minimum":0,"title":"Offset","type":"integer"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"content":{"application/json":{"schema":{"items":{"description":"Summary of a proposal.","properties":{"created_at":{"format":"date-time","title":"Created At","type":"string"},"final_score":{"anyOf":[{"type":"number"},{"type":"null"}],"title":"Final Score"},"proposal_id":{"title":"Proposal Id","type":"string"},"status":{"title":"Status","type":"string"},"title":{"title":"Title","type":"string"},"vote_count":{"title":"Vote Count","type":"integer"}},"required":["proposal_id","title","status","final_score","vote_count","created_at"],"title":"ProposalSummary","type":"object"},"title":"Response List Proposals Api V1 Votes Proposals Get","type":"array"}}},"description":"Successful Response"},"422":{"content":{"application/json":{"schema":{"properties":{"detail":{"items":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"title":"Location","type":"array"},"msg":{"title":"Message","type":"string"},"type":{"title":"Error Type","type":"string"}},"required":["loc","msg","type"],"title":"ValidationError","type":"object"},"title":"Detail","type":"array"}},"title":"HTTPValidationError","type":"object"}}},"description":"Validation Error"}}}
+>
+  
+</StatusCodes>
+
+
+      

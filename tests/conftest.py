@@ -2,9 +2,15 @@
 Pytest configuration for KOSMOS tests.
 """
 
+import os
 import pytest
 import sys
 from pathlib import Path
+
+# Set test environment defaults BEFORE importing any modules
+os.environ.setdefault("REQUIRE_AUTH", "false")
+os.environ.setdefault("ENABLE_DEP_CHECKS", "false")
+os.environ.setdefault("ENABLE_RATE_LIMIT", "false")
 
 # Add project root to Python path
 project_root = Path(__file__).parent.parent

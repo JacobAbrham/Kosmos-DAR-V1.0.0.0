@@ -30,6 +30,8 @@ Model Cards serve to:
 | MC-001 | Document Summarizer | v2.1.0 | ✅ Active | 2025-12-11 |
 | MC-002 | Sentiment Analyzer | v1.5.2 | ✅ Active | 2025-11-15 |
 | MC-003 | Code Reviewer | v3.0.1 | ✅ Active | 2025-12-01 |
+| MC-006 | GPT-4o | v1.0.0 | ✅ Active | 2025-12-22 |
+| MC-007 | Claude-3.5 Sonnet | v1.0.0 | ✅ Active | 2025-12-22 |
 
 ### Development Models
 
@@ -397,9 +399,9 @@ tracker.check_drift()
 
 ---
 
-**Last Updated:** 2025-12-11  
-**Document Owner:** ML Lead  
-**Total Model Cards:** 5 (3 production, 2 development)
+**Last Updated:** 2025-12-22
+**Document Owner:** ML Lead
+**Total Model Cards:** 9 (5 production, 2 development, 2 deprecated)
 
 ---
 

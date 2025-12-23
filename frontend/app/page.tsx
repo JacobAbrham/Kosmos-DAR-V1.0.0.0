@@ -1,20 +1,23 @@
 "use client";
 
 import { useState, useRef, useEffect } from 'react';
-import { useChat, useAgents, useVotingStats } from '@/lib/hooks';
+import { useChat, useAgents, useVotingStats, useActiveProposal } from '@/lib/hooks';
 import { api, Agent } from '@/lib/kosmos-client';
 import { Send, Bot, User, Activity, Vote, Zap } from 'lucide-react';
+import VotingPanel from '@/lib/components/VotingPanel';
 
 interface Message {
     role: 'user' | 'assistant' | 'system';
     content: string;
     agent?: string;
     metadata?: any;
+    proposalId?: string;
 }
 
 export default function Home() {
     const [input, setInput] = useState('');
     const [selectedAgent, setSelectedAgent] = useState<string | undefined>();
+    const [activeProposalId, setActiveProposalId] = useState<string | null>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     // Use custom hooks
@@ -23,6 +26,7 @@ export default function Home() {
     });
     const { agents } = useAgents({ pentarchyOnly: false });
     const { stats } = useVotingStats();
+    const { proposal: activeProposal } = useActiveProposal(activeProposalId);
 
     const [systemMessages, setSystemMessages] = useState<Message[]>([
         { role: 'system', content: 'System initialized. Connected to KOSMOS API.' }
@@ -62,9 +66,13 @@ export default function Home() {
                     risk_level: 'medium',
                 });
 
+                // Set active proposal to show voting panel
+                setActiveProposalId(result.proposal_id);
+
                 setSystemMessages(prev => [...prev, {
                     role: 'assistant',
                     content: `✅ Proposal created: ${result.proposal_id}\nStatus: ${result.status}\nScore: ${result.final_score?.toFixed(2) || 'pending'}`,
+                    proposalId: result.proposal_id,
                 }]);
             } else if (userMsg.startsWith('/agent')) {
                 // Query specific agent
@@ -119,6 +127,15 @@ export default function Home() {
                     <span className="text-red-400">{stats.by_status['rejected'] || 0} rejected</span>
                     <span className="text-yellow-400">{stats.by_status['pending'] || 0} pending</span>
                 </div>
+            )}
+
+            {/* Active Voting Panel */}
+            {activeProposal && (
+                <VotingPanel 
+                    proposal={activeProposal} 
+                    className="mb-4"
+                    onClose={() => setActiveProposalId(null)}
+                />
             )}
 
             {/* Agent selector */}

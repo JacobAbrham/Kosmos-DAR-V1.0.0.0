@@ -1,0 +1,71 @@
+---
+id: list-agents-api-v-1-agents-get
+title: "List Agents"
+description: "List all available agents."
+sidebar_label: "List Agents"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVk1zm0gQ/StTfSaW7cpJNydOvKqN166VNxeVy9WClphkYMhMo4RS8d+3egABRpKTEwXz+uv1m272wLj1MF8BbilnD88RJORjpwvWNoc5fNGeFRqjcIfa4NqQaqAXEIEtyKEAFwnMwWjPL83hCxb6ZXfVvW2JIYICHWbE5CTgHnLMCOaQ2Ax1DhFoCfejJFdBBI5+lNpRAvMNGk8R+DilDGG+B8yrh03wwFUhHjw7nW+hjg5f8tIYqCe1fNaGyal1pQ5BWbMRi9vmQ/2miURpMy8oZ3RxWr3Y3FR/UEGb5dpaQyhZjGM+5KZSj51ztbOs823LegBvsDR88NuV0FuIg2kpZ90KWY58YXNPXnK8vryUx9jFsoxj8n5TGvVvC4YIYpsz5Rx6UxRGx0ESs29ebPbTutE5DHQxZSFW4URIrJvIOhlg2972VS4SqazpwGnUP3L+moHT8NsBTKyaVp8zOMglxgLX2uhD9l1Rr8X5uvrO1cehgzrqVXVUKZNmi4ln5PJI0B6+bBAD8cDhPkPdJ2fX3yjmkXpX0pCW8TGhUX93RywMa3juc7gRpS3yjZ0IPpyojBgTZLwIZLVGncxUmEMB6NVNodXXq+7tjhjqWop4f3091exXNDoJilSfnLPuTwQ7FmZCjNqMmjwGGBuPTn9jUumcaUsO6ufTCvlimwSFl8xvz/X5nrzHLfVyOw0NZKgnOX1LAFJXE7rFDbra09uwe7qM24a+Y8E6yF9PT48Th01vM+LUypbpdgmnMIcZFnq2u5odhqOnuHSaq6X0sOmKOP1A6MgN6EiZC2hncrhhDUAiaZGoINuk/n5Y3j8s1c3jYiLc7mih7uyOXI55TOrRIG+sy9Q7dV8a1u9Ccsq6OCXPzb5UPzWnk2EsK3VHzjfOry8uLy7DRLCeMwzSbDfP4DK8zmnfq/v87m6JYPrFs8K006x0Qd8NuyvAQktKVxAN/g9S61kO9/s1evrPmbqWz83eE7En2kusfvOdTPDYQj6W1neqhn8KOzSlgMJF+v1ob+zVM5Enm77P4FlenA6DdL6SW5wSJqK11b61voljKnhgNRk64uUg8LtPT1DX/wMDPEk9
+sidebar_class_name: "get api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List Agents"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/api/v1/agents"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+List all available agents.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"domain","in":"query","required":false,"schema":{"anyOf":[{"type":"string"},{"type":"null"}],"description":"Filter by domain","title":"Domain"},"description":"Filter by domain"},{"name":"pentarchy_only","in":"query","required":false,"schema":{"type":"boolean","description":"Only Pentarchy voting agents","default":false,"title":"Pentarchy Only"},"description":"Only Pentarchy voting agents"}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"type":"array","items":{"properties":{"id":{"type":"string","title":"Id"},"name":{"type":"string","title":"Name"},"description":{"type":"string","title":"Description"},"domain":{"type":"string","title":"Domain"},"capabilities":{"items":{"type":"string"},"type":"array","title":"Capabilities"},"pentarchy":{"type":"boolean","title":"Pentarchy"},"status":{"type":"string","title":"Status","default":"available"}},"type":"object","required":["id","name","description","domain","capabilities","pentarchy"],"title":"AgentInfo","description":"Agent metadata."},"title":"Response List Agents Api V1 Agents Get"}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"properties":{"detail":{"items":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

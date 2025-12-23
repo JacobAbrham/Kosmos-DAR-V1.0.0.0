@@ -1,0 +1,71 @@
+---
+id: get-proposal-api-v-1-votes-proposals-proposal-id-get
+title: "Get Proposal"
+description: "Get details of a specific proposal."
+sidebar_label: "Get Proposal"
+hide_title: true
+hide_table_of_contents: true
+api: eJydVsFu40YM/ZUBTy2gxEnQk27p7jY1ukGM2M3FMAxaoq3ZjDTaGcqtYejfC45kRYpj7aIn2zOPHPLxkeYRGHce4iXs7J5cgUVCsIogJZ84XbK2BcTwQKxSYtTGK7tVqHxJid7qRJXOltajuYYIbEkOxWKaQgw74vXpdo2lXu9v13vL5LtTv34D6HS93hFDBCU6zInJSVRHKDAniKEHhAi0BFUiZxCBo++VdpRCzK6iCHySUY4QH4EPpZh6drrYQQSs2cjBrPWlpinU9Upc+NIWnrxY3d3cyMeQgHmVJOT9tjLquQVDBIktmAoWOJal0UnIfvLNi82xF4lET45180I/l58Nszu+jF+Ez/pd7S7jP/dgtSTjuQcvqnxDrgf/JPd1BE7717WhPZkx58/av6qvAVVH4Bm58mP4eYOoIwgaEahmyv05e7hrKb/k6j4AWk9jwBe5l+gS62gs9XkASO6E3hbipR/f0L+UqjlA5/DQ56SzDuXMyTPm5UcRbq3LkSGGFJmuBDqo88myfnvLbr5RwoN2WLZUtUSc8uxn0Q9jNSTmmXxlxHjYCNMi1XudVmhU8K7E9/VI0i+hnHUEW12gWXdcY3F42oYOH7JeR70TY6DuxfWHuFBdNThz5DNr0rHaLTqQaNwRMqVr/FBAo6x/akzVfdME5K3Zd57OkhnzOZbhc+s3PPOD6g5HYuNhWK62qQc92zXjqdOGlemzOuBrmPPqfEz15uJQMqcL9Y/mrPvD6P5PsEhFRLrYKRc056+hriX53+7uzifxCxqdhjmrvjhn3f8fw00AI5PG2GRwe6nKvYLqgmknKl5d7oivtglQdJT73diEeiTvcUdv7XUZGshQC7n9kXAkr+bpFtdv/Y7eht3LaXxu6PvosRPkz8ViduawqW1OnNl2TQh/+pxBDBMs9WR/OwnKnHR7wuTY03otEqakcpoPcyltUyx563dCR67HUsZcQrsSyO9NA5AAdLG1AdnG+tfT/PFpru5n0zMBn66m6qHbkdTMIEtzqyv1WBnWV804tC7JyHOzBzWKn1HB6JLs0MpcVqU9Od84v7u+ub4RmkvrOceg2Hbnka3r1F3vgzq+qf4nt7OWEqZ/eVIa1EF/lQsN0NC/BCy1BHfbGw5dESCCuD9yVhFkYWVYwvG4QU9/O1PXcvy9IneAeLmKYI9O40YIXh4h1V6+pxBv0XgayeiX51auv6pLkZ9UWYgm92gq+QURvNLh3boYejEjTEUay2OLuE8SKrlnezY6ZC53Mn34soC6/g/oD9au
+sidebar_class_name: "get api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get Proposal"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/api/v1/votes/proposals/{proposal_id}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get details of a specific proposal.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"proposal_id","in":"path","required":true,"schema":{"type":"string","title":"Proposal Id"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"properties":{"proposal_id":{"type":"string","title":"Proposal Id"},"title":{"type":"string","title":"Title"},"description":{"type":"string","title":"Description"},"cost":{"type":"number","title":"Cost"},"risk_level":{"type":"string","title":"Risk Level"},"status":{"type":"string","title":"Status"},"votes":{"items":{"properties":{"agent":{"type":"string","title":"Agent"},"vote":{"type":"string","title":"Vote"},"score":{"type":"number","title":"Score"},"reasoning":{"items":{"type":"string"},"type":"array","title":"Reasoning"},"timestamp":{"type":"string","format":"date-time","title":"Timestamp"}},"type":"object","required":["agent","vote","score","reasoning","timestamp"],"title":"VoteResult","description":"Individual agent vote."},"type":"array","title":"Votes"},"final_score":{"anyOf":[{"type":"number"},{"type":"null"}],"title":"Final Score"},"threshold":{"type":"number","title":"Threshold"},"created_at":{"type":"string","format":"date-time","title":"Created At"},"resolved_at":{"anyOf":[{"type":"string","format":"date-time"},{"type":"null"}],"title":"Resolved At"}},"type":"object","required":["proposal_id","title","description","cost","risk_level","status","votes","final_score","threshold","created_at","resolved_at"],"title":"ProposalResponse","description":"Response with proposal details and voting results."}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"properties":{"detail":{"items":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

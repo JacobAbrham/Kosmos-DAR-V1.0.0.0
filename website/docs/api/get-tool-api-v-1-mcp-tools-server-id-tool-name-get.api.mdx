@@ -1,0 +1,71 @@
+---
+id: get-tool-api-v-1-mcp-tools-server-id-tool-name-get
+title: "Get Tool"
+description: "Get details of a specific tool."
+sidebar_label: "Get Tool"
+hide_title: true
+hide_table_of_contents: true
+api: eJy9VU1v2zgQ/SvEnFpAjZOgJ91atEiNbRqj9u7FMASGGkvsSiRLjtw1BP33xZCKLcd1t9gCPeljhjOP7z0OeyBZBcjX0CoHmwxKDMprR9oayOEOSZRIUjdB2K2QIjhUequVIGubK8jAOvSSs+cl5FAhFRwppNPF7qZolYvfoSgC+h36QpdFkVKMbLEoKiTIwEkvWyT0DKUHDkEOhyWQgWY4TlINGXj82mmPJeTkO8wgqBpbCXkPtHdxIXltKsiANDX8YxkriXkJw5Ad6h9g/HL9lbWN+MSVhmHDBYKzJmDgNbfX1/w4JXbZKYUhbLtGfB6TIQNlDaEhTpfONVpFZmdfAq/pJzicZ95Jpw5pO5fRJWDPtL2c/m6SNjAzrqPi2FuWpeaYbBYTFImpsaR9/IKKJiXnXEMsU40hmyj7s6KdlT6KtIZRw+n+nuGettyc6jY3WwvPjR8F1WZrfRs1uIJhYBSvb2/PxfxLNrqMaeK999b/fyXTWeM3TdiG84TGqpOoNPuHbTwzpyyyy8c/2hBW6GHYHFmU3sv9hOqPNgFkbdpQ/UiVewxBVtFPKeVyaiRDrDj6XwryvlLrMW8i0pHexO7lbbxL9H2v2VPKh9VqcVYwadsi1XacYnEmUQ05zKTTs93NrFVuFkfZrD9YaZj1hxkyRI+pzmvaR6MnwbjfW5Qe/YSpmsjBOFf4+zElDPG0bW3MHPH+8bC8f1iKN4v5mUefQnNxZ3fojTQKxaKRxK4Vr8R915B+JSs0JKxXNQZKo1p801SLBRqSXtV7sbOkTcXTfIc+pOK3V9dX10y1s4FaaY5zJl4KfD6eA+qPrv+Ji2OkgvAfmrlG6ui9zkfzJ+rXIJ1mUDdsDcWMRQEgg3x6NeTHOb7JoLaBeG3fP8qAf/pmGPj31w79HvL1JoOd9Fo+MrvrHkod+L2EfCubgD/Y0ovPo19fikvwn2xp2JQ72XT8BRn8jfuT64xP529sfOQnzoAaZcl2XPdj/I1S6Giy8mxk8aV2OB5371cwDP8CJnDQLw==
+sidebar_class_name: "get api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get Tool"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/api/v1/mcp/tools/{server_id}/{tool_name}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get details of a specific tool.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"server_id","in":"path","required":true,"schema":{"type":"string","title":"Server Id"}},{"name":"tool_name","in":"path","required":true,"schema":{"type":"string","title":"Tool Name"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"properties":{"name":{"type":"string","title":"Name"},"description":{"type":"string","title":"Description"},"input_schema":{"additionalProperties":true,"type":"object","title":"Input Schema"},"server_id":{"type":"string","title":"Server Id"}},"type":"object","required":["name","description","input_schema","server_id"],"title":"ToolInfo","description":"Tool information."}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"properties":{"detail":{"items":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

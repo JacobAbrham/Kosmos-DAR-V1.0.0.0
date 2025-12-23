@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Documentation overhaul:**
+  - Created comprehensive `docs/INSTALLATION.md` with Docker, native, and Kubernetes setup instructions
+  - Created `docs/ARCHITECTURE.md` with complete system overview and component descriptions
+  - Created `docs/TESTING.md` with testing guide, best practices, and examples
+  - Created formal `LICENSE` file for legal clarity
+  - Created `docs/assessments/DOCUMENTATION_GAPS_FIXED.md` summary report
 - MCP stub implementations for TrivyMCP, ZitadelMCP, PgVectorMCP, CalendarMCP, SlackMCP, EmailMCP, SMSMCP
 - Retry utilities with circuit breaker pattern (`src/services/retry.py`)
 - Kubernetes production deployment manifests for minikube
@@ -16,11 +22,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comprehensive smoke test suite
 
 ### Changed
+- Updated `README.md` with links to new core documentation
+- Enhanced `docs/README.md` with better navigation and documentation standards
 - Improved cache service with retry logic and graceful degradation
 - Updated test files with flexible assertions
 - Reorganized repository structure following industry best practices
 
 ### Fixed
+- Documentation gaps: installation guide, architecture overview, testing guide
+- Missing LICENSE file
 - Duplicate environment variables in `.env`
 - Database integration tests now skip gracefully when DB unavailable
 - Health check assertions in test suite

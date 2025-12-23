@@ -1,0 +1,71 @@
+---
+id: revoke-api-key-api-v-1-auth-api-keys-key-id-delete
+title: "Revoke Api Key"
+description: "Revoke an API key."
+sidebar_label: "Revoke Api Key"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVE1PGzEQ/SvWnFrJEEA97Y2KqEWAiEjaSxRFzu4ka9jYxp5Nu1r5v1fj3XwRQOrJX88z4+f3pgVSqwDZFK5rKtGQzhVpa2AmocCQe+3SMoMn3NgXFMqI69GteMHmHCRYhz7hbwvIwCfIXDk9f8EmjZvLuaqp3O6FeTrRxXxeYIWEICFgXntNDWTTFn5OJqPvqDx6yKazOJPglFdrJPQhAYxaI2TQRQEJmmtzikqQ4PG11h4LyMjXKCHkJa4VZC1Q4/hWIK/NCiSQpoo37rARtwVETuQxOGsCBr5wdXHBwzEF4zrPMYRlXYmnHgwScmsIDTFcOVf1BA6eA99p90XEGKOEb1dXp4F/q0oX6ZoYem/9f0QF5/kTSHd1F0hKVzzThOtwCqhsfnSqTPO4TMwecxTlbkcbwhV6iLMot3vKe9UcEHlve91ECeuw+ozzBwxBrRB2wT6GJjLEhE/jPrddPGNOR/89Te/qUve42T7Mnt6O3Y+fcdPR916yLYQVehKw+9s1UmnZCDttJ2FmMFBODzaXA7YCz8/YCoO2E3E88MCYv7X7qEMn7BgqiRz0wub1ogNwcm2WNiG30n4cPzyO2azw1srbo1vxw27QG2VyFKNK0dL6tTgTD3VF+kyt0JCwPi8xUOdy8UdTKUZoSPm8bMTGkjYrbgQb9KELfnV+cX7BFDsbaK2SWnvT9i3k2mlxh83bstq95t9vNj0HhH9p4Cqlk9hqn9TeET0F5TRXcwkSmGweerpBQtZ3jZmE0gZifNsuVMBfvoqRt19r9NyIZhI2ymu1YCqnLRQ68LyAbKmqgJ9U/uWpF+VX8VHJW+0ZpmCjqppXILmn7TtbMluJqkidsO0Pr/McHR1cO+kN3Ml2OrwZ3g8nwy0Xexn1spHbyYH9j6tq2w4xsS9oYtwVSbzmGmP8ByobIGs=
+sidebar_class_name: "delete api-method"
+info_path: docs/api/kosmos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Revoke Api Key"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/api/v1/auth/api-keys/{key_id}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Revoke an API key.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"key_id","in":"path","required":true,"schema":{"type":"string","title":"Key Id"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"properties":{"detail":{"items":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      
