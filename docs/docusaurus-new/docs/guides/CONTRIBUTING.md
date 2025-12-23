@@ -198,8 +198,8 @@ Use descriptive branch names:
 
 Follow conventional commits:
 
-```
-<type>(<scope>): `<description>`
+```text
+<type>(<scope>): <description>
 
 [optional body]
 

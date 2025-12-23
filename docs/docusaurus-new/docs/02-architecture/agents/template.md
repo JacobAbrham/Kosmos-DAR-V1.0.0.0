@@ -240,9 +240,9 @@ circuit_breaker = CircuitBreaker(
 | Metric | Target | Current |
 |--------|--------|---------|
 | Availability | 99.9% | [Current] |
-| P50 Latency | <Xms | [Current] |
-| P99 Latency | <Xms | [Current] |
-| Error Rate | <X% | [Current] |
+| P50 Latency | &lt;Xms | [Current] |
+| P99 Latency | &lt;Xms | [Current] |
+| Error Rate | &lt;X% | [Current] |
 
 ### Scaling Characteristics
 

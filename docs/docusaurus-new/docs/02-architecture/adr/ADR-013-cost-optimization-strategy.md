@@ -266,7 +266,7 @@ class UsageBudget:
 | Metric | Target |
 |--------|--------|
 | Cache hit rate | &gt;30% |
-| Avg cost per request | <$0.02 |
+| Avg cost per request | &lt;$0.02 |
 | Budget accuracy | ±5% |
 | Latency impact | &lt;50ms |
 

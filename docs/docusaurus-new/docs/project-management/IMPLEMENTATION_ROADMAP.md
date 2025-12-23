@@ -1814,7 +1814,7 @@ Budget Alerts:
 | Production Users | 50 | Week 24 |
 | Agent Success Rate | 90%+ | Week 24 |
 | User Satisfaction | 4.5/5 | Week 24 |
-| Cost per User | <$50/mo | Week 24 |
+| Cost per User | &lt;$50/mo | Week 24 |
 
 ---
 
