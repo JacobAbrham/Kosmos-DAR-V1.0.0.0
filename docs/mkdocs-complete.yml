@@ -71,9 +71,9 @@ nav:
       - Getting Started: deployment/GETTING_STARTED.md
       - GUI Quick Start: deployment/GUI_QUICK_START.md
       - Deployment Summary: deployment/DEPLOYMENT_SUMMARY.md
-  
+
   - Core Documentation:
-      - Executive Summary: 
+      - Executive Summary:
           - Overview: 00-executive/index.md
       - Governance & Security:
           - Overview: 01-governance/index.md

@@ -134,7 +134,7 @@ What risks does this decision introduce and how will we address them?
 ### Related Documentation
 - **[System Topology](../topology)** - Architecture implementation
 - **[Volume I: Governance](../../01-governance/index)** - Strategic alignment
-- **[Technical RFC]()** - Link to technical RFC if applicable
+- **Technical RFC** - Link to technical RFC if applicable (TBD)
 
 ---
 
