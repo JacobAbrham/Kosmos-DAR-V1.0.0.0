@@ -97,18 +97,17 @@ const config: Config = {
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          type: 'doc',
+          docId: 'intro',
           position: 'left',
           label: 'Documentation',
         },
-        // Temporarily disabled until API docs are generated
-        // {
-        //   type: 'doc',
-        //   docId: 'api/index',
-        //   position: 'left',
-        //   label: 'API',
-        // },
+        {
+          type: 'doc',
+          docId: 'api/kosmos-api',
+          position: 'left',
+          label: 'API',
+        },
         {
           type: 'docsVersionDropdown',
           position: 'right',
